@@ -1,8 +1,6 @@
 // API configuration
 // Update this with your actual API base URL
-const BASE_HOST = "13.60.9.112";
-const BASE_PORT = "3000";
-const BASE_URL = `http://${BASE_HOST}:${BASE_PORT}`;
+const BASE_URL = "https://001barbershop.uz";
 
 export const API_BASE_URL =
   import.meta.env.VITE_API_BASE_URL || `${BASE_URL}/api`;
