@@ -9,8 +9,6 @@ import {
 } from "../data/api";
 import { contactInfo } from "../data/contact";
 import Footer from "../components/Footer";
-import fakeServices from "../data/fakeData/services.json";
-import fakeBarbers from "../data/fakeData/barbers.json";
 import { fetchWithTimeout } from "../utils/api";
 
 function Booking() {
@@ -134,14 +132,8 @@ function Booking() {
           ? servicesData
           : servicesData.data || servicesData.services || [];
 
-        // Use fake data if API returns empty array
-        if (!servicesList || servicesList.length === 0) {
-          console.warn("No services from API, using fake data");
-          servicesList = fakeServices;
-        }
-
         // Map services to include formatted price
-        const mappedServices = servicesList.map((service) => ({
+        const mappedServices = (servicesList || []).map((service) => ({
           ...service,
           _id: String(service.id),
           title: service.name,
@@ -158,14 +150,8 @@ function Booking() {
           ? barbersData
           : barbersData.data || barbersData.barbers || [];
 
-        // Use fake data if API returns empty array
-        if (!barbersList || barbersList.length === 0) {
-          console.warn("No barbers from API, using fake data");
-          barbersList = fakeBarbers;
-        }
-
         // Map barbers to ensure _id exists
-        const mappedBarbers = barbersList.map((barber) => ({
+        const mappedBarbers = (barbersList || []).map((barber) => ({
           ...barber,
           _id: String(barber.id || barber._id),
           fullName: barber.name || barber.fullName || barber.full_name,
@@ -175,35 +161,16 @@ function Booking() {
       } catch (err) {
         console.error("Error fetching data:", err);
         if (err.message && err.message.includes("timeout")) {
-          console.warn("Request timeout after 5 seconds, using fake data");
           setError(
-            "Backend javob bermadi (5 soniya), demo ma'lumotlar ishlatilmoqda"
+            "Backend javob bermadi (5 soniya). Iltimos, qayta urinib ko'ring."
           );
         } else {
-          console.warn("Using fake data due to API error");
           setError(
-            "Backend ma'lumotlarni yuklay olmadi, demo ma'lumotlar ishlatilmoqda"
+            "Backend ma'lumotlarni yuklay olmadi. Iltimos, qayta urinib ko'ring."
           );
         }
-
-        // Use fake data as fallback
-        const mappedFakeServices = fakeServices.map((service) => ({
-          ...service,
-          _id: String(service.id),
-          title: service.name,
-          price: service.price
-            ? `${parseFloat(service.price).toLocaleString("uz-UZ")} UZS`
-            : "",
-        }));
-
-        const mappedFakeBarbers = fakeBarbers.map((barber) => ({
-          ...barber,
-          _id: String(barber.id),
-          fullName: barber.name || barber.fullName || barber.full_name,
-        }));
-
-        setServices(mappedFakeServices);
-        setBarbers(mappedFakeBarbers);
+        setServices([]);
+        setBarbers([]);
       } finally {
         setLoading(false);
       }
@@ -219,7 +186,7 @@ function Booking() {
     setSuccess(false);
 
     try {
-      // Match API structure: phone_number, client_name, service_ids (array), location.address
+      // Match API structure: phone_number, client_name, service_ids (array), barber_id, date, time
       const bookingData = {
         phone_number: formData.phone,
         barber_id: parseInt(formData.barber_id),
@@ -227,11 +194,6 @@ function Booking() {
         date: formData.date || today,
         time: formData.time,
         client_name: formData.name,
-        location: {
-          address:
-            contactInfo.address ||
-            "Ташкент, Шайхантахурский район, улица Курилиш, 9, Tashkent, Uzbekistan",
-        },
       };
 
       console.log("Submitting booking:", bookingData);

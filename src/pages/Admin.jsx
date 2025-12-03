@@ -6,7 +6,6 @@ import { useAuth } from "../context/AuthContext";
 import { API_ENDPOINTS, BOOKINGS_BASE_URL, AUTH_BASE_URL } from "../data/api";
 import { apiRequest } from "../utils/api";
 import Footer from "../components/Footer";
-import fakeBookings from "../data/fakeData/bookings.json";
 
 function Admin() {
   const navigate = useNavigate();
@@ -26,6 +25,15 @@ function Admin() {
     role: "admin",
   });
   const [isSubmittingAdmin, setIsSubmittingAdmin] = useState(false);
+  const [showStatistics, setShowStatistics] = useState(false);
+  const [statistics, setStatistics] = useState(null);
+  const [loadingStatistics, setLoadingStatistics] = useState(false);
+  const [statisticsDateRange, setStatisticsDateRange] = useState({
+    startDate: new Date(new Date().getFullYear(), new Date().getMonth(), 1)
+      .toISOString()
+      .split("T")[0],
+    endDate: new Date().toISOString().split("T")[0],
+  });
 
   useEffect(() => {
     // ProtectedRoute handles authentication, but double-check here
@@ -64,12 +72,6 @@ function Admin() {
         ? data
         : data.data || data.bookings || [];
 
-      // Use fake data if API returns empty array
-      if (!bookingsList || bookingsList.length === 0) {
-        console.warn("No bookings from API, using fake data");
-        bookingsList = fakeBookings;
-      }
-
       // Filter bookings if needed
       if (filter !== "all" && filter !== "pending") {
         const filtered = bookingsList.filter(
@@ -77,33 +79,20 @@ function Admin() {
         );
         setBookings(filtered);
       } else {
-        setBookings(bookingsList);
+        setBookings(bookingsList || []);
       }
     } catch (err) {
       console.error("Error fetching bookings:", err);
       if (err.message && err.message.includes("timeout")) {
-        console.warn("Request timeout after 5 seconds, using fake data");
         setError(
-          "Backend javob bermadi (5 soniya), demo ma'lumotlar ishlatilmoqda."
+          "Backend javob bermadi (5 soniya). Iltimos, qayta urinib ko'ring."
         );
       } else {
-        console.warn("Using fake data due to API error");
         setError(
-          err.message ||
-            "Bronlarni yuklash muvaffaqiyatsiz. Demo ma'lumotlar ishlatilmoqda."
+          err.message || "Bronlarni yuklash muvaffaqiyatsiz. Iltimos, qayta urinib ko'ring."
         );
       }
-      // Use fake data as fallback
-      let bookingsList = fakeBookings;
-      // Filter bookings if needed
-      if (filter !== "all" && filter !== "pending") {
-        const filtered = bookingsList.filter(
-          (booking) => booking.status?.toLowerCase() === filter.toLowerCase()
-        );
-        setBookings(filtered);
-      } else {
-        setBookings(bookingsList);
-      }
+      setBookings([]);
     } finally {
       setLoading(false);
     }
@@ -269,6 +258,41 @@ function Admin() {
     if (error) setError("");
   };
 
+  const fetchStatistics = async () => {
+    try {
+      setLoadingStatistics(true);
+      setError("");
+
+      const response = await apiRequest(
+        API_ENDPOINTS.bookingsStatistics,
+        {
+          method: "POST",
+          body: JSON.stringify({
+            startDate: statisticsDateRange.startDate,
+            endDate: statisticsDateRange.endDate,
+          }),
+        },
+        true,
+        5000
+      );
+
+      if (!response.ok) {
+        const data = await response.json().catch(() => ({}));
+        throw new Error(
+          data.message || `Failed to fetch statistics: ${response.status}`
+        );
+      }
+
+      const data = await response.json();
+      setStatistics(data);
+    } catch (err) {
+      console.error("Error fetching statistics:", err);
+      setError(err.message || "Statistikani yuklash muvaffaqiyatsiz");
+    } finally {
+      setLoadingStatistics(false);
+    }
+  };
+
   const getStatusColor = (status) => {
     switch (status?.toLowerCase()) {
       case "approved":
@@ -317,6 +341,19 @@ function Admin() {
                 </Button>
               )}
               <Button
+                onClick={() => navigate("/barbers")}
+                size="sm"
+                className="bg-green-600 hover:bg-green-700 text-white">
+                Barberlar
+              </Button>
+              <Button
+                onClick={() => setShowStatistics(!showStatistics)}
+                size="sm"
+                variant="outlined"
+                className="border-purple-300 text-purple-700 hover:bg-purple-50">
+                {showStatistics ? "Statistikani yopish" : "Qisqa statistika"}
+              </Button>
+              <Button
                 onClick={fetchBookings}
                 size="sm"
                 variant="outlined"
@@ -349,6 +386,116 @@ function Admin() {
           {success && (
             <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg text-sm mb-4">
               ✅ {success}
+            </div>
+          )}
+
+          {/* Statistics Section */}
+          {showStatistics && (
+            <div className="mb-6 bg-white rounded-2xl sm:rounded-3xl shadow-lg border border-gray-200 p-6">
+              <h2 className="text-xl font-bold text-black mb-4">
+                Booking Statistikasi
+              </h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Boshlanish sanasi
+                  </label>
+                  <Input
+                    type="date"
+                    value={statisticsDateRange.startDate}
+                    onChange={(e) =>
+                      setStatisticsDateRange({
+                        ...statisticsDateRange,
+                        startDate: e.target.value,
+                      })
+                    }
+                    size="lg"
+                    className="!text-black !bg-white"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Tugash sanasi
+                  </label>
+                  <Input
+                    type="date"
+                    value={statisticsDateRange.endDate}
+                    onChange={(e) =>
+                      setStatisticsDateRange({
+                        ...statisticsDateRange,
+                        endDate: e.target.value,
+                      })
+                    }
+                    size="lg"
+                    className="!text-black !bg-white"
+                  />
+                </div>
+              </div>
+              <Button
+                onClick={fetchStatistics}
+                disabled={loadingStatistics}
+                className="bg-purple-600 hover:bg-purple-700 text-white mb-4"
+                loading={loadingStatistics}>
+                {loadingStatistics ? "Yuklanmoqda..." : "Statistikani olish"}
+              </Button>
+
+              {statistics && (
+                <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                  {Object.entries(statistics)
+                    .filter(([key, value]) => {
+                      // Skip date range objects and other non-displayable objects
+                      if (
+                        typeof value === "object" &&
+                        value !== null &&
+                        !Array.isArray(value)
+                      ) {
+                        // Skip if it looks like a date range object
+                        if (
+                          ("start_date" in value || "startDate" in value) &&
+                          ("end_date" in value || "endDate" in value)
+                        ) {
+                          return false;
+                        }
+                        // Skip other complex objects
+                        return false;
+                      }
+                      return true;
+                    })
+                    .map(([key, value]) => {
+                      // Format the key for display
+                      const displayKey = key
+                        .replace(/_/g, " ")
+                        .replace(/\b\w/g, (l) => l.toUpperCase());
+
+                      // Handle different value types
+                      let displayValue;
+                      if (typeof value === "number") {
+                        displayValue = value.toLocaleString();
+                      } else if (Array.isArray(value)) {
+                        displayValue = value.length.toString();
+                      } else if (typeof value === "boolean") {
+                        displayValue = value ? "Ha" : "Yo'q";
+                      } else if (value === null || value === undefined) {
+                        displayValue = "N/A";
+                      } else {
+                        displayValue = String(value);
+                      }
+
+                      return (
+                        <div
+                          key={key}
+                          className="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                          <div className="text-sm text-gray-600 mb-1">
+                            {displayKey}
+                          </div>
+                          <div className="text-2xl font-bold text-black break-words">
+                            {displayValue}
+                          </div>
+                        </div>
+                      );
+                    })}
+                </div>
+              )}
             </div>
           )}
 

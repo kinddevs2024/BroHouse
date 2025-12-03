@@ -4,7 +4,6 @@ import { Analytics } from "@vercel/analytics/react";
 import { galleryServices } from "../data";
 import { imagePool, getImagesInOrder } from "../data/images";
 import { SERVICES_BASE_URL, API_ENDPOINTS } from "../data/api";
-import fakeServices from "../data/fakeData/services.json";
 import { fetchWithTimeout } from "../utils/api";
 import ContactForm from "../components/ContactForm";
 import RegisterModal from "../components/RegisterModal";
@@ -39,14 +38,8 @@ function Gallery() {
             ? data
             : data.data || data.services || [];
 
-          // Use fake data if API returns empty array
-          if (!servicesList || servicesList.length === 0) {
-            console.warn("No services from API, using fake data");
-            servicesList = fakeServices;
-          }
-
           // Map services to pricing format
-          const pricingList = servicesList.map((service) => ({
+          const pricingList = (servicesList || []).map((service) => ({
             id: service.id || service._id,
             name: service.name || service.title || "Service",
             price: service.price
@@ -56,33 +49,12 @@ function Gallery() {
 
           setServices(pricingList);
         } else {
-          // Use fake data if response is not ok
-          console.warn("API response not ok, using fake data");
-          const pricingList = fakeServices.map((service) => ({
-            id: service.id,
-            name: service.name || service.title || "Service",
-            price: service.price
-              ? `${parseFloat(service.price).toLocaleString("uz-UZ")} UZS`
-              : "N/A",
-          }));
-          setServices(pricingList);
+          console.warn("API response not ok");
+          setServices([]);
         }
       } catch (err) {
         console.error("Error fetching services for pricing:", err);
-        if (err.message && err.message.includes("timeout")) {
-          console.warn("Request timeout after 5 seconds, using fake data");
-        } else {
-          console.warn("Using fake data due to API error");
-        }
-        // Fallback to fake data on error
-        const pricingList = fakeServices.map((service) => ({
-          id: service.id,
-          name: service.name || service.title || "Service",
-          price: service.price
-            ? `${parseFloat(service.price).toLocaleString("uz-UZ")} UZS`
-            : "N/A",
-        }));
-        setServices(pricingList);
+        setServices([]);
       } finally {
         setLoadingPricing(false);
       }

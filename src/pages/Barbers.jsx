@@ -3,14 +3,14 @@ import { useNavigate } from "react-router-dom";
 import { Button, Input } from "@material-tailwind/react";
 import { Analytics } from "@vercel/analytics/react";
 import { useAuth } from "../context/AuthContext";
-import { AUTH_BASE_URL, API_ENDPOINTS } from "../data/api";
+import { AUTH_BASE_URL, API_ENDPOINTS, BARBERS_BASE_URL } from "../data/api";
 import { getAuthToken } from "../utils/api";
 import Footer from "../components/Footer";
 
-function SuperAdmin() {
+function Barbers() {
   const navigate = useNavigate();
-  const { isAuthenticated, isSuperAdmin, logout } = useAuth();
-  const [admins, setAdmins] = useState([]);
+  const { isAuthenticated, isAdmin, isSuperAdmin, logout } = useAuth();
+  const [barbers, setBarbers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -20,41 +20,45 @@ function SuperAdmin() {
     tg_username: "",
     phone_number: "",
     password: "",
+    working: true,
+    work_start_time: "09:00",
+    work_end_time: "18:00",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [editingAdmin, setEditingAdmin] = useState(null);
+  const [editingBarber, setEditingBarber] = useState(null);
   const [editFormData, setEditFormData] = useState({
     name: "",
     tg_username: "",
     phone_number: "",
     password: "",
+    working: true,
+    work_start_time: "09:00",
+    work_end_time: "18:00",
   });
   const [isSubmittingEdit, setIsSubmittingEdit] = useState(false);
 
   useEffect(() => {
-    if (!isAuthenticated() || !isSuperAdmin()) {
-      navigate("/");
+    if (!isAuthenticated() || (!isAdmin() && !isSuperAdmin())) {
+      navigate("/admin/login");
       return;
     }
 
-    fetchAdmins();
-  }, [navigate, isAuthenticated, isSuperAdmin]);
+    fetchBarbers();
+  }, [navigate, isAuthenticated, isAdmin, isSuperAdmin]);
 
-  const fetchAdmins = async () => {
+  const fetchBarbers = async () => {
     try {
       setLoading(true);
       setError("");
 
-      // Get token from localStorage
       const token = getAuthToken();
       if (!token) {
         throw new Error("Token topilmadi. Iltimos, qayta kirib ko'ring.");
       }
 
-      // Fetch all users from /users endpoint with token
-      // Use AUTH_BASE_URL (which is BASE_URL) since /users is at root level, not under /api
-      console.log("Fetching users from:", `${AUTH_BASE_URL}${API_ENDPOINTS.users}`);
-      const response = await fetch(`${AUTH_BASE_URL}${API_ENDPOINTS.users}`, {
+      // Fetch barbers from /users/barbers endpoint
+      console.log("Fetching barbers from:", `${BARBERS_BASE_URL}${API_ENDPOINTS.barbers}`);
+      const response = await fetch(`${BARBERS_BASE_URL}${API_ENDPOINTS.barbers}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -64,102 +68,111 @@ function SuperAdmin() {
         mode: "cors",
       });
 
-      console.log("Users response status:", response.status, response.statusText);
+      console.log("Barbers response status:", response.status, response.statusText);
 
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
         throw new Error(
           errorData.message ||
-            `Adminlarni yuklash muvaffaqiyatsiz: ${response.status}`
+            `Barberlarni yuklash muvaffaqiyatsiz: ${response.status}`
         );
       }
 
       const data = await response.json();
-      console.log("Users data received:", data);
-      
-      const usersList = Array.isArray(data)
-        ? data
-        : data.data || data.admins || data.users || [];
+      console.log("Barbers data received:", data);
 
-      // Filter for admin role users (exclude super_admin from the list)
-      const adminsList = usersList.filter((u) => u.role === "admin");
-      setAdmins(adminsList);
+      const barbersList = Array.isArray(data)
+        ? data
+        : data.data || data.barbers || [];
+
+      setBarbers(barbersList);
     } catch (err) {
-      console.error("Error fetching admins:", err);
-      setError(err.message || "Adminlarni yuklash muvaffaqiyatsiz");
+      console.error("Error fetching barbers:", err);
+      setError(err.message || "Barberlarni yuklash muvaffaqiyatsiz");
     } finally {
       setLoading(false);
     }
   };
 
-  const handleAddAdmin = async (e) => {
+  const handleAddBarber = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
     setError("");
     setSuccess("");
 
     try {
-      // Register new admin with admin role
-      const response = await fetch(
-        `${AUTH_BASE_URL}${API_ENDPOINTS.register}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "*/*",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-          body: JSON.stringify({
-            name: formData.name,
-            tg_username: formData.tg_username,
-            phone_number: formData.phone_number,
-            password: formData.password,
-            role: "admin", // Set role as admin
-          }),
-          mode: "cors",
-        }
-      );
+      const token = getAuthToken();
+      if (!token) {
+        throw new Error("Token topilmadi. Iltimos, qayta kirib ko'ring.");
+      }
+
+      // Create new barber using POST /users with role: "barber"
+      const response = await fetch(`${AUTH_BASE_URL}${API_ENDPOINTS.users}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "*/*",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          tg_username: formData.tg_username,
+          phone_number: formData.phone_number,
+          password: formData.password,
+          role: "barber",
+          working: formData.working,
+          work_start_time: formData.work_start_time,
+          work_end_time: formData.work_end_time,
+        }),
+        mode: "cors",
+      });
 
       const data = await response.json();
 
       if (response.ok || response.status === 201) {
-        setSuccess("Admin muvaffaqiyatli qo'shildi!");
+        setSuccess("Barber muvaffaqiyatli qo'shildi!");
         setFormData({
           name: "",
           tg_username: "",
           phone_number: "",
           password: "",
+          working: true,
+          work_start_time: "09:00",
+          work_end_time: "18:00",
         });
         setShowAddForm(false);
-        fetchAdmins(); // Refresh admin list
+        fetchBarbers(); // Refresh barber list
         setTimeout(() => setSuccess(""), 3000);
       } else {
         setError(
-          data.message || data.error || "Admin qo'shish muvaffaqiyatsiz"
+          data.message || data.error || "Barber qo'shish muvaffaqiyatsiz"
         );
       }
     } catch (err) {
-      console.error("Error adding admin:", err);
-      setError("Tarmoq xatosi. Iltimos, qayta urinib ko'ring.");
+      console.error("Error adding barber:", err);
+      setError(err.message || "Tarmoq xatosi. Iltimos, qayta urinib ko'ring.");
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  const handleEditAdmin = (admin) => {
-    setEditingAdmin(admin);
+  const handleEditBarber = (barber) => {
+    setEditingBarber(barber);
     setEditFormData({
-      name: admin.name || "",
-      tg_username: admin.tg_username || "",
-      phone_number: admin.phone_number || "",
+      name: barber.name || "",
+      tg_username: barber.tg_username || "",
+      phone_number: barber.phone_number || "",
       password: "", // Don't pre-fill password
+      working: barber.working !== undefined ? barber.working : true,
+      work_start_time: barber.work_start_time || "09:00",
+      work_end_time: barber.work_end_time || "18:00",
     });
     setError("");
   };
 
-  const handleUpdateAdmin = async (e) => {
+  const handleUpdateBarber = async (e) => {
     e.preventDefault();
-    if (!editingAdmin) return;
+    if (!editingBarber) return;
 
     setIsSubmittingEdit(true);
     setError("");
@@ -171,13 +184,16 @@ function SuperAdmin() {
         throw new Error("Token topilmadi. Iltimos, qayta kirib ko'ring.");
       }
 
-      const adminId = editingAdmin.id || editingAdmin._id;
-      
+      const barberId = editingBarber.id || editingBarber._id;
+
       // Prepare update data (only include fields that have values)
       const updateData = {
         name: editFormData.name,
         tg_username: editFormData.tg_username,
         phone_number: editFormData.phone_number,
+        working: editFormData.working,
+        work_start_time: editFormData.work_start_time,
+        work_end_time: editFormData.work_end_time,
       };
 
       // Only include password if it's provided
@@ -186,7 +202,7 @@ function SuperAdmin() {
       }
 
       const response = await fetch(
-        `${AUTH_BASE_URL}${API_ENDPOINTS.users}/${adminId}`,
+        `${AUTH_BASE_URL}${API_ENDPOINTS.users}/${barberId}`,
         {
           method: "PATCH",
           headers: {
@@ -202,29 +218,32 @@ function SuperAdmin() {
       const data = await response.json();
 
       if (response.ok) {
-        setSuccess("Admin muvaffaqiyatli yangilandi!");
-        setEditingAdmin(null);
+        setSuccess("Barber muvaffaqiyatli yangilandi!");
+        setEditingBarber(null);
         setEditFormData({
           name: "",
           tg_username: "",
           phone_number: "",
           password: "",
+          working: true,
+          work_start_time: "09:00",
+          work_end_time: "18:00",
         });
-        fetchAdmins(); // Refresh admin list
+        fetchBarbers(); // Refresh barber list
         setTimeout(() => setSuccess(""), 3000);
       } else {
-        setError(data.message || data.error || "Adminni yangilash muvaffaqiyatsiz");
+        setError(data.message || data.error || "Barberni yangilash muvaffaqiyatsiz");
       }
     } catch (err) {
-      console.error("Error updating admin:", err);
+      console.error("Error updating barber:", err);
       setError(err.message || "Tarmoq xatosi. Iltimos, qayta urinib ko'ring.");
     } finally {
       setIsSubmittingEdit(false);
     }
   };
 
-  const handleDeleteAdmin = async (adminId) => {
-    if (!window.confirm("Bu adminni o'chirishni xohlaysizmi?")) {
+  const handleDeleteBarber = async (barberId) => {
+    if (!window.confirm("Bu barberni o'chirishni xohlaysizmi?")) {
       return;
     }
 
@@ -238,7 +257,7 @@ function SuperAdmin() {
       }
 
       const response = await fetch(
-        `${AUTH_BASE_URL}${API_ENDPOINTS.users}/${adminId}`,
+        `${AUTH_BASE_URL}${API_ENDPOINTS.users}/${barberId}`,
         {
           method: "DELETE",
           headers: {
@@ -251,23 +270,33 @@ function SuperAdmin() {
       );
 
       if (response.ok) {
-        setSuccess("Admin muvaffaqiyatli o'chirildi!");
-        fetchAdmins(); // Refresh admin list
+        setSuccess("Barber muvaffaqiyatli o'chirildi!");
+        fetchBarbers(); // Refresh barber list
         setTimeout(() => setSuccess(""), 3000);
       } else {
         const data = await response.json().catch(() => ({}));
-        setError(data.message || "Adminni o'chirish muvaffaqiyatsiz");
+        setError(data.message || "Barberni o'chirish muvaffaqiyatsiz");
       }
     } catch (err) {
-      console.error("Error deleting admin:", err);
+      console.error("Error deleting barber:", err);
       setError(err.message || "Tarmoq xatosi. Iltimos, qayta urinib ko'ring.");
     }
   };
 
   const handleInputChange = (e) => {
+    const { name, value, type, checked } = e.target;
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [name]: type === "checkbox" ? checked : value,
+    });
+    if (error) setError("");
+  };
+
+  const handleEditInputChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setEditFormData({
+      ...editFormData,
+      [name]: type === "checkbox" ? checked : value,
     });
     if (error) setError("");
   };
@@ -284,12 +313,12 @@ function SuperAdmin() {
   }
 
   return (
-    <div className="pt-16 sm:pt-20 md:pt-[92px] min-h-screen bg-white">
+    <div className="pt-16 sm:pt-20 md:pt-[92px] min-h-screen bg-gray-50">
       <section className="w-full py-8 sm:py-10 md:py-12 lg:py-16">
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-[127px]">
           <div className="flex justify-between items-center mb-10">
             <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-black">
-              Super Admin Boshqaruv Paneli
+              Barberlar Boshqaruvi
             </h1>
             <div className="flex gap-3">
               <Button
@@ -324,17 +353,17 @@ function SuperAdmin() {
             <Button
               onClick={() => setShowAddForm(!showAddForm)}
               className="bg-barber-olive hover:bg-barber-gold text-white">
-              {showAddForm ? "Formani yopish" : "+ Yangi admin qo'shish"}
+              {showAddForm ? "Formani yopish" : "+ Yangi barber qo'shish"}
             </Button>
           </div>
 
           {showAddForm && (
             <div className="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-10 shadow-lg border border-gray-200 mb-8">
               <h2 className="text-xl sm:text-2xl font-bold text-black mb-6">
-                Yangi admin qo'shish
+                Yangi barber qo'shish
               </h2>
               <form
-                onSubmit={handleAddAdmin}
+                onSubmit={handleAddBarber}
                 className="space-y-4 sm:space-y-5 md:space-y-6">
                 <Input
                   type="text"
@@ -382,6 +411,45 @@ function SuperAdmin() {
                   disabled={isSubmitting}
                 />
 
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <Input
+                    type="time"
+                    name="work_start_time"
+                    value={formData.work_start_time}
+                    onChange={handleInputChange}
+                    label="Ish boshlanish vaqti"
+                    required
+                    size="lg"
+                    disabled={isSubmitting}
+                  />
+
+                  <Input
+                    type="time"
+                    name="work_end_time"
+                    value={formData.work_end_time}
+                    onChange={handleInputChange}
+                    label="Ish tugash vaqti"
+                    required
+                    size="lg"
+                    disabled={isSubmitting}
+                  />
+                </div>
+
+                <div className="flex items-center">
+                  <input
+                    type="checkbox"
+                    name="working"
+                    checked={formData.working}
+                    onChange={handleInputChange}
+                    id="working"
+                    className="w-4 h-4 text-barber-olive border-gray-300 rounded focus:ring-barber-olive"
+                    disabled={isSubmitting}
+                  />
+                  <label htmlFor="working" className="ml-2 text-sm text-gray-700">
+                    Hozirda ishlayapti
+                  </label>
+                </div>
+
                 <div className="flex gap-3">
                   <Button
                     type="submit"
@@ -389,7 +457,7 @@ function SuperAdmin() {
                     size="lg"
                     className="bg-barber-olive hover:bg-barber-gold text-white font-semibold"
                     loading={isSubmitting}>
-                    {isSubmitting ? "Qo'shilmoqda..." : "Admin qo'shish"}
+                    {isSubmitting ? "Qo'shilmoqda..." : "Barber qo'shish"}
                   </Button>
                   <Button
                     type="button"
@@ -400,6 +468,9 @@ function SuperAdmin() {
                         tg_username: "",
                         phone_number: "",
                         password: "",
+                        working: true,
+                        work_start_time: "09:00",
+                        work_end_time: "18:00",
                       });
                       setError("");
                     }}
@@ -431,7 +502,10 @@ function SuperAdmin() {
                       Telefon
                     </th>
                     <th className="px-4 py-3 text-left text-sm font-semibold">
-                      Rol
+                      Ish vaqti
+                    </th>
+                    <th className="px-4 py-3 text-left text-sm font-semibold">
+                      Holat
                     </th>
                     <th className="px-4 py-3 text-left text-sm font-semibold">
                       Amallar
@@ -439,50 +513,59 @@ function SuperAdmin() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200">
-                  {admins.length === 0 ? (
+                  {barbers.length === 0 ? (
                     <tr>
                       <td
-                        colSpan="6"
+                        colSpan="7"
                         className="px-4 py-8 text-center text-gray-500">
-                        Adminlar topilmadi
+                        Barberlar topilmadi
                       </td>
                     </tr>
                   ) : (
-                    admins.map((admin) => (
+                    barbers.map((barber) => (
                       <tr
-                        key={admin.id || admin._id}
+                        key={barber.id || barber._id}
                         className="hover:bg-gray-50">
                         <td className="px-4 py-3 text-sm">
-                          {admin.id || admin._id}
+                          {barber.id || barber._id}
                         </td>
                         <td className="px-4 py-3 text-sm">
-                          {admin.name || admin.fullName || "N/A"}
+                          {barber.name || barber.fullName || "N/A"}
                         </td>
                         <td className="px-4 py-3 text-sm">
-                          {admin.tg_username ||
-                            admin.telegram_username ||
+                          {barber.tg_username ||
+                            barber.telegram_username ||
                             "N/A"}
                         </td>
                         <td className="px-4 py-3 text-sm">
-                          {admin.phone_number || admin.phone || "N/A"}
+                          {barber.phone_number || barber.phone || "N/A"}
                         </td>
                         <td className="px-4 py-3 text-sm">
-                          <span className="px-2 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-800">
-                            {admin.role || "admin"}
+                          {barber.work_start_time || "N/A"} -{" "}
+                          {barber.work_end_time || "N/A"}
+                        </td>
+                        <td className="px-4 py-3 text-sm">
+                          <span
+                            className={`px-2 py-1 rounded-full text-xs font-semibold ${
+                              barber.working
+                                ? "bg-green-100 text-green-800"
+                                : "bg-gray-100 text-gray-800"
+                            }`}>
+                            {barber.working ? "Ishlayapti" : "Ishlamayapti"}
                           </span>
                         </td>
                         <td className="px-4 py-3 text-sm">
                           <div className="flex gap-2">
                             <Button
                               size="sm"
-                              onClick={() => handleEditAdmin(admin)}
+                              onClick={() => handleEditBarber(barber)}
                               className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 text-xs">
                               Tahrirlash
                             </Button>
                             <Button
                               size="sm"
                               onClick={() =>
-                                handleDeleteAdmin(admin.id || admin._id)
+                                handleDeleteBarber(barber.id || barber._id)
                               }
                               className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 text-xs">
                               O'chirish
@@ -499,12 +582,12 @@ function SuperAdmin() {
         </div>
       </section>
 
-      {/* Edit Admin Modal */}
-      {editingAdmin && (
+      {/* Edit Barber Modal */}
+      {editingBarber && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-lg p-6 max-w-md w-full max-h-[90vh] overflow-y-auto">
             <h3 className="text-lg font-bold text-black mb-4">
-              Adminni tahrirlash
+              Barberni tahrirlash
             </h3>
 
             {error && (
@@ -513,17 +596,12 @@ function SuperAdmin() {
               </div>
             )}
 
-            <form onSubmit={handleUpdateAdmin} className="space-y-4">
+            <form onSubmit={handleUpdateBarber} className="space-y-4">
               <Input
                 type="text"
                 name="name"
                 value={editFormData.name}
-                onChange={(e) =>
-                  setEditFormData({
-                    ...editFormData,
-                    name: e.target.value,
-                  })
-                }
+                onChange={handleEditInputChange}
                 label="To'liq ism"
                 required
                 size="lg"
@@ -534,12 +612,7 @@ function SuperAdmin() {
                 type="text"
                 name="tg_username"
                 value={editFormData.tg_username}
-                onChange={(e) =>
-                  setEditFormData({
-                    ...editFormData,
-                    tg_username: e.target.value,
-                  })
-                }
+                onChange={handleEditInputChange}
                 label="Telegram foydalanuvchi nomi"
                 placeholder="@username"
                 required
@@ -551,12 +624,7 @@ function SuperAdmin() {
                 type="tel"
                 name="phone_number"
                 value={editFormData.phone_number}
-                onChange={(e) =>
-                  setEditFormData({
-                    ...editFormData,
-                    phone_number: e.target.value,
-                  })
-                }
+                onChange={handleEditInputChange}
                 label="Telefon raqami"
                 placeholder="+998901234567"
                 required
@@ -568,28 +636,67 @@ function SuperAdmin() {
                 type="password"
                 name="password"
                 value={editFormData.password}
-                onChange={(e) =>
-                  setEditFormData({
-                    ...editFormData,
-                    password: e.target.value,
-                  })
-                }
+                onChange={handleEditInputChange}
                 label="Yangi parol (ixtiyoriy)"
                 placeholder="Parolni o'zgartirmaslik uchun bo'sh qoldiring"
                 size="lg"
                 disabled={isSubmittingEdit}
               />
 
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <Input
+                  type="time"
+                  name="work_start_time"
+                  value={editFormData.work_start_time}
+                  onChange={handleEditInputChange}
+                  label="Ish boshlanish vaqti"
+                  required
+                  size="lg"
+                  disabled={isSubmittingEdit}
+                />
+
+                <Input
+                  type="time"
+                  name="work_end_time"
+                  value={editFormData.work_end_time}
+                  onChange={handleEditInputChange}
+                  label="Ish tugash vaqti"
+                  required
+                  size="lg"
+                  disabled={isSubmittingEdit}
+                />
+              </div>
+
+              <div className="flex items-center">
+                <input
+                  type="checkbox"
+                  name="working"
+                  checked={editFormData.working}
+                  onChange={handleEditInputChange}
+                  id="edit-working"
+                  className="w-4 h-4 text-barber-olive border-gray-300 rounded focus:ring-barber-olive"
+                  disabled={isSubmittingEdit}
+                />
+                <label
+                  htmlFor="edit-working"
+                  className="ml-2 text-sm text-gray-700">
+                  Hozirda ishlayapti
+                </label>
+              </div>
+
               <div className="flex gap-3 justify-end pt-4">
                 <Button
                   type="button"
                   onClick={() => {
-                    setEditingAdmin(null);
+                    setEditingBarber(null);
                     setEditFormData({
                       name: "",
                       tg_username: "",
                       phone_number: "",
                       password: "",
+                      working: true,
+                      work_start_time: "09:00",
+                      work_end_time: "18:00",
                     });
                     setError("");
                   }}
@@ -617,4 +724,5 @@ function SuperAdmin() {
   );
 }
 
-export default SuperAdmin;
+export default Barbers;
+

@@ -11,6 +11,8 @@ import Booking from './pages/Booking'
 import Admin from './pages/Admin'
 import AdminLogin from './pages/AdminLogin'
 import SuperAdmin from './pages/SuperAdmin'
+import AnalyticsPage from './pages/Analytics'
+import Barbers from './pages/Barbers'
 import NotFound from './pages/NotFound'
 
 function App() {
@@ -31,6 +33,22 @@ function App() {
             element={
               <ProtectedRoute requireAdmin={true}>
                 <Admin />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/analytics" 
+            element={
+              <ProtectedRoute requireAdmin={true}>
+                <AnalyticsPage />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/barbers" 
+            element={
+              <ProtectedRoute requireAdmin={true}>
+                <Barbers />
               </ProtectedRoute>
             } 
           />
