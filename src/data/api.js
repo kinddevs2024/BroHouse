@@ -1,6 +1,6 @@
 // API configuration
 // Update this with your actual API base URL
-const BASE_URL = "http://192.168.1.107:3001";
+const BASE_URL = "https://app.bandu.uz/api/docs#/";
 
 export const API_BASE_URL =
   import.meta.env.VITE_API_BASE_URL || `${BASE_URL}/api`;
