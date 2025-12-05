@@ -1427,7 +1427,7 @@ function Admin() {
                                   onClick={() =>
                                     handleApprove(booking.id || booking._id)
                                   }
-                                  className="bg-green-600 hover:bg-green-700 text-white px-3 py-1 text-xs">
+                                  className="bg-green-600 hover:bg-green-700 text-white px-4 py-1 text-xs">
                                   ✓ Tasdiqlash
                                 </Button>
                                 <Button
@@ -1435,33 +1435,37 @@ function Admin() {
                                   onClick={() =>
                                     handleReject(booking.id || booking._id)
                                   }
-                                  className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 text-xs">
+                                  className="bg-red-600 hover:bg-red-700 text-white px-4 py-1 text-xs">
                                   ✗ Rad etish
                                 </Button>
                               </>
                             )}
-                            <select
-                              value={booking.status || "pending"}
-                              onChange={(e) =>
-                                handleStatusChange(
-                                  booking.id || booking._id,
-                                  e.target.value
-                                )
-                              }
-                              className="px-3 py-1 border border-gray-300 rounded-lg focus:ring-2 focus:ring-barber-olive focus:border-barber-olive text-xs">
-                              <option value="pending">Kutilmoqda</option>
-                              <option value="approved">Tasdiqlangan</option>
-                              <option value="rejected">Rad etilgan</option>
-                              <option value="completed">Yakunlangan</option>
-                            </select>
-                            <Button
-                              size="sm"
-                              onClick={() =>
-                                setDeleteConfirm(booking.id || booking._id)
-                              }
-                              className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 text-xs">
-                              🗑️ O'chirish
-                            </Button>
+                            {booking.status?.toLowerCase() !== "waiting" && booking.status?.toLowerCase() !== "pending" && (
+                              <select
+                                value={booking.status || "pending"}
+                                onChange={(e) =>
+                                  handleStatusChange(
+                                    booking.id || booking._id,
+                                    e.target.value
+                                  )
+                                }
+                                className="px-3 py-1 border border-gray-300 rounded-lg focus:ring-2 focus:ring-barber-olive focus:border-barber-olive text-xs">
+                                <option value="pending">Kutilmoqda</option>
+                                <option value="approved">Tasdiqlangan</option>
+                                <option value="rejected">Rad etilgan</option>
+                                <option value="completed">Yakunlangan</option>
+                              </select>
+                            )}
+                            {booking.status?.toLowerCase() !== "waiting" && booking.status?.toLowerCase() !== "pending" && (
+                              <Button
+                                size="sm"
+                                onClick={() =>
+                                  setDeleteConfirm(booking.id || booking._id)
+                                }
+                                className="bg-red-500 hover:bg-red-600 text-white px-[13px] py-1 text-xs">
+                                🗑️ O'chirish
+                              </Button>
+                            )}
                           </div>
                         </td>
                       </tr>
