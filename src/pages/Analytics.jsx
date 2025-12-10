@@ -111,19 +111,14 @@ function AnalyticsPage() {
     barberStats.forEach((barberStat) => {
       const bookings = barberStat.bookings || [];
       bookings.forEach((booking) => {
-        // Skip completed bookings
-        if (booking.status === "completed") {
-          return;
-        }
-        
-        // Count services
+        // Count services (all bookings)
         if (booking.service) {
           const serviceName = booking.service.name;
           serviceCounts[serviceName] = (serviceCounts[serviceName] || 0) + 1;
         }
         
-        // Calculate revenue by date
-        if (booking.date && booking.service && booking.status === "approved") {
+        // Calculate revenue by date from completed bookings only
+        if (booking.date && booking.service && booking.status === "completed") {
           const date = booking.date;
           revenueByDate[date] = (revenueByDate[date] || 0) + (booking.service.price || 0);
         }
@@ -136,12 +131,12 @@ function AnalyticsPage() {
       .sort((a, b) => b.count - a.count);
 
     // Transform barber statistics
-    // Calculate revenue excluding completed bookings
+    // Calculate revenue from completed bookings only
     const byBarbers = barberStats.map((stat) => {
       const bookings = stat.bookings || [];
-      // Calculate revenue from approved bookings only (excluding completed)
+      // Calculate revenue from completed bookings only
       const revenue = bookings.reduce((sum, booking) => {
-        if (booking.status === "approved" && booking.service && booking.service.price) {
+        if (booking.status === "completed" && booking.service && booking.service.price) {
           return sum + booking.service.price;
         }
         return sum;
