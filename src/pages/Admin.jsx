@@ -542,9 +542,13 @@ function Admin() {
     try {
       setError("");
       setSuccess("");
-      console.log("Approving booking:", bookingId);
+      
+      // Ensure bookingId is a string and is the actual unique ID
+      const uniqueBookingId = String(bookingId);
+      console.log("Approving booking - Booking ID:", uniqueBookingId);
+      
       const response = await apiRequest(
-        `${API_ENDPOINTS.bookings}/${bookingId}`,
+        `${API_ENDPOINTS.bookingStatus}/${uniqueBookingId}/status`,
         {
           method: "PATCH",
           body: JSON.stringify({ status: "approved" }),
@@ -555,8 +559,11 @@ function Admin() {
       if (response.ok) {
         setSuccess("Bron muvaffaqiyatli tasdiqlandi");
         
-        // Show toast notification
-        const booking = bookings.find(b => String(b.id || b._id) === String(bookingId));
+        // Show toast notification - find by exact ID match
+        const booking = bookings.find(b => {
+          const bid = String(b.id || b._id);
+          return bid === uniqueBookingId;
+        });
         const clientName = booking?.client_name || booking?.client?.name || "N/A";
         toast.success(
           `✅ Bron tasdiqlandi!\n👤 ${clientName}`,
@@ -591,9 +598,13 @@ function Admin() {
     try {
       setError("");
       setSuccess("");
-      console.log("Rejecting booking:", bookingId);
+      
+      // Ensure bookingId is a string and is the actual unique ID
+      const uniqueBookingId = String(bookingId);
+      console.log("Rejecting booking - Booking ID:", uniqueBookingId);
+      
       const response = await apiRequest(
-        `${API_ENDPOINTS.bookings}/${bookingId}`,
+        `${API_ENDPOINTS.bookingStatus}/${uniqueBookingId}/status`,
         {
           method: "PATCH",
           body: JSON.stringify({ status: "rejected" }),
@@ -604,8 +615,11 @@ function Admin() {
       if (response.ok) {
         setSuccess("Bron muvaffaqiyatli rad etildi");
         
-        // Show toast notification
-        const booking = bookings.find(b => String(b.id || b._id) === String(bookingId));
+        // Show toast notification - find by exact ID match
+        const booking = bookings.find(b => {
+          const bid = String(b.id || b._id);
+          return bid === uniqueBookingId;
+        });
         const clientName = booking?.client_name || booking?.client?.name || "N/A";
         toast.error(
           `❌ Bron rad etildi!\n👤 ${clientName}`,
@@ -691,9 +705,13 @@ function Admin() {
     try {
       setError("");
       setSuccess("");
-      console.log("Updating booking status:", bookingId, status);
+      
+      // Ensure bookingId is a string and is the actual unique ID
+      const uniqueBookingId = String(bookingId);
+      console.log("Updating booking status - Booking ID:", uniqueBookingId, "Status:", status);
+      
       const response = await apiRequest(
-        `${API_ENDPOINTS.bookings}/${bookingId}`,
+        `${API_ENDPOINTS.bookingStatus}/${uniqueBookingId}/status`,
         {
           method: "PATCH",
           body: JSON.stringify({ status }),
@@ -704,8 +722,11 @@ function Admin() {
       if (response.ok) {
         setSuccess("Bron holati muvaffaqiyatli yangilandi");
         
-        // Show toast notification
-        const booking = bookings.find(b => String(b.id || b._id) === String(bookingId));
+        // Show toast notification - find by exact ID match
+        const booking = bookings.find(b => {
+          const bid = String(b.id || b._id);
+          return bid === uniqueBookingId;
+        });
         const clientName = booking?.client_name || booking?.client?.name || "N/A";
         const statusLabels = {
           pending: "Kutilmoqda",
@@ -1424,17 +1445,19 @@ function Admin() {
                               <>
                                 <Button
                                   size="sm"
-                                  onClick={() =>
-                                    handleApprove(booking.id || booking._id)
-                                  }
+                                  onClick={() => {
+                                    const bookingId = String(booking.id || booking._id);
+                                    handleApprove(bookingId);
+                                  }}
                                   className="bg-green-600 hover:bg-green-700 text-white px-4 py-1 text-xs">
                                   ✓ Tasdiqlash
                                 </Button>
                                 <Button
                                   size="sm"
-                                  onClick={() =>
-                                    handleReject(booking.id || booking._id)
-                                  }
+                                  onClick={() => {
+                                    const bookingId = String(booking.id || booking._id);
+                                    handleReject(bookingId);
+                                  }}
                                   className="bg-red-600 hover:bg-red-700 text-white px-4 py-1 text-xs">
                                   ✗ Rad etish
                                 </Button>
@@ -1443,12 +1466,10 @@ function Admin() {
                             {booking.status?.toLowerCase() !== "waiting" && booking.status?.toLowerCase() !== "pending" && (
                               <select
                                 value={booking.status || "pending"}
-                                onChange={(e) =>
-                                  handleStatusChange(
-                                    booking.id || booking._id,
-                                    e.target.value
-                                  )
-                                }
+                                onChange={(e) => {
+                                  const bookingId = String(booking.id || booking._id);
+                                  handleStatusChange(bookingId, e.target.value);
+                                }}
                                 className="px-3 py-1 border border-gray-300 rounded-lg focus:ring-2 focus:ring-barber-olive focus:border-barber-olive text-xs">
                                 <option value="pending">Kutilmoqda</option>
                                 <option value="approved">Tasdiqlangan</option>
