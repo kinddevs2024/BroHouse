@@ -1,6 +1,6 @@
 // API configuration
 // Update this with your actual API base URL
-const BASE_URL = "https://001barbershop.uz";
+const BASE_URL = "https://api.001barbershop.uz";
 
 export const API_BASE_URL =
   import.meta.env.VITE_API_BASE_URL || `${BASE_URL}/api`;
