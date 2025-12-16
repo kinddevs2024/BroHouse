@@ -1,10 +1,11 @@
+// Barber data - Our 4 barbers
 export const barbersData = [
   {
     id: 1,
-    name: "MARK BROWN",
-    role: "Owner",
-    description:
-      "With over 15 years of experience, Mark brings expertise and passion to every cut.",
+    name: "JOHN DOE",
+    role: "Barber",
+    description: "Professional barber with years of experience.",
+    image: "/3Y4A9599.jpg",
     social: {
       instagram: "https://www.instagram.com/001_barbershop_",
       facebook: "#",
@@ -13,10 +14,10 @@ export const barbersData = [
   },
   {
     id: 2,
-    name: "DAVID VILLEGAS",
+    name: "ALI",
     role: "Barber",
-    description:
-      "Specializing in modern cuts and fades, David is known for his attention to detail.",
+    description: "Professional barber with years of experience.",
+    image: "/3Y4A0007.jpg",
     social: {
       instagram: "https://www.instagram.com/001_barbershop_",
       facebook: "#",
@@ -25,10 +26,10 @@ export const barbersData = [
   },
   {
     id: 3,
-    name: "JOHN SMITH",
+    name: "IBROHIM",
     role: "Barber",
-    description:
-      "A master of classic styles and traditional barbering techniques.",
+    description: "Professional barber with years of experience.",
+    image: "/3Y4A9468.jpg",
     social: {
       instagram: "https://www.instagram.com/001_barbershop_",
       facebook: "#",
@@ -37,33 +38,10 @@ export const barbersData = [
   },
   {
     id: 4,
-    name: "MIKE JOHNSON",
-    role: "Stylist",
-    description:
-      "Creative stylist specializing in contemporary and trendy looks.",
-    social: {
-      instagram: "https://www.instagram.com/001_barbershop_",
-      facebook: "#",
-      twitter: "#",
-    },
-  },
-  {
-    id: 5,
-    name: "TOM WILSON",
+    name: "UMARBEK",
     role: "Barber",
-    description: "Expert in beard grooming and precision cuts.",
-    social: {
-      instagram: "https://www.instagram.com/001_barbershop_",
-      facebook: "#",
-      twitter: "#",
-    },
-  },
-  {
-    id: 6,
-    name: "JAMES DAVIS",
-    role: "Stylist",
-    description:
-      "Versatile stylist with expertise in all hair types and styles.",
+    description: "Professional barber with years of experience.",
+    image: "/3Y4A9824.jpg",
     social: {
       instagram: "https://www.instagram.com/001_barbershop_",
       facebook: "#",

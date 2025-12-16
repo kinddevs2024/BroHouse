@@ -1,189 +1,127 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Analytics } from "@vercel/analytics/react";
-import { galleryServices } from "../data";
 import { imagePool, getImagesInOrder } from "../data/images";
-import { SERVICES_BASE_URL, API_ENDPOINTS } from "../data/api";
-import { fetchWithTimeout } from "../utils/api";
 import ContactForm from "../components/ContactForm";
 import RegisterModal from "../components/RegisterModal";
 import Footer from "../components/Footer";
+import ImageLightbox from "../components/ImageLightbox";
 
 function Gallery() {
   const [registerModalOpen, setRegisterModalOpen] = useState(false);
-  const [services, setServices] = useState([]);
-  const [loadingPricing, setLoadingPricing] = useState(true);
-
-  // Fetch services from API for pricing
-  useEffect(() => {
-    const fetchServices = async () => {
-      try {
-        setLoadingPricing(true);
-        const response = await fetchWithTimeout(
-          `${SERVICES_BASE_URL}${API_ENDPOINTS.services}`,
-          {
-            method: "GET",
-            headers: {
-              Accept: "*/*",
-              "Content-Type": "application/json",
-            },
-            mode: "cors",
-          },
-          5000
-        );
-
-        if (response.ok) {
-          const data = await response.json();
-          let servicesList = Array.isArray(data)
-            ? data
-            : data.data || data.services || [];
-
-          // Map services to pricing format
-          const pricingList = (servicesList || []).map((service) => ({
-            id: service.id || service._id,
-            name: service.name || service.title || "Service",
-            price: service.price
-              ? `${parseFloat(service.price).toLocaleString("uz-UZ")} UZS`
-              : "N/A",
-          }));
-
-          setServices(pricingList);
-        } else {
-          console.warn("API response not ok");
-          setServices([]);
-        }
-      } catch (err) {
-        console.error("Error fetching services for pricing:", err);
-        setServices([]);
-      } finally {
-        setLoadingPricing(false);
-      }
-    };
-
-    fetchServices();
-  }, []);
-
-  // Use services from API for pricing
-  const galleryPricing = services.slice(0, 8);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
+  const [lightboxImages, setLightboxImages] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const imagesPerPage = 8;
 
   const handleRegisterModal = () => setRegisterModalOpen((cur) => !cur);
 
+  const handleImageClick = (index, images) => {
+    setLightboxImages(images);
+    setLightboxIndex(index);
+    setLightboxOpen(true);
+  };
+
+  const handleCloseLightbox = () => {
+    setLightboxOpen(false);
+  };
+
+  // Get all images for pagination
+  const allGalleryImages = getImagesInOrder(50);
+  const totalPages = Math.ceil(allGalleryImages.length / imagesPerPage);
+  const startIndex = (currentPage - 1) * imagesPerPage;
+  const endIndex = startIndex + imagesPerPage;
+  const currentImages = allGalleryImages.slice(startIndex, endIndex);
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <div className="pt-16 sm:pt-20 md:pt-[92px]">
-      {/* Our Services Section */}
-      <section
-        className="w-full bg-white py-8 sm:py-10 md:py-12 lg:py-16"
-        data-aos="fade-up">
-        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-[127px]">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-black text-center mb-6 sm:mb-8 md:mb-12">
-            Bizning Xizmatlarimiz
-          </h2>
-          <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
-            {galleryServices.map((service, i) => (
-              <motion.div
-                key={service.id}
-                className="relative rounded-2xl sm:rounded-3xl overflow-hidden"
-                data-aos="zoom-in"
-                data-aos-delay={i * 100}
-                whileHover={{ scale: 1.05 }}>
-                <div className="w-full h-[200px] xs:h-[220px] sm:h-[250px] md:h-[280px] lg:h-[300px] relative">
-                  <img
-                    src={getImagesInOrder(galleryServices.length)[i]}
-                    alt={service.label}
-                    className="w-full h-full object-cover"
-                    loading="lazy"
-                  />
-                </div>
-                <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-75 py-2 sm:py-3 md:py-4 px-3 sm:px-4 md:px-6">
-                  <div className="text-white font-semibold text-sm sm:text-base md:text-lg">
-                    {service.label}
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Experience Section */}
       <section
         className="w-full bg-barber-dark py-8 sm:py-10 md:py-12 lg:py-16"
         data-aos="fade-up">
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-[127px]">
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white text-center mb-6 sm:mb-8 md:mb-12">
-            Eng Yaxshi Soch Olish va Qirqish Xizmatlarini Boshdan Kechiring
+            GALLERY
           </h2>
-          <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
-            {getImagesInOrder(9).map((imgSrc, i) => (
-              <motion.div
-                key={i}
-                className="w-full h-[200px] xs:h-[220px] sm:h-[250px] md:h-[280px] lg:h-[300px] rounded-2xl sm:rounded-3xl overflow-hidden"
-                data-aos="zoom-in"
-                data-aos-delay={i * 50}
-                whileHover={{ scale: 1.05 }}>
-                <img
-                  src={imgSrc}
-                  alt={`Gallery image ${i + 1}`}
-                  className="w-full h-full object-cover"
-                  loading="lazy"
-                />
-              </motion.div>
-            ))}
+          <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6 mb-8">
+            {currentImages.map((imgSrc, i) => {
+              const globalIndex = startIndex + i;
+              return (
+                <motion.div
+                  key={globalIndex}
+                  className="w-full h-[200px] xs:h-[220px] sm:h-[250px] md:h-[280px] lg:h-[300px] rounded-2xl sm:rounded-3xl overflow-hidden cursor-pointer"
+                  data-aos="zoom-in"
+                  data-aos-delay={i * 50}
+                  whileHover={{ scale: 1.05 }}
+                  onClick={() => handleImageClick(globalIndex, allGalleryImages)}>
+                  <img
+                    src={imgSrc}
+                    alt={`Gallery image ${globalIndex + 1}`}
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                </motion.div>
+              );
+            })}
           </div>
-        </div>
-      </section>
-
-      {/* Pricing Section */}
-      <section
-        className="w-full bg-barber-olive py-8 sm:py-10 md:py-12 lg:py-16"
-        data-aos="fade-up">
-        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-[127px]">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-black text-center mb-6 sm:mb-8 md:mb-12">
-            Narxlar
-          </h2>
-          {loadingPricing ? (
-            <div className="text-center py-8">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-black mx-auto mb-4"></div>
-              <p className="text-black">Narxlar yuklanmoqda...</p>
-            </div>
-          ) : galleryPricing.length === 0 ? (
-            <div className="text-center py-8">
-              <p className="text-black">Narxlar topilmadi</p>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 md:gap-12 max-w-4xl mx-auto">
-              <div className="space-y-3 sm:space-y-4 md:space-y-6">
-                {galleryPricing.slice(0, 4).map((item, i) => (
-                  <div
-                    key={item.id}
-                    className="flex justify-between items-center py-2 sm:py-3 border-b border-black border-opacity-20"
-                    data-aos="fade-up"
-                    data-aos-delay={i * 50}>
-                    <span className="text-black font-medium text-sm sm:text-base">
-                      {item.name}
-                    </span>
-                    <span className="text-black font-semibold text-sm sm:text-base">
-                      {item.price}
-                    </span>
-                  </div>
-                ))}
+          
+          {/* Pagination */}
+          {totalPages > 1 && (
+            <div className="flex justify-center items-center gap-2 sm:gap-3 mt-8">
+              <button
+                onClick={() => handlePageChange(currentPage - 1)}
+                disabled={currentPage === 1}
+                className="px-4 py-2 bg-white bg-opacity-20 text-white rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-opacity-30 transition-colors">
+                Previous
+              </button>
+              
+              <div className="flex gap-1 sm:gap-2">
+                {[...Array(totalPages)].map((_, index) => {
+                  const page = index + 1;
+                  // Show first page, last page, current page, and pages around current
+                  if (
+                    page === 1 ||
+                    page === totalPages ||
+                    (page >= currentPage - 1 && page <= currentPage + 1)
+                  ) {
+                    return (
+                      <button
+                        key={page}
+                        onClick={() => handlePageChange(page)}
+                        className={`px-3 sm:px-4 py-2 rounded-lg transition-colors ${
+                          currentPage === page
+                            ? "bg-white text-barber-dark font-bold"
+                            : "bg-white bg-opacity-20 text-white hover:bg-opacity-30"
+                        }`}>
+                        {page}
+                      </button>
+                    );
+                  } else if (
+                    page === currentPage - 2 ||
+                    page === currentPage + 2
+                  ) {
+                    return (
+                      <span key={page} className="px-2 text-white">
+                        ...
+                      </span>
+                    );
+                  }
+                  return null;
+                })}
               </div>
-              <div className="space-y-3 sm:space-y-4 md:space-y-6">
-                {galleryPricing.slice(4, 8).map((item, i) => (
-                  <div
-                    key={item.id}
-                    className="flex justify-between items-center py-2 sm:py-3 border-b border-black border-opacity-20"
-                    data-aos="fade-up"
-                    data-aos-delay={i * 50}>
-                    <span className="text-black font-medium text-sm sm:text-base">
-                      {item.name}
-                    </span>
-                    <span className="text-black font-semibold text-sm sm:text-base">
-                      {item.price}
-                    </span>
-                  </div>
-                ))}
-              </div>
+              
+              <button
+                onClick={() => handlePageChange(currentPage + 1)}
+                disabled={currentPage === totalPages}
+                className="px-4 py-2 bg-white bg-opacity-20 text-white rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-opacity-30 transition-colors">
+                Next
+              </button>
             </div>
           )}
         </div>
@@ -198,7 +136,7 @@ function Gallery() {
             className="w-full h-[300px] xs:h-[450px] sm:h-[400px] md:h-[450px] lg:h-[500px] xl:h-[600px] rounded-2xl sm:rounded-3xl overflow-hidden order-2 lg:order-1"
             data-aos="fade-right">
             <img
-              src={imagePool[3]}
+              src={imagePool[5]}
               alt="Contact 001 Barbershop"
               className="w-full h-full object-cover"
               loading="lazy"
@@ -219,6 +157,12 @@ function Gallery() {
       <RegisterModal
         open={registerModalOpen}
         handleOpen={handleRegisterModal}
+      />
+      <ImageLightbox
+        images={lightboxImages}
+        currentIndex={lightboxIndex}
+        isOpen={lightboxOpen}
+        onClose={handleCloseLightbox}
       />
       <Analytics />
     </div>

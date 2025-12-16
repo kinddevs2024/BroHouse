@@ -8,7 +8,7 @@ import {
 import { Button } from "@material-tailwind/react";
 import { motion } from "framer-motion";
 import { servicesData, whyChooseUs, contactInfo } from "../data";
-import { getImagesInOrder } from "../data/images";
+import { getImagesInOrder, imagePool } from "../data/images";
 import { API_ENDPOINTS, SERVICES_BASE_URL } from "../data/api";
 import { fetchWithTimeout } from "../utils/api";
 import ServiceCard from "../components/ServiceCard";
@@ -16,12 +16,16 @@ import ContactForm from "../components/ContactForm";
 import RegisterModal from "../components/RegisterModal";
 import Footer from "../components/Footer";
 import { Analytics } from "@vercel/analytics/react";
+import ImageLightbox from "../components/ImageLightbox";
 
 function Home() {
   const navigate = useNavigate();
   const [registerModalOpen, setRegisterModalOpen] = useState(false);
   const [services, setServices] = useState([]);
   const [loadingServices, setLoadingServices] = useState(true);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
+  const [lightboxImages, setLightboxImages] = useState([]);
 
   // Fetch services from API
   useEffect(() => {
@@ -173,6 +177,16 @@ function Home() {
     setRegisterModalOpen(!registerModalOpen);
   };
 
+  const handleImageClick = (index, images) => {
+    setLightboxImages(images);
+    setLightboxIndex(index);
+    setLightboxOpen(true);
+  };
+
+  const handleCloseLightbox = () => {
+    setLightboxOpen(false);
+  };
+
   return (
     <div>
       <Analytics />
@@ -186,7 +200,7 @@ function Home() {
             data-aos="fade-left">
             <div className="relative w-full h-[300px] xs:h-[650px] sm:h-[400px] md:h-[500px] lg:h-[800px] xl:h-[900px] 2xl:h-[1000px] rounded-2xl sm:rounded-3xl lg:rounded-[35px] overflow-hidden shadow-2xl">
               <img
-                src="/5273736187975765549_121.jpg"
+                src={imagePool[0]}
                 alt="001 Barbershop - Professional haircut and grooming services in Tashkent"
                 className="w-full h-full object-cover"
                 loading="eager"
@@ -393,7 +407,7 @@ function Home() {
             <div className="relative order-2 lg:order-1" data-aos="fade-right">
               <div className="w-full h-[300px] xs:h-[350px] sm:h-[400px] md:h-[450px] lg:h-[500px] rounded-2xl sm:rounded-3xl relative overflow-hidden">
                 <img
-                  src="/5273736187975765548_121.jpg"
+                  src={imagePool[1]}
                   alt="Professional barber services at 001 Barbershop"
                   className="w-full h-full object-cover"
                   loading="lazy"
@@ -447,7 +461,7 @@ function Home() {
             <div className="relative order-1 lg:order-2" data-aos="fade-left">
               <div className="w-full h-[300px] xs:h-[350px] sm:h-[400px] md:h-[450px] lg:h-[500px] rounded-2xl sm:rounded-3xl relative overflow-hidden">
                 <img
-                  src="/5273736187975765550_121.jpg"
+                  src={imagePool[1]}
                   alt="Expert barbers at 001 Barbershop providing consultation"
                   className="w-full h-full object-cover"
                   loading="lazy"
@@ -460,83 +474,42 @@ function Home() {
           </div>
         </section>
 
-        {/* Barbershop Services Section */}
-        <section
-          className="w-full bg-barber-dark py-8 sm:py-10 md:py-12 lg:py-20"
-          data-aos="fade-up">
-          <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-[127px]">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white text-center mb-6 sm:mb-8 md:mb-12">
-              Barbershop Xizmatlari
-            </h2>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-12 items-center">
-              <div
-                className="w-full h-[300px] xs:h-[450px] sm:h-[400px] md:h-[450px] lg:h-[500px] xl:h-[600px] rounded-2xl sm:rounded-3xl overflow-hidden"
-                data-aos="fade-right">
-                <img
-                  src="/5273736187975765549_121.jpg"
-                  alt="Barbershop services at 001 Barbershop"
-                  className="w-full h-full object-cover"
-                  loading="lazy"
-                />
-              </div>
-              <div
-                className="grid grid-cols-2 gap-3 sm:gap-4 md:gap-6"
-                data-aos="fade-left">
-                {displayServices.slice(4, 8).map((service) => (
-                  <motion.div
-                    key={service.id}
-                    className="bg-barber-light rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 flex flex-col items-center gap-3 sm:gap-4"
-                    whileHover={{ scale: 1.05 }}>
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 flex items-center justify-center">
-                      <svg
-                        width="50"
-                        height="50"
-                        viewBox="0 0 50 50"
-                        fill="none"
-                        className="text-barber-gold w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12"
-                        aria-hidden="true">
-                        <path
-                          d="M25 5L10 15v10l15 10 15-10V15L25 5z"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          fill="none"
-                        />
-                      </svg>
-                    </div>
-                    <h3 className="text-base sm:text-lg md:text-xl font-semibold text-barber-gold text-center">
-                      {service.name}
-                    </h3>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Experience the Best Haircut & Shave Services Section */}
+        {/* 360° BARBER SHOP Section */}
         <section
           className="w-full bg-barber-olive py-8 sm:py-10 md:py-12 lg:py-20"
           data-aos="fade-up">
           <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-[127px]">
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white text-center mb-6 sm:mb-8 md:mb-12">
-              Eng Yaxshi Soch Olish va Qirqish Xizmatlarini Boshdan Kechiring
+              360° BARBER SHOP
             </h2>
             <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
-              {getImagesInOrder(6).map((imgSrc, i) => (
-                <motion.div
-                  key={i}
-                  className="w-full h-[200px] xs:h-[220px] sm:h-[250px] md:h-[280px] lg:h-[300px] rounded-2xl sm:rounded-3xl overflow-hidden"
-                  data-aos="zoom-in"
-                  data-aos-delay={i * 100}
-                  whileHover={{ scale: 1.05 }}>
-                  <img
-                    src={imgSrc}
-                    alt={`001 Barbershop service example ${i + 1}`}
-                    className="w-full h-full object-cover"
-                    loading="lazy"
-                  />
-                </motion.div>
-              ))}
+              {(() => {
+                const barberShopImages = [
+                  "/3Y4A9885.jpg",
+                  "/3Y4A9893.jpg",
+                  "/3Y4A9898.jpg",
+                  "/3Y4A9905.jpg",
+                  "/3Y4A9908.jpg",
+                  "/3Y4A9923.jpg",
+                  "/3Y4A989Y.jpg",
+                ];
+                return barberShopImages.map((imgSrc, i) => (
+                  <motion.div
+                    key={i}
+                    className="w-full h-[200px] xs:h-[220px] sm:h-[250px] md:h-[280px] lg:h-[300px] rounded-2xl sm:rounded-3xl overflow-hidden cursor-pointer"
+                    data-aos="zoom-in"
+                    data-aos-delay={i * 100}
+                    whileHover={{ scale: 1.05 }}
+                    onClick={() => handleImageClick(i, barberShopImages)}>
+                    <img
+                      src={imgSrc}
+                      alt={`001 Barbershop 360° view ${i + 1}`}
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                    />
+                  </motion.div>
+                ));
+              })()}
             </div>
           </div>
         </section>
@@ -591,7 +564,7 @@ function Home() {
               className="w-full h-[300px] xs:h-[450px] sm:h-[400px] md:h-[450px] lg:h-[500px] xl:h-[600px] rounded-2xl sm:rounded-3xl overflow-hidden order-2 lg:order-1"
               data-aos="fade-right">
               <img
-                src="/5273736187975765548_121.jpg"
+                src={imagePool[4]}
                 alt="Contact 001 Barbershop in Tashkent"
                 className="w-full h-full object-cover"
                 loading="lazy"
@@ -615,6 +588,12 @@ function Home() {
       <RegisterModal
         open={registerModalOpen}
         handleOpen={handleRegisterModal}
+      />
+      <ImageLightbox
+        images={lightboxImages}
+        currentIndex={lightboxIndex}
+        isOpen={lightboxOpen}
+        onClose={handleCloseLightbox}
       />
     </div>
   );

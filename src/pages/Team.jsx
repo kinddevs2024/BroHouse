@@ -31,9 +31,40 @@ function Team() {
 
         const data = await response.json();
         // Handle both array response and object with data property
-        const barbersList = Array.isArray(data)
+        let barbersList = Array.isArray(data)
           ? data
           : data.data || data.barbers || [];
+        
+        // Map barbers to use correct photos by name
+        // Photo mapping: assign photos based on barber name
+        const barberPhotoMap = {
+          "ALI": "/3Y4A0018.jpg",
+          "JOHN DOE": "/3Y4A9569.jpg",
+          "IBROHIM": "/3Y4A9468.jpg",
+          "UMARBEK": "/3Y4A9824.jpg",
+          // Add more mappings as needed
+        };
+        
+        // Fallback photos in order if name doesn't match
+        const barberPhotos = [
+          "/3Y4A9569.jpg",
+          "/3Y4A9569.jpg",
+          "/3Y4A9468.jpg",
+          "/3Y4A9824.jpg",
+          "/3Y4A0018.jpg",
+        ];
+        
+        barbersList = barbersList.map((barber, index) => {
+          const barberName = (barber.name || barber.fullName || "").toUpperCase();
+          const mappedPhoto = barberPhotoMap[barberName];
+          
+          return {
+            ...barber,
+            // Use image from API if provided, otherwise use name mapping, otherwise use order
+            image: barber.image || barber.photo || barber.avatar || mappedPhoto || barberPhotos[index] || getImagesInOrder(barbersList.length)[index],
+          };
+        });
+        
         setBarbers(barbersList);
       } catch (err) {
         console.error("Error fetching barbers:", err);
