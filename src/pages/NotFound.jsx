@@ -17,16 +17,16 @@ function NotFound() {
             404
           </motion.h1>
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-black mb-3 sm:mb-4">
-            Sahifa topilmadi
+            Страница не найдена
           </h2>
           <p className="text-base sm:text-lg text-gray-600 mb-6 sm:mb-8 max-w-md mx-auto px-4">
-            Kechirasiz, qidirayotgan sahifangiz mavjud emas yoki ko'chirilgan.
+            Извините, запрашиваемая страница не существует или была перемещена.
           </p>
           <Link to="/">
             <Button
               size="lg"
               className="px-6 sm:px-8 py-3 sm:py-4 bg-barber-olive text-white rounded-xl sm:rounded-2xl font-semibold text-sm sm:text-base hover:bg-barber-gold">
-              Bosh sahifaga qaytish
+              Вернуться на главную
             </Button>
           </Link>
         </div>

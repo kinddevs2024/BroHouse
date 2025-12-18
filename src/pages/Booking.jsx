@@ -162,11 +162,11 @@ function Booking() {
         console.error("Error fetching data:", err);
         if (err.message && err.message.includes("timeout")) {
           setError(
-            "Backend javob bermadi (5 soniya). Iltimos, qayta urinib ko'ring."
+            "Backend не ответил (5 секунд). Пожалуйста, попробуйте еще раз."
           );
         } else {
           setError(
-            "Backend ma'lumotlarni yuklay olmadi. Iltimos, qayta urinib ko'ring."
+            "Не удалось загрузить данные с backend. Пожалуйста, попробуйте еще раз."
           );
         }
         setServices([]);
@@ -233,7 +233,7 @@ function Booking() {
         const errorMessage =
           data.message ||
           data.error ||
-          `Bron qilish muvaffaqiyatsiz (${response.status}). Iltimos, qayta urinib ko'ring.`;
+          `Запись не удалась (${response.status}). Пожалуйста, попробуйте еще раз.`;
         setError(errorMessage);
         console.error("Booking failed:", data);
       }
@@ -241,7 +241,7 @@ function Booking() {
       console.error("Booking error:", err);
       setError(
         err.message ||
-          "Tarmoq xatosi. Iltimos, internet aloqangizni tekshiring va qayta urinib ko'ring."
+          "Ошибка сети. Пожалуйста, проверьте подключение к интернету и попробуйте еще раз."
       );
     } finally {
       setIsSubmitting(false);
@@ -307,11 +307,11 @@ function Booking() {
           });
           setError("");
         } else {
-          setError("Vaqt 8:00 dan 21:00 gacha bo'lishi kerak");
+          setError("Время должно быть с 8:00 до 21:00");
         }
       } else if (value.length === 5) {
         setError(
-          "Noto'g'ri vaqt formati. Iltimos, HH:MM formatida kiriting (masalan: 14:30)"
+          "Неверный формат времени. Пожалуйста, введите в формате ЧЧ:ММ (например: 14:30)"
         );
       }
     } else {
@@ -346,14 +346,14 @@ function Booking() {
     if (currentStep === 1) {
       // Validate step 1: barber, date, and time must be selected
       if (!formData.barber_id || !formData.date || !formData.time) {
-        setError("Iltimos, barber, sana va vaqtni tanlang");
+        setError("Пожалуйста, выберите барбера, дату и время");
         return;
       }
       setCurrentStep(2);
     } else if (currentStep === 2) {
       // Validate step 2: at least one service must be selected
       if (!formData.service_ids || formData.service_ids.length === 0) {
-        setError("Iltimos, kamida bitta xizmatni tanlang");
+        setError("Пожалуйста, выберите хотя бы одну услугу");
         return;
       }
       setCurrentStep(3);
@@ -373,27 +373,27 @@ function Booking() {
     if (!dateString) return "";
     const date = new Date(dateString + "T00:00:00");
     const days = [
-      "Yakshanba",
-      "Dushanba",
-      "Seshanba",
-      "Chorshanba",
-      "Payshanba",
-      "Juma",
-      "Shanba",
+      "Воскресенье",
+      "Понедельник",
+      "Вторник",
+      "Среда",
+      "Четверг",
+      "Пятница",
+      "Суббота",
     ];
     const months = [
-      "Yanvar",
-      "Fevral",
-      "Mart",
-      "Aprel",
-      "May",
-      "Iyun",
-      "Iyul",
-      "Avgust",
-      "Sentabr",
-      "Oktabr",
-      "Noyabr",
-      "Dekabr",
+      "Январь",
+      "Февраль",
+      "Март",
+      "Апрель",
+      "Май",
+      "Июнь",
+      "Июль",
+      "Август",
+      "Сентябрь",
+      "Октябрь",
+      "Ноябрь",
+      "Декабрь",
     ];
     return `${days[date.getDay()]}, ${date.getDate()} ${
       months[date.getMonth()]
@@ -470,27 +470,27 @@ function Booking() {
   };
 
   const monthNames = [
-    "Yanvar",
-    "Fevral",
-    "Mart",
-    "Aprel",
-    "May",
-    "Iyun",
-    "Iyul",
-    "Avgust",
-    "Sentabr",
-    "Oktabr",
-    "Noyabr",
-    "Dekabr",
+    "Январь",
+    "Февраль",
+    "Март",
+    "Апрель",
+    "Май",
+    "Июнь",
+    "Июль",
+    "Август",
+    "Сентябрь",
+    "Октябрь",
+    "Ноябрь",
+    "Декабрь",
   ];
-  const dayNames = ["Yak", "Dush", "Sesh", "Chor", "Pay", "Jum", "Shan"];
+  const dayNames = ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"];
 
   if (loading) {
     return (
       <div className="pt-16 sm:pt-20 md:pt-[92px] min-h-screen flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-barber-gold mx-auto mb-4"></div>
-          <p className="text-black">Yuklanmoqda...</p>
+          <p className="text-black">Загрузка...</p>
         </div>
       </div>
     );
@@ -502,7 +502,7 @@ function Booking() {
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-[127px]">
           <div className="max-w-4xl mx-auto">
             <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-black mb-6 text-center">
-              Vaqt belgilash
+              Запись на прием
             </h1>
 
             {/* Step Indicator */}
@@ -521,7 +521,7 @@ function Booking() {
                     {currentStep > 1 ? "✓" : "1"}
                   </div>
                   <span className="ml-2 text-sm font-medium hidden sm:inline">
-                    Barber & Vaqt
+                    Барбер и время
                   </span>
                 </div>
                 <div
@@ -541,7 +541,7 @@ function Booking() {
                     {currentStep > 2 ? "✓" : "2"}
                   </div>
                   <span className="ml-2 text-sm font-medium hidden sm:inline">
-                    Xizmat
+                    Услуга
                   </span>
                 </div>
                 <div
@@ -561,7 +561,7 @@ function Booking() {
                     3
                   </div>
                   <span className="ml-2 text-sm font-medium hidden sm:inline">
-                    Ma'lumotlar
+                    Данные
                   </span>
                 </div>
               </div>
@@ -575,7 +575,7 @@ function Booking() {
 
             {success && (
               <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg text-sm mb-4">
-                ✅ Bron muvaffaqiyatli yaratildi!
+                ✅ Запись успешно создана!
               </div>
             )}
 
@@ -584,13 +584,13 @@ function Booking() {
               {currentStep === 1 && (
                 <div className="space-y-6">
                   <h2 className="text-xl sm:text-2xl font-bold text-black mb-4">
-                    Barber va vaqtni tanlang
+                    Выберите барбера и время
                   </h2>
 
                   {/* Barbers Selection */}
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-3">
-                      Barberni tanlang
+                      Выберите барбера
                     </label>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                       {barbers.map((barber) => {
@@ -612,11 +612,11 @@ function Booking() {
                               {barber.name || barber.fullName || "Barber"}
                             </h3>
                             <p className="text-sm text-gray-600">
-                              Ish vaqti: 8:00 - 21:00
+                              Время работы: 8:00 - 21:00
                             </p>
                             {isSelected && (
                               <p className="text-sm text-barber-olive font-semibold mt-2">
-                                ✓ Tanlangan
+                                ✓ Выбрано
                               </p>
                             )}
                           </button>
@@ -629,7 +629,7 @@ function Booking() {
                   {formData.barber_id && (
                     <div className="mb-4">
                       <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Sanani tanlang
+                        Выберите дату
                       </label>
                       <div className="bg-white border border-gray-200 rounded-lg p-2 shadow-sm max-w-md mx-auto">
                         {/* Calendar Header */}
@@ -721,7 +721,7 @@ function Booking() {
                         {formData.date && (
                           <div className="mt-2 pt-2 border-t border-gray-200">
                             <p className="text-xs text-gray-600">
-                              Tanlangan sana:
+                              Выбранная дата:
                             </p>
                             <p className="text-sm font-bold text-barber-olive">
                               {formatDateDisplay(formData.date)}
@@ -737,7 +737,7 @@ function Booking() {
                     <div>
                       <div className="flex items-center justify-between mb-3">
                         <label className="block text-sm font-medium text-gray-700">
-                          Vaqtni tanlang
+                          Выберите время
                         </label>
                         <button
                           type="button"
@@ -747,7 +747,7 @@ function Booking() {
                               ? "bg-barber-olive text-white"
                               : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                           }`}>
-                          {useCustomTime ? "Soatlar" : "Boshqa vaqt"}
+                          {useCustomTime ? "Часы" : "Другое время"}
                         </button>
                       </div>
 
@@ -815,20 +815,20 @@ function Booking() {
                             onChange={(e) =>
                               handleCustomTimeChange(e.target.value)
                             }
-                            label="Boshqa vaqt kiriting"
-                            placeholder="HH:MM (masalan: 14:30)"
+                            label="Введите другое время"
+                            placeholder="ЧЧ:ММ (например: 14:30)"
                             size="lg"
                             disabled={isSubmitting}
                             min="08:00"
                             max="21:00"
                           />
                           <p className="text-xs text-gray-500">
-                            Iltimos, vaqtni 8:00 dan 21:00 gacha kiriting
+                            Пожалуйста, введите время с 8:00 до 21:00
                           </p>
                           {formData.time && (
                             <div className="p-3 bg-barber-olive/10 border border-barber-olive rounded-lg">
                               <p className="text-sm text-gray-600">
-                                Tanlangan vaqt:
+                                Выбранное время:
                               </p>
                               <p className="text-base font-bold text-black">
                                 {formData.time}
@@ -857,13 +857,13 @@ function Booking() {
               {currentStep === 2 && (
                 <div className="space-y-6">
                   <h2 className="text-xl sm:text-2xl font-bold text-black mb-4">
-                    Xizmatni tanlang
+                    Выберите услугу
                   </h2>
 
                   {/* Selected Barber and Time Summary */}
                   {selectedBarber && (
                     <div className="bg-gray-50 rounded-lg p-4 mb-4">
-                      <p className="text-sm text-gray-600 mb-1">Tanlangan:</p>
+                      <p className="text-sm text-gray-600 mb-1">Выбрано:</p>
                       <p className="font-semibold text-black">
                         {selectedBarber.name || selectedBarber.fullName} -{" "}
                         {formData.date} {formData.time}
@@ -874,9 +874,9 @@ function Booking() {
                   {/* Services Selection */}
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-3">
-                      Xizmatni tanlang{" "}
+                      Выберите услугу{" "}
                       {formData.service_ids.length > 0 &&
-                        `(${formData.service_ids.length} tanlangan)`}
+                        `(${formData.service_ids.length} выбрано)`}
                     </label>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       {services.map((service) => {
@@ -953,7 +953,7 @@ function Booking() {
                       variant="outlined"
                       size="lg"
                       className="border-gray-300 text-gray-700 hover:bg-gray-50">
-                      Orqaga
+                      Назад
                     </Button>
                     <Button
                       type="button"
@@ -964,7 +964,7 @@ function Booking() {
                       }
                       size="lg"
                       className="bg-barber-olive hover:bg-barber-gold text-white font-semibold">
-                      Keyingi
+                      Далее
                     </Button>
                   </div>
                 </div>
@@ -974,29 +974,29 @@ function Booking() {
               {currentStep === 3 && (
                 <form onSubmit={handleFormSubmit} className="space-y-6">
                   <h2 className="text-xl sm:text-2xl font-bold text-black mb-4">
-                    Shaxsiy ma'lumotlar
+                    Личные данные
                   </h2>
 
                   {/* Summary */}
                   <div className="bg-gray-50 rounded-lg p-4 mb-4">
                     <p className="text-sm text-gray-600 mb-2">
-                      Bron ma'lumotlari:
+                      Информация о записи:
                     </p>
                     {selectedBarber && (
                       <p className="text-sm text-black mb-1">
-                        <span className="font-semibold">Barber:</span>{" "}
+                        <span className="font-semibold">Барбер:</span>{" "}
                         {selectedBarber.name || selectedBarber.fullName}
                       </p>
                     )}
                     <p className="text-sm text-black mb-1">
-                      <span className="font-semibold">Sana va Vaqt:</span>{" "}
+                      <span className="font-semibold">Дата и время:</span>{" "}
                       {formatDateDisplay(formData.date || today)}{" "}
                       {formData.time}
                     </p>
                     {formData.service_ids &&
                       formData.service_ids.length > 0 && (
                         <div className="text-sm text-black">
-                          <span className="font-semibold">Xizmatlar:</span>
+                          <span className="font-semibold">Услуги:</span>
                           <ul className="list-disc list-inside mt-1 ml-2">
                             {formData.service_ids.map((serviceId) => {
                               const service = services.find(
@@ -1019,8 +1019,8 @@ function Booking() {
                     name="name"
                     value={formData.name}
                     onChange={(e) => handleInputChange("name", e.target.value)}
-                    label="Ism"
-                    placeholder="Ismingizni kiriting"
+                    label="Имя"
+                    placeholder="Введите ваше имя"
                     required
                     size="lg"
                     disabled={isSubmitting}
@@ -1032,7 +1032,7 @@ function Booking() {
                     name="phone"
                     value={formData.phone}
                     onChange={(e) => handleInputChange("phone", e.target.value)}
-                    label="Telefon raqami"
+                    label="Номер телефона"
                     placeholder="+998 XX XXX XX XX"
                     required
                     size="lg"
@@ -1047,7 +1047,7 @@ function Booking() {
                       size="lg"
                       className="border-gray-300 text-gray-700 hover:bg-gray-50"
                       disabled={isSubmitting}>
-                      Orqaga
+                      Назад
                     </Button>
                     <Button
                       type="submit"
@@ -1057,7 +1057,7 @@ function Booking() {
                       size="lg"
                       className="bg-barber-olive hover:bg-barber-gold text-white font-semibold"
                       loading={isSubmitting}>
-                      {isSubmitting ? "Bron qilinmoqda..." : "Bron qilish"}
+                      {isSubmitting ? "Создание записи..." : "Записаться"}
                     </Button>
                   </div>
                 </form>

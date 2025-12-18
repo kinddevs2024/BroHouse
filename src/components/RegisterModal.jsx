@@ -42,10 +42,10 @@ function RegisterModal({ open, handleOpen }) {
         }, 2000)
       } else {
         const errorData = await response.json().catch(() => ({}))
-        setError(errorData.message || 'Ro\'yxatdan o\'tish muvaffaqiyatsiz. Iltimos, qayta urinib ko\'ring.')
+        setError(errorData.message || 'Регистрация не удалась. Пожалуйста, попробуйте еще раз.')
       }
     } catch (error) {
-      setError('Tarmoq xatosi. Iltimos, internet aloqangizni tekshiring va qayta urinib ko\'ring.')
+      setError('Ошибка сети. Пожалуйста, проверьте подключение и попробуйте еще раз.')
       console.error('Registration error:', error)
     } finally {
       setIsSubmitting(false)
@@ -69,7 +69,7 @@ function RegisterModal({ open, handleOpen }) {
 
   return (
     <Dialog open={open} handler={handleOpen} size="md" className="max-w-md">
-      <DialogHeader className="text-2xl font-bold text-black">Onlayn bron qilish uchun ro'yxatdan o'tish</DialogHeader>
+      <DialogHeader className="text-2xl font-bold text-black">Регистрация для онлайн-записи</DialogHeader>
       <DialogBody>
         <form onSubmit={handleFormSubmit} className="space-y-4">
           {error && (
@@ -80,7 +80,7 @@ function RegisterModal({ open, handleOpen }) {
           
           {success && (
             <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg text-sm">
-              ✅ Ro'yxatdan o'tish muvaffaqiyatli! Endi tizimga kirishingiz mumkin.
+              ✅ Регистрация успешна! Теперь вы можете войти в систему.
             </div>
           )}
 
@@ -89,7 +89,7 @@ function RegisterModal({ open, handleOpen }) {
             name="name"
             value={formData.name}
             onChange={handleInputChange}
-            label="To'liq ism"
+            label="Полное имя"
             required
             size="lg"
             disabled={isSubmitting}
@@ -100,7 +100,7 @@ function RegisterModal({ open, handleOpen }) {
             name="tg_username"
             value={formData.tg_username}
             onChange={handleInputChange}
-            label="Telegram foydalanuvchi nomi"
+            label="Имя пользователя Telegram"
             placeholder="@username"
             required
             size="lg"
@@ -112,7 +112,7 @@ function RegisterModal({ open, handleOpen }) {
             name="phone_number"
             value={formData.phone_number}
             onChange={handleInputChange}
-            label="Telefon raqami"
+            label="Номер телефона"
             placeholder="+998901234567"
             required
             size="lg"
@@ -124,7 +124,7 @@ function RegisterModal({ open, handleOpen }) {
             name="password"
             value={formData.password}
             onChange={handleInputChange}
-            label="Parol"
+            label="Пароль"
             required
             size="lg"
             disabled={isSubmitting}
@@ -137,7 +137,7 @@ function RegisterModal({ open, handleOpen }) {
             className="w-full bg-barber-olive hover:bg-barber-gold text-white font-semibold"
             loading={isSubmitting}
           >
-            {isSubmitting ? 'Ro\'yxatdan o\'tilmoqda...' : 'Ro\'yxatdan o\'tish'}
+            {isSubmitting ? 'Регистрация...' : 'Зарегистрироваться'}
           </Button>
         </form>
       </DialogBody>
@@ -148,7 +148,7 @@ function RegisterModal({ open, handleOpen }) {
           onClick={handleClose}
           className="mr-1"
         >
-          Yopish
+          Закрыть
         </Button>
       </DialogFooter>
     </Dialog>

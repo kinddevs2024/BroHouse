@@ -51,8 +51,7 @@ function Delivery() {
                     Instagram
                   </h2>
                   <p className="text-gray-600 text-sm sm:text-base mb-3">
-                    Eng so'nggi yangilanishlar, rasmlar va maxsus takliflar
-                    uchun bizni Instagramda kuzatib boring
+                    Следите за нами в Instagram для последних обновлений, фотографий и специальных предложений
                   </p>
                   <div className="flex items-center justify-center sm:justify-start gap-2 text-barber-olive font-semibold text-sm sm:text-base">
                     <span>@001_barbershop_</span>
@@ -78,7 +77,7 @@ function Delivery() {
               className="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-10 shadow-2xl"
               data-aos="fade-up">
               <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-black mb-6 text-center">
-                Aloqa Ma'lumotlari
+                Контактная информация
               </h2>
               <div className="space-y-4">
                 <div className="flex items-start gap-4">
@@ -103,7 +102,7 @@ function Delivery() {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="font-semibold text-black mb-1">Manzil</h3>
+                    <h3 className="font-semibold text-black mb-1">Адрес</h3>
                     <p className="text-gray-600 text-sm sm:text-base">
                       {contactInfo.address}
                     </p>
@@ -126,7 +125,7 @@ function Delivery() {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="font-semibold text-black mb-1">Telefon</h3>
+                    <h3 className="font-semibold text-black mb-1">Телефон</h3>
                     <a
                       href={`tel:${contactInfo.phone}`}
                       className="text-gray-600 hover:text-barber-olive transition-colors text-sm sm:text-base">
@@ -151,7 +150,7 @@ function Delivery() {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="font-semibold text-black mb-1">Email</h3>
+                    <h3 className="font-semibold text-black mb-1">Электронная почта</h3>
                     <a
                       href={`mailto:${contactInfo.email}`}
                       className="text-gray-600 hover:text-barber-olive transition-colors text-sm sm:text-base">

@@ -7,21 +7,21 @@ export const contactInfo = {
   taplink: "https://taplink.cc/001_barbershop_", // Update with your actual Taplink URL
   telegramBot: "https://t.me/barber001_bot",
   tagline: "001 BARBERSHOP | PREMIUM class ✨",
-  description: "Erkaklar uchun mukammal imidj",
-  subtitle: "💈 Professional Barberlar | Comfort muhit",
+  description: "Идеальный имидж для мужчин",
+  subtitle: "💈 Профессиональные Барберы | Комфортная атмосфера",
   location: {
     city: "Tashkent",
     country: "Uzbekistan",
     building: "BM Grup Building",
   },
   workingHours: [
-    { day: "YAKSHANBA", hours: "8:00 - 17:00" },
-    { day: "DUSHANBA", hours: "8:00 - 19:00" },
-    { day: "SESHANBA", hours: "8:00 - 21:00" },
-    { day: "CHORSHANBA", hours: "8:00 - 21:00" },
-    { day: "PAYSHANBA", hours: "8:00 - 19:00" },
-    { day: "JUMA", hours: "8:00 - 19:00" },
-    { day: "SHANBA", hours: "8:00 - 21:00" },
+    { day: "ВОСКРЕСЕНЬЕ", hours: "8:00 - 17:00" },
+    { day: "ПОНЕДЕЛЬНИК", hours: "8:00 - 19:00" },
+    { day: "ВТОРНИК", hours: "8:00 - 21:00" },
+    { day: "СРЕДА", hours: "8:00 - 21:00" },
+    { day: "ЧЕТВЕРГ", hours: "8:00 - 19:00" },
+    { day: "ПЯТНИЦА", hours: "8:00 - 19:00" },
+    { day: "СУББОТА", hours: "8:00 - 21:00" },
   ],
   testimonials: [
     {
@@ -36,9 +36,9 @@ export const contactInfo = {
 };
 
 export const whyChooseUs = [
-  "Doim qulay va qiziqarli muhit",
-  "Bizning mutaxassislarimiz sifatga e'tibor qaratadi",
-  "Biz mijozlarimizning vaqti va pulini qadrlaymiz",
-  "Biz faqat yuqori sifatli, gipoallergenik premium mahsulotlardan foydalanamiz",
-  "Bizning asboblarimiz va parvarish vositalarimiz har bir foydalanishdan keyin tozalanadi, sanitariya qilinadi va dezinfeksiya qilinadi",
+  "Всегда комфортная и интересная атмосфера",
+  "Наши специалисты уделяют внимание качеству",
+  "Мы ценим время и деньги наших клиентов",
+  "Мы используем только высококачественные, гипоаллергенные премиум продукты",
+  "Наши инструменты и средства ухода очищаются, санируются и дезинфицируются после каждого использования",
 ];

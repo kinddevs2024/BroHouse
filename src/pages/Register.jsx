@@ -91,12 +91,12 @@ function Register() {
         setError(
           data.message ||
             data.error ||
-            "Ro'yxatdan o'tish muvaffaqiyatsiz. Iltimos, qayta urinib ko'ring."
+            "Регистрация не удалась. Пожалуйста, попробуйте еще раз."
         );
       }
     } catch (err) {
       setError(
-        "Tarmoq xatosi. Iltimos, internet aloqangizni tekshiring va qayta urinib ko'ring."
+        "Ошибка сети. Пожалуйста, проверьте подключение к интернету и попробуйте еще раз."
       );
       console.error("Registration error:", err);
     } finally {
@@ -119,10 +119,10 @@ function Register() {
           <div className="max-w-md mx-auto">
             <div className="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-10 shadow-lg border border-gray-200">
               <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-black mb-2 text-center">
-                Ro'yxatdan o'tish
+                Регистрация
               </h1>
               <p className="text-gray-600 text-sm sm:text-base mb-6 text-center">
-                Yangi hisob yarating
+                Создать новый аккаунт
               </p>
 
               {error && (
@@ -133,7 +133,7 @@ function Register() {
 
               {success && (
                 <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg text-sm mb-4">
-                  ✅ Ro'yxatdan o'tish muvaffaqiyatli! Yo'naltirilmoqda...
+                  ✅ Регистрация успешна! Перенаправление...
                 </div>
               )}
 
@@ -145,7 +145,7 @@ function Register() {
                   name="name"
                   value={formData.name}
                   onChange={handleInputChange}
-                  label="To'liq ism"
+                  label="Полное имя"
                   required
                   size="lg"
                   disabled={isSubmitting}
@@ -156,7 +156,7 @@ function Register() {
                   name="tg_username"
                   value={formData.tg_username}
                   onChange={handleInputChange}
-                  label="Telegram foydalanuvchi nomi"
+                  label="Имя пользователя Telegram"
                   placeholder="@username"
                   required
                   size="lg"
@@ -168,7 +168,7 @@ function Register() {
                   name="phone_number"
                   value={formData.phone_number}
                   onChange={handleInputChange}
-                  label="Telefon raqami"
+                  label="Номер телефона"
                   placeholder="+998901234567"
                   required
                   size="lg"
@@ -180,7 +180,7 @@ function Register() {
                   name="password"
                   value={formData.password}
                   onChange={handleInputChange}
-                  label="Parol"
+                  label="Пароль"
                   required
                   size="lg"
                   disabled={isSubmitting}
@@ -193,18 +193,18 @@ function Register() {
                   className="w-full bg-barber-olive hover:bg-barber-gold text-white font-semibold"
                   loading={isSubmitting}>
                   {isSubmitting
-                    ? "Ro'yxatdan o'tilmoqda..."
-                    : "Ro'yxatdan o'tish"}
+                    ? "Регистрация..."
+                    : "Зарегистрироваться"}
                 </Button>
               </form>
 
               <div className="mt-6 text-center">
                 <p className="text-sm text-gray-600">
-                  Hisobingiz bormi?{" "}
+                  Уже есть аккаунт?{" "}
                   <Link
                     to="/login"
                     className="text-barber-olive hover:text-barber-gold font-semibold">
-                    Bu yerda kiring
+                    Войдите здесь
                   </Link>
                 </p>
               </div>

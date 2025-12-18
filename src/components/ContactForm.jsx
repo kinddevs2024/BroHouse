@@ -37,11 +37,11 @@ function ContactForm() {
           setSuccess(false)
         }, 5000)
       } else {
-        setError(data.message || data.error || 'Xabar yuborish muvaffaqiyatsiz')
+        setError(data.message || data.error || 'Не удалось отправить сообщение')
       }
     } catch (err) {
       console.error('Error sending comment:', err)
-      setError('Tarmoq xatosi. Iltimos, qayta urinib ko\'ring.')
+      setError('Ошибка сети. Пожалуйста, попробуйте еще раз.')
     } finally {
       setIsSubmitting(false)
     }
@@ -61,7 +61,7 @@ function ContactForm() {
         name="name"
         value={formData.name}
         onChange={handleInputChange}
-        placeholder="Ismingizni kiriting"
+        placeholder="Введите ваше имя"
         required
         size="lg"
         className="!text-black !bg-white"
@@ -75,7 +75,7 @@ function ContactForm() {
         name="message"
         value={formData.message}
         onChange={handleInputChange}
-        placeholder="Xabaringizni kiriting"
+        placeholder="Введите ваше сообщение"
         rows={5}
         required
         size="lg"
@@ -93,7 +93,7 @@ function ContactForm() {
       )}
       {success && (
         <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg text-sm">
-          ✅ Xabaringiz muvaffaqiyatli yuborildi!
+          ✅ Ваше сообщение успешно отправлено!
         </div>
       )}
       <Button
@@ -104,18 +104,18 @@ function ContactForm() {
         loading={isSubmitting}
       >
         {isSubmitting ? (
-          'Yuborilmoqda...'
+          'Отправляется...'
         ) : (
           <span className="flex items-center justify-center gap-2">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
             </svg>
-            Xabarni yuborish
+            Отправить сообщение
           </span>
         )}
       </Button>
       <p className="text-white text-xs sm:text-sm opacity-70 text-center">
-        Xabaringiz bizning serverga yuboriladi
+        Ваше сообщение будет отправлено на наш сервер
       </p>
     </form>
   )

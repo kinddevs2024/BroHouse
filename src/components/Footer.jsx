@@ -21,14 +21,14 @@ function Footer() {
             </p>
           </div>
           <div>
-            <h3 className="text-white text-lg sm:text-xl font-bold mb-3 sm:mb-4">Aloqa</h3>
+            <h3 className="text-white text-lg sm:text-xl font-bold mb-3 sm:mb-4">Контакты</h3>
             <p className="text-white opacity-80 mb-2 text-sm sm:text-base break-words">{contactInfo.address}</p>
             <a href={`tel:${contactInfo.phone}`} className="text-white opacity-80 hover:text-barber-gold transition-colors text-sm sm:text-base break-all">
               {contactInfo.phone}
             </a>
           </div>
           <div>
-            <h3 className="text-white text-lg sm:text-xl font-bold mb-3 sm:mb-4">Bizni kuzatib boring</h3>
+            <h3 className="text-white text-lg sm:text-xl font-bold mb-3 sm:mb-4">Следите за нами</h3>
             <a
               href={contactInfo.instagram}
               target="_blank"
@@ -41,7 +41,7 @@ function Footer() {
         </div>
         <div className="border-t border-white border-opacity-20 pt-6 sm:pt-8 text-center">
           <p className="text-white opacity-60 text-xs sm:text-sm">
-            &copy; {new Date().getFullYear()} 001 Barbershop. Barcha huquqlar himoyalangan.
+            &copy; {new Date().getFullYear()} 001 Barbershop. Все права защищены.
           </p>
         </div>
       </div>

@@ -55,17 +55,17 @@ function Login() {
             navigate("/booking");
           }
         } else {
-          setError("Serverdan noto'g'ri javob");
+          setError("Неправильный ответ от сервера");
         }
       } else {
-        setError(
-          data.message ||
-            "Kirish muvaffaqiyatsiz. Iltimos, ma'lumotlaringizni tekshiring."
-        );
+          setError(
+            data.message ||
+              "Вход не удался. Пожалуйста, проверьте свои данные."
+          );
       }
     } catch (err) {
       setError(
-        "Tarmoq xatosi. Iltimos, internet aloqangizni tekshiring va qayta urinib ko'ring."
+        "Ошибка сети. Пожалуйста, проверьте подключение к интернету и попробуйте еще раз."
       );
       console.error("Login error:", err);
     } finally {
@@ -88,10 +88,10 @@ function Login() {
           <div className="max-w-md mx-auto">
             <div className="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-10 shadow-lg border border-gray-200">
               <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-black mb-2 text-center">
-                Kirish
+                Вход
               </h1>
               <p className="text-gray-600 text-sm sm:text-base mb-6 text-center">
-                Hisobingizga kiring
+                Войдите в свой аккаунт
               </p>
 
               {error && (
@@ -108,7 +108,7 @@ function Login() {
                   name="tg_username"
                   value={formData.tg_username}
                   onChange={handleInputChange}
-                  label="Telegram foydalanuvchi nomi"
+                  label="Имя пользователя Telegram"
                   placeholder="@username"
                   required
                   size="lg"
@@ -120,7 +120,7 @@ function Login() {
                   name="password"
                   value={formData.password}
                   onChange={handleInputChange}
-                  label="Parol"
+                  label="Пароль"
                   required
                   size="lg"
                   disabled={isSubmitting}
@@ -132,17 +132,17 @@ function Login() {
                   size="lg"
                   className="w-full bg-barber-olive hover:bg-barber-gold text-white font-semibold"
                   loading={isSubmitting}>
-                  {isSubmitting ? "Kirilmoqda..." : "Kirish"}
+                  {isSubmitting ? "Вход..." : "Войти"}
                 </Button>
               </form>
 
               <div className="mt-6 text-center">
                 <p className="text-sm text-gray-600">
-                  Hisobingiz yo'qmi?{" "}
+                  Нет аккаунта?{" "}
                   <Link
                     to="/register"
                     className="text-barber-olive hover:text-barber-gold font-semibold">
-                    Bu yerda ro'yxatdan o'ting
+                    Зарегистрируйтесь здесь
                   </Link>
                 </p>
               </div>

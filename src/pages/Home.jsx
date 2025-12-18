@@ -54,7 +54,7 @@ function Home() {
             ? data
                 .filter((item) => item.comment && item.comment.trim() !== "")
                 .map((item) => ({
-                  name: item.client_name || item.client?.name || item.name || "Mijoz",
+                  name: item.client_name || item.client?.name || item.name || "Клиент",
                   text: item.comment || item.message || "",
                   id: item.id || item._id,
                 }))
@@ -260,7 +260,7 @@ function Home() {
             className="flex-1 flex flex-col justify-center lg:justify-start lg:pt-[100px] z-10 w-full lg:w-auto order-2 lg:order-1"
             data-aos="fade-right">
             <div className="text-xs sm:text-sm font-semibold text-black mb-3 sm:mb-4 tracking-wider">
-              XUSH KELIBSIZ
+              ДОБРО ПОЖАЛОВАТЬ
             </div>
             <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-black mb-2 sm:mb-3 md:mb-4 leading-tight">
               {contactInfo.tagline}
@@ -309,7 +309,7 @@ function Home() {
                 onClick={() => navigate("/booking")}
                 className="px-6 sm:px-8 md:px-10 py-3 sm:py-4 md:py-5 bg-white border-2 border-black rounded-xl sm:rounded-2xl font-semibold text-sm sm:text-base md:text-lg text-black hover:bg-gray-50"
                 aria-label="Book an appointment online">
-                Onlayn bron qilish
+                Записаться онлайн
               </Button>
             </div>
           </div>
@@ -331,7 +331,7 @@ function Home() {
           <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-[127px]">
             {loadingServices && (
               <div className="text-center py-8">
-                <p className="text-black text-lg">Xizmatlar yuklanmoqda...</p>
+                <p className="text-black text-lg">Загрузка услуг...</p>
               </div>
             )}
             <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
@@ -349,12 +349,11 @@ function Home() {
           <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-[127px] grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-12">
             <div className="text-white relative z-10" data-aos="fade-right">
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4">
-                Nima uchun bizni tanlashadi?
+                Почему выбирают нас?
               </h2>
               <p className="text-sm sm:text-base md:text-lg mb-4 sm:mb-6 opacity-90">
-                Qo'shimcha ravishda, ko'plab odamlar Toshkentda{" "}
-                {contactInfo.tagline} ni afzal ko'rishining yana 5 ta sababi
-                bor...
+                Кроме того, есть еще 5 причин, почему многие люди предпочитают{" "}
+                {contactInfo.tagline} в Ташкенте...
               </p>
               <ul className="space-y-2 sm:space-y-3 list-disc list-inside text-sm sm:text-base">
                 {whyChooseUs.map((reason, i) => (
@@ -366,7 +365,7 @@ function Home() {
               className="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-6 md:p-8 relative z-10"
               data-aos="fade-left">
               <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-black mb-4 sm:mb-6">
-                ISH VAQTI
+                ЧАСЫ РАБОТЫ
               </h2>
               <div className="space-y-2 sm:space-y-3 mb-4 sm:mb-6 md:mb-8">
                 {contactInfo.workingHours.map((schedule, i) => (
@@ -383,7 +382,7 @@ function Home() {
                 onClick={() => navigate("/booking")}
                 className="w-full px-5 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 bg-white border-2 border-black rounded-xl sm:rounded-2xl font-semibold text-sm sm:text-base text-black hover:bg-gray-50"
                 aria-label="Book an appointment online">
-                Book Online
+                Записаться онлайн
               </Button>
             </div>
           </div>
@@ -395,17 +394,17 @@ function Home() {
           className="w-full bg-white py-8 sm:py-10 md:py-12 lg:py-20"
           data-aos="fade-up">
           <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-[127px]">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-black text-center mb-6 sm:mb-8 md:mb-12">
-              Narxlar
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-black text-center mb-6 sm:mb-8 md:mb-12">
+              Цены
             </h2>
             {loadingServices ? (
               <div className="text-center py-8">
                 <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-600 mx-auto mb-4"></div>
-                <p className="text-black">Narxlar yuklanmoqda...</p>
+                <p className="text-black">Загрузка цен...</p>
               </div>
             ) : homePricing.length === 0 ? (
               <div className="text-center py-8">
-                <p className="text-gray-600">Narxlar topilmadi</p>
+                <p className="text-gray-600">Цены не найдены</p>
               </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 md:gap-12 max-w-4xl mx-auto">
@@ -468,19 +467,19 @@ function Home() {
               className="bg-barber-light rounded-2xl sm:rounded-3xl p-5 sm:p-6 md:p-8 lg:p-12 order-1 lg:order-2"
               data-aos="fade-left">
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-black mb-3 sm:mb-4 md:mb-6">
-                Yuqori darajadagi barbershop studiyasiga xush kelibsiz
+                Добро пожаловать в барбершоп премиум-класса
               </h2>
               <p className="text-black mb-4 sm:mb-6 md:mb-8 leading-relaxed text-sm sm:text-base">
-                Bizning barbershopimizda siz professional xizmat va qulay
-                muhitni topasiz. Bizning mutaxassislarimiz har bir mijozga
-                individual yondashuv bilan yuqori sifatli xizmat ko'rsatishadi.
+                В нашем барбершопе вы найдете профессиональные услуги и комфортную
+                атмосферу. Наши специалисты предоставляют высококачественные услуги
+                с индивидуальным подходом к каждому клиенту.
               </p>
               <Button
                 size="lg"
                 onClick={() => navigate("/booking")}
                 className="w-full sm:w-auto px-5 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 bg-black text-white rounded-xl sm:rounded-2xl font-semibold text-sm sm:text-base hover:bg-gray-800"
                 aria-label="Book an appointment online">
-                Book Online
+                Записаться онлайн
               </Button>
             </div>
           </div>
@@ -493,8 +492,8 @@ function Home() {
           <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-[127px] grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-12 items-center">
             <div className="order-2 lg:order-1" data-aos="fade-right">
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-black mb-4 sm:mb-6 md:mb-8 leading-tight">
-                BEPUL individual maslahat olish uchun bizning mutaxassis
-                barberlarimiz bilan bog'laning
+                Свяжитесь с нашими профессиональными барберами
+                для бесплатной индивидуальной консультации
               </h2>
               <Button
                 size="lg"
@@ -502,7 +501,7 @@ function Home() {
                 onClick={() => navigate("/booking")}
                 className="w-full sm:w-auto px-5 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 bg-white border-2 border-black rounded-xl sm:rounded-2xl font-semibold text-sm sm:text-base text-black hover:bg-gray-50"
                 aria-label="Book an appointment online">
-                Book Online
+                Записаться онлайн
               </Button>
             </div>
             <div className="relative order-1 lg:order-2" data-aos="fade-left">
@@ -567,11 +566,11 @@ function Home() {
           data-aos="fade-up">
           <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-[127px]">
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white text-center mb-6 sm:mb-8 md:mb-12">
-              Mijozlar Fikrlari
+              Отзывы клиентов
             </h2>
             {loadingComments ? (
               <div className="text-center py-8">
-                <p className="text-white text-lg">Fikrlar yuklanmoqda...</p>
+                <p className="text-white text-lg">Загрузка отзывов...</p>
               </div>
             ) : comments.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
@@ -607,7 +606,7 @@ function Home() {
             ) : (
               <div className="text-center py-8">
                 <p className="text-white text-lg opacity-70">
-                  Hozircha fikrlar mavjud emas
+                  Пока нет отзывов
                 </p>
               </div>
             )}

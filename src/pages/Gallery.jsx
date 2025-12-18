@@ -78,7 +78,7 @@ function Gallery() {
                 onClick={() => handlePageChange(currentPage - 1)}
                 disabled={currentPage === 1}
                 className="px-4 py-2 bg-white bg-opacity-20 text-white rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-opacity-30 transition-colors">
-                Previous
+                Назад
               </button>
               
               <div className="flex gap-1 sm:gap-2">
@@ -120,7 +120,7 @@ function Gallery() {
                 onClick={() => handlePageChange(currentPage + 1)}
                 disabled={currentPage === totalPages}
                 className="px-4 py-2 bg-white bg-opacity-20 text-white rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-opacity-30 transition-colors">
-                Next
+                Вперед
               </button>
             </div>
           )}

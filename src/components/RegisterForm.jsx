@@ -41,10 +41,10 @@ function RegisterForm() {
         }, 5000)
       } else {
         const errorData = await response.json().catch(() => ({}))
-        setError(errorData.message || 'Registration failed. Please try again.')
+        setError(errorData.message || 'Регистрация не удалась. Пожалуйста, попробуйте еще раз.')
       }
     } catch (error) {
-      setError('Network error. Please check your connection and try again.')
+      setError('Ошибка сети. Пожалуйста, проверьте подключение и попробуйте еще раз.')
       console.error('Registration error:', error)
     } finally {
       setIsSubmitting(false)
@@ -70,7 +70,7 @@ function RegisterForm() {
       
       {success && (
         <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg text-sm">
-          ✅ Registration successful! You can now log in.
+          ✅ Регистрация успешна! Теперь вы можете войти.
         </div>
       )}
 
@@ -79,7 +79,7 @@ function RegisterForm() {
         name="name"
         value={formData.name}
         onChange={handleInputChange}
-        placeholder="Enter your name"
+        placeholder="Введите ваше имя"
         required
         size="lg"
         className="!text-black !bg-white"
@@ -95,7 +95,7 @@ function RegisterForm() {
         name="tg_username"
         value={formData.tg_username}
         onChange={handleInputChange}
-        placeholder="Enter your Telegram username (e.g., @username)"
+        placeholder="Введите имя пользователя Telegram (например, @username)"
         required
         size="lg"
         className="!text-black !bg-white"
@@ -111,7 +111,7 @@ function RegisterForm() {
         name="phone_number"
         value={formData.phone_number}
         onChange={handleInputChange}
-        placeholder="Enter your phone number (e.g., +998901234567)"
+        placeholder="Введите номер телефона (например, +998901234567)"
         required
         size="lg"
         className="!text-black !bg-white"
@@ -127,7 +127,7 @@ function RegisterForm() {
         name="password"
         value={formData.password}
         onChange={handleInputChange}
-        placeholder="Enter your password"
+        placeholder="Введите пароль"
         required
         size="lg"
         className="!text-black !bg-white"
@@ -145,11 +145,11 @@ function RegisterForm() {
         className="w-full bg-barber-olive hover:bg-barber-gold text-white font-semibold rounded-xl sm:rounded-2xl text-sm sm:text-base py-3 sm:py-3.5 md:py-4"
         loading={isSubmitting}
       >
-        {isSubmitting ? 'Registering...' : 'Register'}
+        {isSubmitting ? 'Регистрация...' : 'Зарегистрироваться'}
       </Button>
       
       <p className="text-white text-xs sm:text-sm opacity-70 text-center">
-        Create an account to book appointments online
+        Создайте аккаунт для онлайн-записи
       </p>
     </form>
   )

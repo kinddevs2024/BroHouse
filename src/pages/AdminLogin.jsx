@@ -60,22 +60,22 @@ function AdminLogin() {
             navigate(from, { replace: true });
           } else {
             setError(
-              "Sizda admin huquqi yo'q. Faqat admin yoki super admin kirishi mumkin."
+              "У вас нет прав администратора. Войти могут только администратор или супер-администратор."
             );
           }
         } else {
-          setError("Serverdan noto'g'ri javob");
+          setError("Неправильный ответ от сервера");
         }
       } else {
         const errorMessage =
           data.message ||
           data.error ||
-          "Kirish muvaffaqiyatsiz. Iltimos, ma'lumotlaringizni tekshiring.";
+          "Вход не удался. Пожалуйста, проверьте свои данные.";
         setError(errorMessage);
       }
     } catch (err) {
       setError(
-        "Tarmoq xatosi. Iltimos, internet aloqangizni tekshiring va qayta urinib ko'ring."
+        "Ошибка сети. Пожалуйста, проверьте подключение к интернету и попробуйте еще раз."
       );
       console.error("Login error:", err);
     } finally {
@@ -98,10 +98,10 @@ function AdminLogin() {
           <div className="max-w-md mx-auto">
             <div className="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-10 shadow-lg border border-gray-200">
               <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-black mb-2 text-center">
-                Admin Kirish
+                Вход администратора
               </h1>
               <p className="text-gray-600 text-sm sm:text-base mb-6 text-center">
-                Admin paneliga kirish
+                Вход в админ-панель
               </p>
 
               {error && (
@@ -118,7 +118,7 @@ function AdminLogin() {
                   name="tg_username"
                   value={formData.tg_username}
                   onChange={handleInputChange}
-                  label="Telegram foydalanuvchi nomi"
+                  label="Имя пользователя Telegram"
                   placeholder="@username"
                   required
                   size="lg"
@@ -130,7 +130,7 @@ function AdminLogin() {
                   name="password"
                   value={formData.password}
                   onChange={handleInputChange}
-                  label="Parol"
+                  label="Пароль"
                   required
                   size="lg"
                   disabled={isSubmitting}
@@ -142,7 +142,7 @@ function AdminLogin() {
                   size="lg"
                   className="w-full bg-barber-olive hover:bg-barber-gold text-white font-semibold"
                   loading={isSubmitting}>
-                  {isSubmitting ? "Kirilmoqda..." : "Kirish"}
+                  {isSubmitting ? "Вход..." : "Войти"}
                 </Button>
               </form>
             </div>
