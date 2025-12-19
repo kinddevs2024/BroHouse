@@ -238,12 +238,12 @@ function Home() {
     <div>
       <Analytics />
       {/* Hero Section - Full Page */}
-      <section className="w-full h-screen relative overflow-hidden bg-white">
+      <section className="w-full h-screen relative overflow-hidden" style={{ backgroundColor: '#292d33' }}>
         {/* Content Container */}
-        <div className="relative z-10 h-full max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-[126px] flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12">
+        <div className="relative z-10 h-full max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-[126px] flex flex-col lg:flex-row items-center justify-center lg:justify-between pt-20 sm:pt-[104px] md:pt-[124px] lg:pt-0 gap-4 sm:gap-6 md:gap-8 lg:gap-12">
           {/* Image - First on Mobile, Right on Desktop */}
           <div
-            className="flex-1 w-full lg:w-auto lg:max-w-[680px] flex items-center justify-center order-1 lg:order-2"
+            className="flex-1 w-full lg:w-auto lg:max-w-[680px] flex items-center justify-center order-1 lg:order-2 mt-[30px] lg:mt-0"
             data-aos="fade-left">
             <div className="relative w-full h-[300px] xs:h-[650px] sm:h-[400px] md:h-[500px] lg:h-[800px] xl:h-[900px] 2xl:h-[1000px] rounded-2xl sm:rounded-3xl lg:rounded-[35px] overflow-hidden shadow-2xl">
               <img
@@ -257,57 +257,57 @@ function Home() {
 
           {/* Content - Second on Mobile, Left on Desktop */}
           <div
-            className="flex-1 flex flex-col justify-center lg:justify-start lg:pt-[100px] z-10 w-full lg:w-auto order-2 lg:order-1"
+            className="flex-1 flex flex-col justify-center lg:justify-start lg:pt-[100px] z-10 w-full lg:w-auto order-2 lg:order-1 text-center md:text-left"
             data-aos="fade-right">
-            <div className="text-xs sm:text-sm font-semibold text-black mb-3 sm:mb-4 tracking-wider">
+            <div className="text-xs sm:text-sm font-semibold text-white mb-3 sm:mb-4 tracking-wider">
               ДОБРО ПОЖАЛОВАТЬ
             </div>
-            <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-black mb-2 sm:mb-3 md:mb-4 leading-tight">
+            <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-2 sm:mb-3 md:mb-4 leading-tight">
               {contactInfo.tagline}
             </h1>
-            <p className="text-base xs:text-lg sm:text-xl md:text-2xl text-black mb-2 sm:mb-3 opacity-90">
+            <p className="text-base xs:text-lg sm:text-xl md:text-2xl text-white mb-2 sm:mb-3 opacity-90">
               {contactInfo.description}
             </p>
-            <p className="text-sm xs:text-base sm:text-lg md:text-xl text-black mb-4 sm:mb-6 md:mb-8 opacity-80">
+            <p className="text-sm xs:text-base sm:text-lg md:text-xl text-white mb-4 sm:mb-6 md:mb-8 opacity-80">
               {contactInfo.subtitle}
             </p>
-            <div className="space-y-2 sm:space-y-3 md:space-y-4 mb-6 sm:mb-8 md:mb-10">
-              <div className="flex items-center gap-2 sm:gap-3 text-black text-sm sm:text-base md:text-lg">
+            <div className="space-y-2 sm:space-y-3 md:space-y-4 mb-6 sm:mb-8 md:mb-10 flex flex-col items-center sm:items-center md:items-start">
+              <div className="flex items-center gap-2 sm:gap-3 text-white text-sm sm:text-base md:text-lg">
                 <MapPinIcon
-                  className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0"
+                  className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0 text-white"
                   aria-hidden="true"
                 />
-                <span className="break-words">{contactInfo.address}</span>
+                <span className="break-words text-white">{contactInfo.address}</span>
               </div>
-              <div className="flex items-center gap-2 sm:gap-3 text-black text-sm sm:text-base md:text-lg">
+              <div className="flex items-center gap-2 sm:gap-3 text-white text-sm sm:text-base md:text-lg">
                 <PhoneIcon
-                  className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0"
+                  className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0 text-white"
                   aria-hidden="true"
                 />
                 <a
                   href={`tel:${contactInfo.phone}`}
-                  className="hover:text-barber-gold transition-colors break-all">
+                  className="hover:text-barber-gold transition-colors break-all text-white">
                   {contactInfo.phone}
                 </a>
               </div>
-              <div className="flex items-center gap-2 sm:gap-3 text-black text-sm sm:text-base md:text-lg">
+              <div className="flex items-center gap-2 sm:gap-3 text-white text-sm sm:text-base md:text-lg">
                 <EnvelopeIcon
-                  className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0"
+                  className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0 text-white"
                   aria-hidden="true"
                 />
                 <a
                   href={`mailto:${contactInfo.email}`}
-                  className="hover:text-barber-gold transition-colors break-all">
+                  className="hover:text-barber-gold transition-colors break-all text-white">
                   {contactInfo.email}
                 </a>
               </div>
             </div>
-            <div className="flex justify-start">
+            <div className="flex justify-center sm:justify-center md:justify-start">
               <Button
                 size="lg"
                 variant="outlined"
                 onClick={() => navigate("/booking")}
-                className="px-6 sm:px-8 md:px-10 py-3 sm:py-4 md:py-5 bg-white border-2 border-black rounded-xl sm:rounded-2xl font-semibold text-sm sm:text-base md:text-lg text-black hover:bg-gray-50"
+                className="px-6 sm:px-8 md:px-10 py-3 sm:py-4 md:py-5 bg-transparent border-2 border-white rounded-xl sm:rounded-2xl font-semibold text-sm sm:text-base md:text-lg text-white hover:bg-white hover:text-gray-800"
                 aria-label="Book an appointment online">
                 Записаться онлайн
               </Button>

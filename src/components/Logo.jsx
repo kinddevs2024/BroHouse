@@ -7,17 +7,17 @@ function Logo({ className = '', linkTo = '/', onClick, variant = 'light' }) {
   const borderColor = isDark ? 'border-white' : 'border-black'
 
   const logoContent = (
-    <div className={`flex p-5 m-5 md:p-0 md:m-0 flex-col items-start ${className}`}>
+    <div className={`flex  md:p-0 md:m-0 flex-row  items-center  gap-4  ${className}`}>
       {/* 001 with rectangular outline */}
       <div className="relative inline-block">
-        <div className={`border-2 ${borderColor} px-1.5 sm:px-2 md:px-2.5 py-0.5 sm:py-1 md:py-1`}>
-          <span className={`text-lg sm:text-xl md:text-2xl lg:text-3xl font-black tracking-tight ${textColor}`}>
+        <div className={`border-2 ${borderColor} px-2 `}>
+          <span className={`text-[24px] sm:text-[40px] md:text-[32px] lg:text-[32px] xl:text-[36px] font-black tracking-tight m-0 p-0 ${textColor}`}>
             001
           </span>
         </div>
       </div>
-      {/* BARBERSHOP text below */}
-      <span className={`text-[11px]  font-semibold tracking-wider ${textColor} mt-0.5 sm:mt-1`}>
+      {/* BARBERSHOP text to the right on mobile, below on desktop */}
+      <span className={`text-3xl sm:text5xl  font-semibold tracking-wider ${textColor} `}>
         BARBERSHOP
       </span>
     </div>
