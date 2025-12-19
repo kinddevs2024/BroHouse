@@ -348,10 +348,10 @@ function AnalyticsPage() {
               </Button>
               {isSuperAdmin() && (
                 <Button
-                  onClick={() => navigate("/super-admin")}
+                  onClick={() => navigate("/users")}
                   size="sm"
                   className="bg-blue-600 hover:bg-blue-700 text-white">
-                  SUPER ADMIN
+                  FOYDALANUVCHILAR
                 </Button>
               )}
               <Button

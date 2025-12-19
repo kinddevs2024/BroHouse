@@ -13,9 +13,9 @@ import Admin from './pages/Admin'
 import AdminLogin from './pages/AdminLogin'
 import SuperAdmin from './pages/SuperAdmin'
 import AnalyticsPage from './pages/Analytics'
-import Barbers from './pages/Barbers'
 import Services from './pages/Services'
 import BroadcastPost from './pages/BroadcastPost'
+import Users from './pages/Users'
 import NotFound from './pages/NotFound'
 
 function App() {
@@ -48,10 +48,10 @@ function App() {
             } 
           />
           <Route 
-            path="/barbers" 
+            path="/users" 
             element={
               <ProtectedRoute requireAdmin={true}>
-                <Barbers />
+                <Users />
               </ProtectedRoute>
             } 
           />
@@ -68,14 +68,6 @@ function App() {
             element={
               <ProtectedRoute requireAdmin={true}>
                 <BroadcastPost />
-              </ProtectedRoute>
-            } 
-          />
-          <Route 
-            path="/super-admin" 
-            element={
-              <ProtectedRoute requireSuperAdmin={true}>
-                <SuperAdmin />
               </ProtectedRoute>
             } 
           />

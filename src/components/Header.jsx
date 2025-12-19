@@ -148,13 +148,13 @@ function Header() {
                     {getTranslation(language, "nav.admin")}
                   </Link>
                   <Link
-                    to="/barbers"
+                    to="/users"
                     className={`text-sm mt-1 lg:text-base font-medium transition-colors ${
-                      isActive("/barbers")
+                      isActive("/users")
                         ? "text-barber-gold"
                         : "text-black hover:text-barber-gold"
                     }`}>
-                    {getTranslation(language, "nav.barbers")}
+                    {getTranslation(language, "nav.users")}
                   </Link>
                   <Link
                     to="/services"
@@ -197,22 +197,13 @@ function Header() {
                     {getTranslation(language, "nav.admin")}
                   </Link>
                   <Link
-                    to="/super-admin"
-                    className={`text-sm   mt-1 lg:text-base font-medium transition-colors ${
-                      isActive("/super-admin")
-                        ? "text-barber-gold"
-                        : "text-black hover:text-barber-gold"
-                    }`}>
-                    {getTranslation(language, "nav.superAdmin")}
-                  </Link>
-                  <Link
-                    to="/barbers"
+                    to="/users"
                     className={`text-sm mt-1 lg:text-base font-medium transition-colors ${
-                      isActive("/barbers")
+                      isActive("/users")
                         ? "text-barber-gold"
                         : "text-black hover:text-barber-gold"
                     }`}>
-                    {getTranslation(language, "nav.barbers")}
+                    {getTranslation(language, "nav.users")}
                   </Link>
                   <Link
                     to="/services"
@@ -366,14 +357,14 @@ function Header() {
                       <button
                         onClick={() => {
                           closeMobileMenu();
-                          navigate("/barbers");
+                          navigate("/users");
                         }}
                         className={`text-base font-medium py-2 text-left transition-colors ${
-                          isActive("/barbers")
+                          isActive("/users")
                             ? "text-barber-gold"
                             : "text-black hover:text-barber-gold"
                         }`}>
-                        {getTranslation(language, "nav.barbers")}
+                        {getTranslation(language, "nav.users")}
                       </button>
                       <button
                         onClick={() => {
@@ -430,26 +421,14 @@ function Header() {
                       <button
                         onClick={() => {
                           closeMobileMenu();
-                          navigate("/super-admin");
+                          navigate("/users");
                         }}
                         className={`text-base font-medium py-2 text-left transition-colors ${
-                          isActive("/super-admin")
+                          isActive("/users")
                             ? "text-barber-gold"
                             : "text-black hover:text-barber-gold"
                         }`}>
-                        {getTranslation(language, "nav.superAdmin")}
-                      </button>
-                      <button
-                        onClick={() => {
-                          closeMobileMenu();
-                          navigate("/barbers");
-                        }}
-                        className={`text-base font-medium py-2 text-left transition-colors ${
-                          isActive("/barbers")
-                            ? "text-barber-gold"
-                            : "text-black hover:text-barber-gold"
-                        }`}>
-                        {getTranslation(language, "nav.barbers")}
+                        {getTranslation(language, "nav.users")}
                       </button>
                       <button
                         onClick={() => {

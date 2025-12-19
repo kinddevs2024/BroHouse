@@ -46,7 +46,7 @@ function Login() {
           // Redirect based on user role
           const userRole = userData.role || userData.role_type;
           if (userRole === "SUPER_ADMIN" || userRole === "super_admin") {
-            navigate("/super-admin");
+            navigate("/users");
           } else if (userRole === "admin" || userData.isAdmin) {
             navigate("/admin");
           } else if (userRole === "client" || !userRole) {
