@@ -1,13 +1,12 @@
 import { useState } from 'react'
 import { Button, Input } from '@material-tailwind/react'
-import { API_BASE_URL, API_ENDPOINTS } from '../data/api'
+import { AUTH_BASE_URL, API_ENDPOINTS } from '../data/api'
 
 function RegisterForm() {
   const [formData, setFormData] = useState({ 
     name: '', 
     tg_username: '', 
-    phone_number: '', 
-    password: '' 
+    phone_number: ''
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState('')
@@ -20,28 +19,41 @@ function RegisterForm() {
     setSuccess(false)
 
     try {
-      const response = await fetch(`${API_BASE_URL}${API_ENDPOINTS.register}`, {
+      // Public client registration uses POST /client
+      const response = await fetch(`${AUTH_BASE_URL}${API_ENDPOINTS.createClient}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          accept: '*/*',
         },
         body: JSON.stringify({
           name: formData.name,
-          tg_username: formData.tg_username,
           phone_number: formData.phone_number,
-          password: formData.password
+          ...(formData.tg_username && {
+            tg_username: formData.tg_username.replace(/^@/, ''),
+          }),
         })
       })
 
-      if (response.ok) {
+      const data = await response.json()
+
+      // Handle different error status codes
+      if (response.status === 400) {
+        setError(data.message || data.error || 'Регистрация не удалась. Проверьте введенные данные.')
+      } else if (response.status === 401) {
+        setError('Ошибка авторизации. Пожалуйста, попробуйте еще раз.')
+      } else if (response.status === 403) {
+        setError('Доступ запрещен. Пожалуйста, свяжитесь с администратором.')
+      } else if (response.status === 409) {
+        setError(data.message || data.error || 'Пользователь с такими данными уже существует.')
+      } else if (response.ok || response.status === 201) {
         setSuccess(true)
-        setFormData({ name: '', tg_username: '', phone_number: '', password: '' })
+        setFormData({ name: '', tg_username: '', phone_number: '' })
         setTimeout(() => {
           setSuccess(false)
         }, 5000)
       } else {
-        const errorData = await response.json().catch(() => ({}))
-        setError(errorData.message || 'Регистрация не удалась. Пожалуйста, попробуйте еще раз.')
+        setError(data.message || data.error || 'Регистрация не удалась. Пожалуйста, попробуйте еще раз.')
       }
     } catch (error) {
       setError('Ошибка сети. Пожалуйста, проверьте подключение и попробуйте еще раз.')
@@ -96,7 +108,6 @@ function RegisterForm() {
         value={formData.tg_username}
         onChange={handleInputChange}
         placeholder="Введите имя пользователя Telegram (например, @username)"
-        required
         size="lg"
         className="!text-black !bg-white"
         labelProps={{
@@ -120,22 +131,6 @@ function RegisterForm() {
         }}
         disabled={isSubmitting}
         aria-label="Phone number"
-      />
-      
-      <Input
-        type="password"
-        name="password"
-        value={formData.password}
-        onChange={handleInputChange}
-        placeholder="Введите пароль"
-        required
-        size="lg"
-        className="!text-black !bg-white"
-        labelProps={{
-          className: "hidden"
-        }}
-        disabled={isSubmitting}
-        aria-label="Password"
       />
       
       <Button

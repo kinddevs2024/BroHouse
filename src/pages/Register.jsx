@@ -13,7 +13,6 @@ function Register() {
     name: "",
     tg_username: "",
     phone_number: "",
-    password: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
@@ -26,8 +25,9 @@ function Register() {
     setSuccess(false);
 
     try {
+      // Public client registration uses POST /client
       const response = await fetch(
-        `${AUTH_BASE_URL}${API_ENDPOINTS.register}`,
+        `${AUTH_BASE_URL}${API_ENDPOINTS.createClient}`,
         {
           method: "POST",
           headers: {
@@ -36,16 +36,42 @@ function Register() {
           },
           body: JSON.stringify({
             name: formData.name,
-            tg_username: formData.tg_username,
             phone_number: formData.phone_number,
-            password: formData.password,
+            ...(formData.tg_username && {
+              tg_username: formData.tg_username.replace(/^@/, ""),
+            }),
           }),
         }
       );
 
       const data = await response.json();
 
-      if (response.ok || response.status === 201) {
+      // Handle different error status codes
+      if (response.status === 400) {
+        setError(
+          data.message ||
+            data.error ||
+            "Регистрация не удалась. Проверьте введенные данные."
+        );
+        setIsSubmitting(false);
+        return;
+      } else if (response.status === 401) {
+        setError("Ошибка авторизации. Пожалуйста, попробуйте еще раз.");
+        setIsSubmitting(false);
+        return;
+      } else if (response.status === 403) {
+        setError("Доступ запрещен. Пожалуйста, свяжитесь с администратором.");
+        setIsSubmitting(false);
+        return;
+      } else if (response.status === 409) {
+        setError(
+          data.message ||
+            data.error ||
+            "Пользователь с такими данными уже существует."
+        );
+        setIsSubmitting(false);
+        return;
+      } else if (response.ok || response.status === 201) {
         // API returns { token, user } - auto-login the user
         const authToken = data.token || data.access_token || data.accessToken;
         const userData = data.user || data;
@@ -58,7 +84,6 @@ function Register() {
             name: "",
             tg_username: "",
             phone_number: "",
-            password: "",
           });
 
           // Redirect based on user role
@@ -81,7 +106,6 @@ function Register() {
             name: "",
             tg_username: "",
             phone_number: "",
-            password: "",
           });
           setTimeout(() => {
             navigate("/login");
@@ -158,7 +182,6 @@ function Register() {
                   onChange={handleInputChange}
                   label="Имя пользователя Telegram"
                   placeholder="@username"
-                  required
                   size="lg"
                   disabled={isSubmitting}
                 />
@@ -170,17 +193,6 @@ function Register() {
                   onChange={handleInputChange}
                   label="Номер телефона"
                   placeholder="+998901234567"
-                  required
-                  size="lg"
-                  disabled={isSubmitting}
-                />
-
-                <Input
-                  type="password"
-                  name="password"
-                  value={formData.password}
-                  onChange={handleInputChange}
-                  label="Пароль"
                   required
                   size="lg"
                   disabled={isSubmitting}

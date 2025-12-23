@@ -1,5 +1,4 @@
-// API configuration
-// Update this with your actual API base URL
+// API configuration // Update this with your actual API base URL
 export const BASE_URL = "https://api.001barbershop.uz";
 
 export const API_BASE_URL =
@@ -28,6 +27,10 @@ export const API_ENDPOINTS = {
   login: "/auth/login",
   users: "/users",
   barbers: "/users/barbers",
+  // Role-specific user creation endpoints
+  createAdmin: "/admin",
+  createBarber: "/barber",
+  createClient: "/client",
   services: "/barber-services",
   serviceCategories: "/service-categories",
   bookings: "/bookings",

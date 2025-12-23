@@ -60,9 +60,10 @@ function Users() {
   const [roleFilter, setRoleFilter] = useState("all"); // all, client, barber, admin, super_admin
 
   // Get available roles based on current user's role
+  // Note: super_admin cannot be created through the UI
   const getAvailableRoles = () => {
     if (isSuperAdmin()) {
-      return ["client", "barber", "admin", "super_admin"];
+      return ["client", "barber", "admin"];
     }
     if (isAdmin()) {
       return ["client", "barber"];
@@ -152,66 +153,131 @@ function Users() {
         throw new Error("Token topilmadi. Iltimos, qayta kirib ko'ring.");
       }
 
-      // Create FormData for multipart/form-data
-      const formDataToSend = new FormData();
-      formDataToSend.append("name", formData.name);
-      formDataToSend.append(
-        "tg_username",
-        formData.tg_username?.replace(/^@/, "") || formData.tg_username
-      );
-      formDataToSend.append("phone_number", formData.phone_number);
-      formDataToSend.append("password", formData.password);
-      formDataToSend.append("role", formData.role);
+      let endpoint;
+      let headers = {
+        Accept: "*/*",
+        Authorization: `Bearer ${token}`,
+      };
+      let body;
 
-      // Add barber-specific fields if role is barber
-      if (formData.role === "barber") {
-        formDataToSend.append("work_start_time", formData.work_start_time);
-        formDataToSend.append("work_end_time", formData.work_end_time);
-      }
-
-      // Add profile image if selected
-      if (formData.profile_image) {
-        const file = formData.profile_image;
-        const fileName = file.name.toLowerCase();
-        let finalFileName = fileName;
-
-        if (!fileName.match(/\.(jpg|jpeg|png|gif)$/)) {
-          if (file.type === "image/jpeg" || file.type === "image/jpg") {
-            finalFileName = fileName.endsWith(".")
-              ? fileName + "jpg"
-              : fileName + ".jpg";
-          } else if (file.type === "image/png") {
-            finalFileName = fileName.endsWith(".")
-              ? fileName + "png"
-              : fileName + ".png";
-          } else if (file.type === "image/gif") {
-            finalFileName = fileName.endsWith(".")
-              ? fileName + "gif"
-              : fileName + ".gif";
-          }
+      // Route to different endpoints based on role
+      if (formData.role === "admin") {
+        // POST /admin - JSON
+        endpoint = `${AUTH_BASE_URL}${API_ENDPOINTS.createAdmin}`;
+        headers["Content-Type"] = "application/json";
+        body = JSON.stringify({
+          name: formData.name,
+          phone_number: formData.phone_number,
+          ...(formData.tg_username && {
+            tg_username: formData.tg_username.replace(/^@/, ""),
+          }),
+          password: formData.password,
+        });
+      } else if (formData.role === "barber") {
+        // POST /barber - multipart/form-data
+        endpoint = `${AUTH_BASE_URL}${API_ENDPOINTS.createBarber}`;
+        // Don't set Content-Type for FormData, browser will set it with boundary
+        const formDataToSend = new FormData();
+        formDataToSend.append("name", formData.name);
+        if (formData.phone_number) {
+          formDataToSend.append("phone_number", formData.phone_number);
         }
+        if (formData.tg_username) {
+          formDataToSend.append(
+            "tg_username",
+            formData.tg_username.replace(/^@/, "")
+          );
+        }
+        if (formData.password) {
+          formDataToSend.append("password", formData.password);
+        }
+        if (formData.working !== undefined) {
+          formDataToSend.append("working", formData.working);
+        }
+        if (formData.work_start_time) {
+          formDataToSend.append("work_start_time", formData.work_start_time);
+        }
+        if (formData.work_end_time) {
+          formDataToSend.append("work_end_time", formData.work_end_time);
+        }
+        if (formData.profile_image) {
+          const file = formData.profile_image;
+          const fileName = file.name.toLowerCase();
+          let finalFileName = fileName;
 
-        const fileToSend =
-          finalFileName !== fileName
-            ? new File([file], finalFileName, { type: file.type })
-            : file;
+          if (!fileName.match(/\.(jpg|jpeg|png|gif)$/)) {
+            if (file.type === "image/jpeg" || file.type === "image/jpg") {
+              finalFileName = fileName.endsWith(".")
+                ? fileName + "jpg"
+                : fileName + ".jpg";
+            } else if (file.type === "image/png") {
+              finalFileName = fileName.endsWith(".")
+                ? fileName + "png"
+                : fileName + ".png";
+            } else if (file.type === "image/gif") {
+              finalFileName = fileName.endsWith(".")
+                ? fileName + "gif"
+                : fileName + ".gif";
+            }
+          }
 
-        formDataToSend.append("profile_image", fileToSend);
+          const fileToSend =
+            finalFileName !== fileName
+              ? new File([file], finalFileName, { type: file.type })
+              : file;
+
+          formDataToSend.append("profile_image", fileToSend);
+        }
+        body = formDataToSend;
+      } else if (formData.role === "client") {
+        // POST /client - JSON
+        endpoint = `${AUTH_BASE_URL}${API_ENDPOINTS.createClient}`;
+        headers["Content-Type"] = "application/json";
+        body = JSON.stringify({
+          name: formData.name,
+          phone_number: formData.phone_number,
+          ...(formData.tg_username && {
+            tg_username: formData.tg_username.replace(/^@/, ""),
+          }),
+        });
+      } else {
+        throw new Error("Noto'g'ri rol tanlandi");
       }
 
-      const response = await fetch(`${AUTH_BASE_URL}${API_ENDPOINTS.users}`, {
+      const response = await fetch(endpoint, {
         method: "POST",
-        headers: {
-          Accept: "*/*",
-          Authorization: `Bearer ${token}`,
-        },
-        body: formDataToSend,
+        headers,
+        body,
         mode: "cors",
       });
 
       const data = await response.json();
 
-      if (response.ok || response.status === 201) {
+      // Handle different error status codes
+      if (response.status === 400) {
+        setError(
+          data.message ||
+            data.error ||
+            "Noto'g'ri so'rov. Ma'lumotlarni tekshiring."
+        );
+      } else if (response.status === 401) {
+        setError("Avtorizatsiya muvaffaqiyatsiz. Iltimos, qayta kirib ko'ring.");
+        // Optionally redirect to login
+        setTimeout(() => {
+          logout();
+          navigate("/admin/login");
+        }, 2000);
+      } else if (response.status === 403) {
+        setError(
+          "Sizda bu amalni bajarish uchun ruxsat yo'q. Iltimos, admin bilan bog'laning."
+        );
+      } else if (response.status === 409) {
+        setError(
+          data.message ||
+            data.error ||
+            "Bu foydalanuvchi allaqachon mavjud. Boshqa ma'lumotlardan foydalaning."
+        );
+      } else if (response.ok || response.status === 201) {
         setSuccess("Foydalanuvchi muvaffaqiyatli qo'shildi!");
         setFormData({
           name: "",
@@ -741,7 +807,7 @@ function Users() {
                   onChange={handleInputChange}
                   label="Telegram foydalanuvchi nomi"
                   placeholder="@username"
-                  required
+                  required={formData.role === "admin"}
                   size="lg"
                   disabled={isSubmitting}
                 />
@@ -753,21 +819,23 @@ function Users() {
                   onChange={handleInputChange}
                   label="Telefon raqami"
                   placeholder="+998901234567"
-                  required
+                  required={formData.role !== "barber"}
                   size="lg"
                   disabled={isSubmitting}
                 />
 
-                <Input
-                  type="password"
-                  name="password"
-                  value={formData.password}
-                  onChange={handleInputChange}
-                  label="Parol"
-                  required
-                  size="lg"
-                  disabled={isSubmitting}
-                />
+                {formData.role !== "client" && (
+                  <Input
+                    type="password"
+                    name="password"
+                    value={formData.password}
+                    onChange={handleInputChange}
+                    label={formData.role === "admin" ? "Parol" : "Parol (ixtiyoriy)"}
+                    required={formData.role === "admin"}
+                    size="lg"
+                    disabled={isSubmitting}
+                  />
+                )}
 
                 <div className="w-[250px]">
                   <Select
