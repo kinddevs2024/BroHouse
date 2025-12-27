@@ -111,7 +111,7 @@ function Team() {
             data-aos="fade-left">
             <img
               src={imagePool[0]}
-              alt="Professional barbers at 001 Barbershop"
+              alt="Professional barbers at Bro House Barbershop"
               className="w-full h-full object-cover"
               loading="lazy"
             />

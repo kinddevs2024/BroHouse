@@ -508,7 +508,7 @@ function Home() {
               <div className="w-full h-[300px] xs:h-[350px] sm:h-[400px] md:h-[450px] lg:h-[500px] rounded-2xl sm:rounded-3xl relative overflow-hidden">
                 <img
                   src={imagePool[1]}
-                  alt="Professional barber services at 001 Barbershop"
+                  alt="Professional barber services at Bro House Barbershop"
                   className="w-full h-full object-cover"
                   loading="lazy"
                 />
@@ -562,7 +562,7 @@ function Home() {
               <div className="w-full h-[300px] xs:h-[350px] sm:h-[400px] md:h-[450px] lg:h-[500px] rounded-2xl sm:rounded-3xl relative overflow-hidden">
                 <img
                   src="/3Y4A9847.jpg"
-                  alt="Expert barbers at 001 Barbershop providing consultation"
+                  alt="Expert barbers at Bro House Barbershop providing consultation"
                   className="w-full h-full object-cover"
                   loading="lazy"
                 />
@@ -603,7 +603,7 @@ function Home() {
                     onClick={() => handleImageClick(i, barberShopImages)}>
                     <img
                       src={imgSrc}
-                      alt={`001 Barbershop 360° view ${i + 1}`}
+                      alt={`Bro House Barbershop 360° view ${i + 1}`}
                       className="w-full h-full object-cover"
                       loading="lazy"
                     />

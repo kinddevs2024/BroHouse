@@ -7,7 +7,7 @@ export const barbersData = [
     description: "Professional barber with years of experience.",
     image: "/3Y4A9599.jpg",
     social: {
-      instagram: "https://www.instagram.com/001_barbershop_",
+      instagram: "https://www.instagram.com/brohouseuz",
       facebook: "#",
       twitter: "#",
     },
@@ -19,7 +19,7 @@ export const barbersData = [
     description: "Professional barber with years of experience.",
     image: "/3Y4A0007.jpg",
     social: {
-      instagram: "https://www.instagram.com/001_barbershop_",
+      instagram: "https://www.instagram.com/brohouseuz",
       facebook: "#",
       twitter: "#",
     },
@@ -31,7 +31,7 @@ export const barbersData = [
     description: "Professional barber with years of experience.",
     image: "/3Y4A9468.jpg",
     social: {
-      instagram: "https://www.instagram.com/001_barbershop_",
+      instagram: "https://www.instagram.com/brohouseuz",
       facebook: "#",
       twitter: "#",
     },
@@ -43,7 +43,7 @@ export const barbersData = [
     description: "Professional barber with years of experience.",
     image: "/3Y4A9824.jpg",
     social: {
-      instagram: "https://www.instagram.com/001_barbershop_",
+      instagram: "https://www.instagram.com/brohouseuz",
       facebook: "#",
       twitter: "#",
     },

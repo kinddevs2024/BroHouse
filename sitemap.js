@@ -1,31 +1,31 @@
 export default function sitemap() {
     return [
       {
-        url: 'https://001barbershop.uz/',
+        url: 'https://bro-house.vercel.app/',
         lastModified: new Date(),
         changeFrequency: 'daily',
         priority: 1.0,
       },
       {
-        url: 'https://001barbershop.uz/gallery',
+        url: 'https://bro-house.vercel.app/gallery',
         lastModified: new Date(),
         changeFrequency: 'weekly',
         priority: 0.8,
       },
       {
-        url: 'https://001barbershop.uz/team',
+        url: 'https://bro-house.vercel.app/team',
         lastModified: new Date(),
         changeFrequency: 'weekly',
         priority: 0.8,
       },
       {
-        url: 'https://001barbershop.uz/delivery',
+        url: 'https://bro-house.vercel.app/delivery',
         lastModified: new Date(),
         changeFrequency: 'weekly',
         priority: 0.7,
       },
       {
-        url: 'https://001barbershop.uz/booking',
+        url: 'https://bro-house.vercel.app/booking',
         lastModified: new Date(),
         changeFrequency: 'daily',
         priority: 0.9,
