@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Oswald:wght@400;500;600;700&display=swap');
 @import url('https://unpkg.com/aos@2.3.1/dist/aos.css');
 
 @tailwind base;
@@ -9,27 +10,35 @@
   * {
     @apply box-border;
   }
-  
+
   html {
     scroll-behavior: smooth;
   }
-  
+
   body {
     @apply m-0 min-h-screen font-sans antialiased;
     font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-  
-  h1, h2, h3, h4, h5, h6 {
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-bold;
+    font-family: 'Montserrat', 'Oswald', system-ui, sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
     line-height: 1.2;
   }
-  
+
   button {
     @apply cursor-pointer;
   }
-  
+
   a {
     @apply no-underline;
   }
@@ -39,9 +48,29 @@
   .text-balance {
     text-wrap: balance;
   }
-  
+
   .touch-manipulation {
     touch-action: manipulation;
+  }
+
+  /* Premium Gold Accent Utilities */
+  .gold-glow {
+    box-shadow:
+      0 0 30px rgba(184, 134, 11, 0.4),
+      0 0 60px rgba(184, 134, 11, 0.2),
+      inset 0 0 20px rgba(184, 134, 11, 0.1);
+  }
+
+  .gold-glow-hover:hover {
+    box-shadow: 0 0 20px rgba(184, 134, 11, 0.5);
+  }
+
+  .gold-border {
+    border-color: rgba(184, 134, 11, 0.3);
+  }
+
+  .gold-divider {
+    border-color: rgba(184, 134, 11, 0.2);
   }
 }
 

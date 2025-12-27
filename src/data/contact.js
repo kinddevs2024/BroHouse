@@ -1,27 +1,27 @@
 export const contactInfo = {
   address:
-    "Ташкент, Шайхантахурский район, улица Курилиш, 9, Tashkent, Uzbekistan",
-  phone: "+998 (77) 001-40-40",
-  email: "info@001barbershop.uz",
-  instagram: "https://www.instagram.com/001_barbershop_?igsh=N3loZG1hN3dkdm12",
-  taplink: "https://taplink.cc/001_barbershop_", // Update with your actual Taplink URL
-  telegramBot: "https://t.me/barber001_bot",
-  tagline: "001 BARBERSHOP | PREMIUM class ✨",
-  description: "Идеальный имидж для мужчин",
-  subtitle: "💈 Профессиональные Барберы | Комфортная атмосфера",
+    "Bunyodkor shoh ko'chasi, 8B, metro \"Milliy Bog'\", Tashkent, Uzbekistan",
+  phone: "+998 97 012 55 55",
+  email: "info@brohouse.uz",
+  instagram: "https://www.instagram.com/brohouseuz",
+  taplink: "https://taplink.cc/brohouseuz",
+  telegramBot: "https://t.me/brohouseuz",
+  tagline: "BROHOUSE",
+  description: "Premium Barbershop",
+  subtitle: "Профессиональные Барберы | Комфортная атмосфера",
   location: {
     city: "Tashkent",
     country: "Uzbekistan",
     building: "BM Grup Building",
   },
   workingHours: [
-    { day: "ВОСКРЕСЕНЬЕ", hours: "8:00 - 17:00" },
-    { day: "ПОНЕДЕЛЬНИК", hours: "8:00 - 19:00" },
-    { day: "ВТОРНИК", hours: "8:00 - 21:00" },
-    { day: "СРЕДА", hours: "8:00 - 21:00" },
-    { day: "ЧЕТВЕРГ", hours: "8:00 - 19:00" },
-    { day: "ПЯТНИЦА", hours: "8:00 - 19:00" },
-    { day: "СУББОТА", hours: "8:00 - 21:00" },
+    { day: "ВОСКРЕСЕНЬЕ", hours: "08:00 - 23:00" },
+    { day: "ПОНЕДЕЛЬНИК", hours: "08:00 - 23:00" },
+    { day: "ВТОРНИК", hours: "08:00 - 23:00" },
+    { day: "СРЕДА", hours: "08:00 - 23:00" },
+    { day: "ЧЕТВЕРГ", hours: "08:00 - 23:00" },
+    { day: "ПЯТНИЦА", hours: "08:00 - 23:00" },
+    { day: "СУББОТА", hours: "08:00 - 23:00" },
   ],
   testimonials: [
     {

@@ -104,7 +104,7 @@ function ImageLightbox({ images, currentIndex, isOpen, onClose }) {
           {/* Close Button */}
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 z-10 p-2 text-white hover:text-gray-300 transition-colors rounded-full hover:bg-white hover:bg-opacity-10"
+            className="absolute top-4 right-4 z-10 p-2 text-gold hover:text-gold-dark transition-colors rounded-full hover:bg-gold hover:bg-opacity-10"
             aria-label="Close gallery">
             <XMarkIcon className="w-6 h-6 sm:w-8 sm:h-8" />
           </button>
@@ -113,7 +113,7 @@ function ImageLightbox({ images, currentIndex, isOpen, onClose }) {
           {images.length > 1 && (
             <button
               onClick={handlePrevious}
-              className="absolute left-4 z-10 p-2 sm:p-3 text-white hover:text-gray-300 transition-colors rounded-full hover:bg-white hover:bg-opacity-10"
+              className="absolute left-4 z-10 p-2 sm:p-3 text-gold hover:text-gold-dark transition-colors rounded-full hover:bg-gold hover:bg-opacity-10"
               aria-label="Previous image">
               <ChevronLeftIcon className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10" />
             </button>
@@ -123,7 +123,7 @@ function ImageLightbox({ images, currentIndex, isOpen, onClose }) {
           {images.length > 1 && (
             <button
               onClick={handleNext}
-              className="absolute right-4 z-10 p-2 sm:p-3 text-white hover:text-gray-300 transition-colors rounded-full hover:bg-white hover:bg-opacity-10"
+              className="absolute right-4 z-10 p-2 sm:p-3 text-gold hover:text-gold-dark transition-colors rounded-full hover:bg-gold hover:bg-opacity-10"
               aria-label="Next image">
               <ChevronRightIcon className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10" />
             </button>
@@ -133,7 +133,7 @@ function ImageLightbox({ images, currentIndex, isOpen, onClose }) {
           <div className="relative max-w-[90vw] max-h-[90vh] flex items-center justify-center">
             {!imageLoaded && (
               <div className="absolute inset-0 flex items-center justify-center">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white"></div>
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gold"></div>
               </div>
             )}
             <motion.img
@@ -152,14 +152,14 @@ function ImageLightbox({ images, currentIndex, isOpen, onClose }) {
 
           {/* Image Counter */}
           {images.length > 1 && (
-            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 px-4 py-2 bg-black bg-opacity-50 rounded-full text-white text-sm sm:text-base">
+            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 px-4 py-2 bg-black bg-opacity-70 border border-gold border-opacity-30 rounded-full text-gold text-sm sm:text-base">
               {imageIndex + 1} / {images.length}
             </div>
           )}
 
           {/* Touch/Swipe Indicators (Mobile) */}
           {images.length > 1 && (
-            <div className="absolute bottom-16 left-1/2 transform -translate-x-1/2 text-white text-xs sm:text-sm opacity-70 hidden sm:block">
+            <div className="absolute bottom-16 left-1/2 transform -translate-x-1/2 text-gold text-xs sm:text-sm opacity-70 hidden sm:block">
               Use arrow keys or swipe to navigate
             </div>
           )}

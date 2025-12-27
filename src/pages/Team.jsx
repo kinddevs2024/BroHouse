@@ -82,17 +82,17 @@ function Team() {
     <div className="pt-16 sm:pt-20 md:pt-[92px]">
       {/* About Us Section */}
       <section
-        className="w-full bg-white py-8 sm:py-10 md:py-12 lg:py-16"
+        className="w-full bg-[#1A1A1A] py-8 sm:py-10 md:py-12 lg:py-16"
         data-aos="fade-up">
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-[127px] grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-12 items-center">
           <div className="order-2 lg:order-1" data-aos="fade-right">
-            <div className="text-xs sm:text-sm font-semibold text-barber-gold mb-3 sm:mb-4 tracking-wider">
+            <div className="text-xs sm:text-sm font-semibold text-gold mb-3 sm:mb-4 tracking-wider uppercase">
               BIZ HAQIMIZDA
             </div>
-            <h1 className="text-3xl xs:text-4xl sm:text-5xl md:text-5xl lg:text-6xl font-bold text-black mb-4 sm:mb-6 md:mb-8 leading-tight">
+            <h1 className="text-3xl xs:text-4xl sm:text-5xl md:text-5xl lg:text-6xl font-bold text-white mb-4 sm:mb-6 md:mb-8 leading-tight">
               Litsenziyalangan Professional Barberlar
             </h1>
-            <p className="text-black text-base sm:text-lg mb-4 sm:mb-6 opacity-80">
+            <p className="text-[#CFCFCF] text-base sm:text-lg mb-4 sm:mb-6 opacity-80">
               Toshkentdagi tajribali barberlar jamoamiz har bir soch olishga
               yillik tajriba va ehtiros olib keladi. {contactInfo.description}{" "}
               Biz eng yuqori sifatli parvarish xizmatlarini taqdim etishga
@@ -101,7 +101,7 @@ function Team() {
             <Button
               size="lg"
               onClick={() => navigate("/booking")}
-              className="w-full sm:w-auto px-5 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 bg-black text-white rounded-xl sm:rounded-2xl font-semibold text-sm sm:text-base hover:bg-gray-800"
+              className="w-full sm:w-auto px-5 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 bg-gold text-black rounded-xl sm:rounded-2xl font-semibold text-sm sm:text-base hover:bg-gold-dark transition-colors"
               aria-label="Book an appointment">
               VAQT BELGILASH
             </Button>
@@ -121,7 +121,7 @@ function Team() {
 
       {/* Our Barbers Section */}
       <section
-        className="w-full bg-barber-olive py-8 sm:py-10 md:py-12 lg:py-16"
+        className="w-full bg-black py-8 sm:py-10 md:py-12 lg:py-16"
         data-aos="fade-up">
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-[127px]">
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white text-center mb-6 sm:mb-8 md:mb-12">
@@ -160,7 +160,7 @@ function Team() {
               return (
                 <motion.div
                   key={barberId}
-                  className="bg-barber-dark rounded-2xl sm:rounded-3xl p-4 sm:p-5 md:p-6 overflow-hidden"
+                  className="bg-[#1A1A1A] border border-gold border-opacity-30 rounded-2xl sm:rounded-3xl p-4 sm:p-5 md:p-6 overflow-hidden"
                   data-aos="zoom-in"
                   data-aos-delay={i * 100}
                   whileHover={{ y: -10 }}>
@@ -177,10 +177,10 @@ function Team() {
                   <h3 className="text-base sm:text-lg md:text-xl font-bold text-white mb-1 uppercase">
                     {barberName}
                   </h3>
-                  <p className="text-barber-gold mb-2 sm:mb-3 md:mb-4 text-sm sm:text-base">
+                  <p className="text-gold mb-2 sm:mb-3 md:mb-4 text-sm sm:text-base font-semibold">
                     {barberRole}
                   </p>
-                  <p className="text-white text-xs sm:text-sm mb-3 sm:mb-4 md:mb-6 opacity-80">
+                  <p className="text-[#CFCFCF] text-xs sm:text-sm mb-3 sm:mb-4 md:mb-6 opacity-80">
                     {barberDescription}
                   </p>
                 </motion.div>
@@ -192,7 +192,7 @@ function Team() {
 
       {/* Full Service Section */}
       <section
-        className="w-full bg-barber-dark py-8 sm:py-10 md:py-12 lg:py-16"
+        className="w-full bg-[#1A1A1A] py-8 sm:py-10 md:py-12 lg:py-16"
         data-aos="fade-up">
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-[127px]">
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 sm:mb-4 md:mb-6 text-left">
@@ -211,7 +211,7 @@ function Team() {
               size="lg"
               variant="filled"
               onClick={() => navigate("/#narxlar")}
-              className="w-full xs:w-auto px-5 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 bg-white text-black rounded-xl sm:rounded-2xl font-semibold text-sm sm:text-base hover:bg-gray-100"
+              className="w-full xs:w-auto px-5 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 bg-gold text-black rounded-xl sm:rounded-2xl font-semibold text-sm sm:text-base hover:bg-gold-dark transition-colors"
               aria-label="View pricing">
               Narxlarni ko'rish
             </Button>
@@ -219,7 +219,7 @@ function Team() {
               size="lg"
               variant="outlined"
               onClick={() => navigate("/booking")}
-              className="w-full xs:w-auto px-5 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 bg-transparent border-2 border-white text-white rounded-xl sm:rounded-2xl font-semibold text-sm sm:text-base hover:bg-white hover:text-black"
+              className="w-full xs:w-auto px-5 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 bg-transparent border-2 border-gold text-white rounded-xl sm:rounded-2xl font-semibold text-sm sm:text-base hover:bg-gold hover:text-black transition-colors"
               aria-label="Book an appointment online">
               Onlayn bron qilish
             </Button>

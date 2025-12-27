@@ -266,20 +266,33 @@ function Home() {
     <div>
       <Analytics />
       {/* Hero Section - Full Page */}
-      <section className="w-full h-screen relative overflow-hidden" style={{ backgroundColor: '#292d33' }}>
+      <section className="w-full h-screen relative overflow-hidden bg-black pb-8 sm:pb-12 md:pb-16 lg:pb-20">
         {/* Content Container */}
         <div className="relative z-10 h-full max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-[126px] flex flex-col lg:flex-row items-center justify-center lg:justify-between pt-20 sm:pt-[104px] md:pt-[124px] lg:pt-0 gap-4 sm:gap-6 md:gap-8 lg:gap-12">
-          {/* Image - First on Mobile, Right on Desktop */}
+          {/* Video - First on Mobile, Right on Desktop */}
           <div
-            className="flex-1 w-full lg:w-auto lg:max-w-[680px] flex items-center justify-center order-1 lg:order-2 mt-[30px] lg:mt-0"
+            className="flex-1 w-full lg:w-auto lg:max-w-[680px] flex items-center justify-center order-1 lg:order-2 mt-[30px] lg:mt-0 mb-4 sm:mb-6 md:mb-8 lg:mb-0"
             data-aos="fade-left">
-            <div className="relative w-full h-[300px] xs:h-[650px] sm:h-[400px] md:h-[500px] lg:h-[800px] xl:h-[900px] 2xl:h-[1000px] rounded-2xl sm:rounded-3xl lg:rounded-[35px] overflow-hidden shadow-2xl">
-              <img
-                src={imagePool[0]}
-                alt="001 Barbershop - Professional haircut and grooming services in Tashkent"
-                className="w-full h-full object-cover"
-                loading="eager"
-              />
+            <div className="relative w-full h-[300px] xs:h-[400px] sm:h-[450px] md:h-[500px] lg:h-[700px] xl:h-[800px] 2xl:h-[850px]">
+              {/* Outer gold border frame with padding */}
+              <div className="relative w-full h-full p-2 sm:p-3 md:p-4 lg:p-5">
+                <div className="relative w-full h-full border-2 sm:border-[3px] md:border-4 border-gold rounded-2xl sm:rounded-3xl lg:rounded-[35px] overflow-hidden gold-glow">
+                  {/* Inner decorative border */}
+                  <div className="absolute inset-[2px] sm:inset-[3px] md:inset-[4px] border border-gold border-opacity-40 rounded-2xl sm:rounded-3xl lg:rounded-[35px] pointer-events-none z-10"></div>
+                  {/* Video element */}
+                  <video
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    className="w-full h-full object-cover"
+                  >
+                    <source src="/start_video.mp4" type="video/mp4" />
+                  </video>
+                  {/* Subtle gradient overlay for depth */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-black/10 pointer-events-none"></div>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -287,7 +300,7 @@ function Home() {
           <div
             className="flex-1 flex flex-col justify-center lg:justify-start lg:pt-[100px] z-10 w-full lg:w-auto order-2 lg:order-1 text-center md:text-left"
             data-aos="fade-right">
-            <div className="text-xs sm:text-sm font-semibold text-white mb-3 sm:mb-4 tracking-wider">
+            <div className="text-xs sm:text-sm font-semibold text-gold mb-3 sm:mb-4 tracking-wider uppercase">
               ДОБРО ПОЖАЛОВАТЬ
             </div>
             <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-2 sm:mb-3 md:mb-4 leading-tight">
@@ -314,7 +327,7 @@ function Home() {
                 />
                 <a
                   href={`tel:${contactInfo.phone}`}
-                  className="hover:text-barber-gold transition-colors break-all text-white">
+                  className="hover:text-gold transition-colors break-all text-white">
                   {contactInfo.phone}
                 </a>
               </div>
@@ -325,7 +338,7 @@ function Home() {
                 />
                 <a
                   href={`mailto:${contactInfo.email}`}
-                  className="hover:text-barber-gold transition-colors break-all text-white">
+                  className="hover:text-gold transition-colors break-all text-white">
                   {contactInfo.email}
                 </a>
               </div>
@@ -335,7 +348,7 @@ function Home() {
                 size="lg"
                 variant="outlined"
                 onClick={() => navigate("/booking")}
-                className="px-6 sm:px-8 md:px-10 py-3 sm:py-4 md:py-5 bg-transparent border-2 border-white rounded-xl sm:rounded-2xl font-semibold text-sm sm:text-base md:text-lg text-white hover:bg-white hover:text-gray-800"
+                className="px-6 sm:px-8 md:px-10 py-3 sm:py-4 md:py-5 bg-transparent border-2 border-gold rounded-xl sm:rounded-2xl font-semibold text-sm sm:text-base md:text-lg text-white hover:bg-gold hover:text-black transition-colors"
                 aria-label="Book an appointment online">
                 Записаться онлайн
               </Button>
@@ -345,8 +358,8 @@ function Home() {
 
         {/* Scroll Indicator */}
         <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10 animate-bounce hidden lg:block">
-          <div className="w-6 h-10 border-2 border-black rounded-full flex justify-center">
-            <div className="w-1 h-3 bg-black rounded-full mt-2"></div>
+          <div className="w-6 h-10 border-2 border-gold border-opacity-50 rounded-full flex justify-center">
+            <div className="w-1 h-3 bg-gold rounded-full mt-2"></div>
           </div>
         </div>
       </section>
@@ -354,12 +367,12 @@ function Home() {
       <div>
         {/* Services Overview Section */}
         <section
-          className="w-full bg-white py-8 sm:py-10 md:py-12 lg:py-16"
+          className="w-full bg-[#1A1A1A] py-6 sm:py-16 md:py-20 lg:py-24"
           data-aos="fade-up">
           <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-[127px]">
             {loadingServices && (
               <div className="text-center py-8">
-                <p className="text-black text-lg">Загрузка услуг...</p>
+                <p className="text-white text-lg">Загрузка услуг...</p>
               </div>
             )}
             <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
@@ -372,7 +385,7 @@ function Home() {
 
         {/* Why Choose Us & Working Hours Section */}
         <section
-          className="w-full bg-barber-dark py-8 sm:py-10 md:py-12 lg:py-20 relative"
+          className="w-full bg-black py-8 sm:py-10 md:py-12 lg:py-20 relative"
           data-aos="fade-up">
           <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-[127px] grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-12">
             <div className="text-white relative z-10" data-aos="fade-right">
@@ -389,9 +402,9 @@ function Home() {
               </ul>
             </div>
             <div
-              className="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-6 md:p-8 relative z-10"
+              className="bg-[#1A1A1A] border border-gold border-opacity-30 rounded-2xl sm:rounded-3xl p-5 sm:p-6 md:p-8 relative z-10"
               data-aos="fade-left">
-              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-black mb-4 sm:mb-6">
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-4 sm:mb-6">
                 {getTranslation(language, "home.workingHours")}
               </h2>
               <div className="space-y-2 sm:space-y-3 mb-4 sm:mb-6 md:mb-8">
@@ -411,7 +424,7 @@ function Home() {
                   return (
                     <div
                       key={i}
-                      className="text-black font-medium text-sm sm:text-base">
+                      className="text-white font-medium text-sm sm:text-base">
                       {translatedDay} {schedule.hours}
                     </div>
                   );
@@ -421,7 +434,7 @@ function Home() {
                 size="lg"
                 variant="outlined"
                 onClick={() => navigate("/booking")}
-                className="w-full px-5 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 bg-white border-2 border-black rounded-xl sm:rounded-2xl font-semibold text-sm sm:text-base text-black hover:bg-gray-50"
+                className="w-full px-5 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 bg-gold border-2 border-gold rounded-xl sm:rounded-2xl font-semibold text-sm sm:text-base text-black hover:bg-gold-dark transition-colors"
                 aria-label="Book an appointment online">
                 {getTranslation(language, "nav.booking")}
               </Button>
@@ -432,20 +445,20 @@ function Home() {
         {/* Our Pricing Section */}
         <section
           id="narxlar"
-          className="w-full bg-white py-8 sm:py-10 md:py-12 lg:py-20"
+          className="w-full bg-[#1A1A1A] py-8 sm:py-10 md:py-12 lg:py-20"
           data-aos="fade-up">
           <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-[127px]">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-black text-center mb-6 sm:mb-8 md:mb-12">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white text-center mb-6 sm:mb-8 md:mb-12">
               {getTranslation(language, "home.prices")}
             </h2>
             {loadingServices ? (
               <div className="text-center py-8">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-600 mx-auto mb-4"></div>
-                <p className="text-black">{getTranslation(language, "home.loadingPrices")}</p>
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gold mx-auto mb-4"></div>
+                <p className="text-white">{getTranslation(language, "home.loadingPrices")}</p>
               </div>
             ) : homePricing.length === 0 ? (
               <div className="text-center py-8">
-                <p className="text-gray-600">{getTranslation(language, "home.pricesNotFound")}</p>
+                <p className="text-[#CFCFCF]">{getTranslation(language, "home.pricesNotFound")}</p>
               </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 md:gap-12 max-w-4xl mx-auto">
@@ -453,13 +466,13 @@ function Home() {
                   {homePricing.slice(0, 4).map((item, i) => (
                     <div
                       key={item.id}
-                      className="flex justify-between items-center py-2 sm:py-3 border-b border-gray-200"
+                      className="flex justify-between items-center py-2 sm:py-3 border-b border-gold border-opacity-20"
                       data-aos="fade-up"
                       data-aos-delay={i * 50}>
-                      <span className="text-black font-medium text-sm sm:text-base">
+                      <span className="text-white font-medium text-sm sm:text-base">
                         {item.name}
                       </span>
-                      <span className="text-gray-600 font-semibold text-sm sm:text-base">
+                      <span className="text-gold font-semibold text-sm sm:text-base">
                         {item.price}
                       </span>
                     </div>
@@ -469,13 +482,13 @@ function Home() {
                   {homePricing.slice(4, 8).map((item, i) => (
                     <div
                       key={item.id}
-                      className="flex justify-between items-center py-2 sm:py-3 border-b border-gray-200"
+                      className="flex justify-between items-center py-2 sm:py-3 border-b border-gold border-opacity-20"
                       data-aos="fade-up"
                       data-aos-delay={i * 50}>
-                      <span className="text-black font-medium text-sm sm:text-base">
+                      <span className="text-white font-medium text-sm sm:text-base">
                         {item.name}
                       </span>
-                      <span className="text-gray-600 font-semibold text-sm sm:text-base">
+                      <span className="text-gold font-semibold text-sm sm:text-base">
                         {item.price}
                       </span>
                     </div>
@@ -488,7 +501,7 @@ function Home() {
 
         {/* Welcome to the Upscale Barber Studio Section */}
         <section
-          className="w-full bg-barber-dark py-8 sm:py-10 md:py-12 lg:py-20"
+          className="w-full bg-black py-8 sm:py-10 md:py-12 lg:py-20"
           data-aos="fade-up">
           <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-[127px] grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-12 items-center">
             <div className="relative order-2 lg:order-1" data-aos="fade-right">
@@ -500,17 +513,17 @@ function Home() {
                   loading="lazy"
                 />
                 {/* Decorative shapes */}
-                <div className="absolute -top-8 -left-8 sm:-top-10 sm:-left-10 w-32 h-32 sm:w-40 sm:h-40 bg-barber-gold rounded-full opacity-50"></div>
-                <div className="absolute -bottom-8 -right-8 sm:-bottom-10 sm:-right-10 w-24 h-24 sm:w-32 sm:h-32 bg-teal-400 rounded-full opacity-50"></div>
+                <div className="absolute -top-8 -left-8 sm:-top-10 sm:-left-10 w-32 h-32 sm:w-40 sm:h-40 bg-gold rounded-full opacity-20"></div>
+                <div className="absolute -bottom-8 -right-8 sm:-bottom-10 sm:-right-10 w-24 h-24 sm:w-32 sm:h-32 bg-gold rounded-full opacity-20"></div>
               </div>
             </div>
             <div
-              className="bg-barber-light rounded-2xl sm:rounded-3xl p-5 sm:p-6 md:p-8 lg:p-12 order-1 lg:order-2"
+              className="bg-[#1A1A1A] border border-gold border-opacity-30 rounded-2xl sm:rounded-3xl p-5 sm:p-6 md:p-8 lg:p-12 order-1 lg:order-2"
               data-aos="fade-left">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-black mb-3 sm:mb-4 md:mb-6">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-3 sm:mb-4 md:mb-6">
                 Добро пожаловать в барбершоп премиум-класса
               </h2>
-              <p className="text-black mb-4 sm:mb-6 md:mb-8 leading-relaxed text-sm sm:text-base">
+              <p className="text-[#CFCFCF] mb-4 sm:mb-6 md:mb-8 leading-relaxed text-sm sm:text-base">
                 В нашем барбершопе вы найдете профессиональные услуги и комфортную
                 атмосферу. Наши специалисты предоставляют высококачественные услуги
                 с индивидуальным подходом к каждому клиенту.
@@ -518,7 +531,7 @@ function Home() {
               <Button
                 size="lg"
                 onClick={() => navigate("/booking")}
-                className="w-full sm:w-auto px-5 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 bg-black text-white rounded-xl sm:rounded-2xl font-semibold text-sm sm:text-base hover:bg-gray-800"
+                className="w-full sm:w-auto px-5 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 bg-gold text-black rounded-xl sm:rounded-2xl font-semibold text-sm sm:text-base hover:bg-gold-dark transition-colors"
                 aria-label="Book an appointment online">
                 Записаться онлайн
               </Button>
@@ -528,11 +541,11 @@ function Home() {
 
         {/* Free Consultation Section */}
         <section
-          className="w-full bg-white py-8 sm:py-10 md:py-12 lg:py-20"
+          className="w-full bg-[#1A1A1A] py-8 sm:py-10 md:py-12 lg:py-20"
           data-aos="fade-up">
           <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-[127px] grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-12 items-center">
             <div className="order-2 lg:order-1" data-aos="fade-right">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-black mb-4 sm:mb-6 md:mb-8 leading-tight">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 sm:mb-6 md:mb-8 leading-tight">
                 Свяжитесь с нашими профессиональными барберами
                 для бесплатной индивидуальной консультации
               </h2>
@@ -540,7 +553,7 @@ function Home() {
                 size="lg"
                 variant="outlined"
                 onClick={() => navigate("/booking")}
-                className="w-full sm:w-auto px-5 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 bg-white border-2 border-black rounded-xl sm:rounded-2xl font-semibold text-sm sm:text-base text-black hover:bg-gray-50"
+                className="w-full sm:w-auto px-5 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 bg-transparent border-2 border-gold rounded-xl sm:rounded-2xl font-semibold text-sm sm:text-base text-white hover:bg-gold hover:text-black transition-colors"
                 aria-label="Book an appointment online">
                 Записаться онлайн
               </Button>
@@ -554,8 +567,8 @@ function Home() {
                   loading="lazy"
                 />
                 {/* Decorative shapes */}
-                <div className="absolute -top-8 -left-8 sm:-top-10 sm:-left-10 w-32 h-32 sm:w-40 sm:h-40 bg-barber-gold rounded-full opacity-50"></div>
-                <div className="absolute -bottom-8 -right-8 sm:-bottom-10 sm:-right-10 w-24 h-24 sm:w-32 sm:h-32 bg-teal-400 rounded-full opacity-50"></div>
+                <div className="absolute -top-8 -left-8 sm:-top-10 sm:-left-10 w-32 h-32 sm:w-40 sm:h-40 bg-gold rounded-full opacity-20"></div>
+                <div className="absolute -bottom-8 -right-8 sm:-bottom-10 sm:-right-10 w-24 h-24 sm:w-32 sm:h-32 bg-gold rounded-full opacity-20"></div>
               </div>
             </div>
           </div>
@@ -563,11 +576,11 @@ function Home() {
 
         {/* 360° BARBER SHOP Section */}
         <section
-          className="w-full bg-barber-olive py-8 sm:py-10 md:py-12 lg:py-20"
+          className="w-full bg-black py-8 sm:py-10 md:py-12 lg:py-20"
           data-aos="fade-up">
           <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-[127px]">
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white text-center mb-6 sm:mb-8 md:mb-12">
-              BARBER SHOP
+              BROHOUSE
             </h2>
             <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
               {(() => {
@@ -603,7 +616,7 @@ function Home() {
 
         {/* People Comments Section */}
         <section
-          className="w-full bg-barber-olive py-8 sm:py-10 md:py-12 lg:py-20"
+          className="w-full bg-[#1A1A1A] py-8 sm:py-10 md:py-12 lg:py-20"
           data-aos="fade-up">
           <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-[127px]">
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white text-center mb-6 sm:mb-8 md:mb-12">
@@ -618,12 +631,12 @@ function Home() {
                 {comments.map((comment, i) => (
                   <motion.div
                     key={comment.id || i}
-                    className="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-6 md:p-8 relative"
+                    className="bg-[#222222] border border-gold border-opacity-30 rounded-2xl sm:rounded-3xl p-5 sm:p-6 md:p-8 relative"
                     data-aos="fade-up"
                     data-aos-delay={i * 200}
                     whileHover={{ y: -5 }}>
                     <svg
-                      className="absolute top-4 sm:top-5 md:top-6 left-4 sm:left-5 md:left-6 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 text-barber-gold"
+                      className="absolute top-4 sm:top-5 md:top-6 left-4 sm:left-5 md:left-6 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 text-gold"
                       viewBox="0 0 30 30"
                       fill="none"
                       aria-hidden="true">
@@ -633,12 +646,12 @@ function Home() {
                       />
                     </svg>
                     <div className="flex items-center gap-3 sm:gap-4 mt-5 sm:mt-6 md:mt-8 mb-3 sm:mb-4">
-                      <div className="w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 bg-barber-gold rounded-full flex-shrink-0"></div>
-                      <h3 className="text-lg sm:text-xl font-bold text-black">
+                      <div className="w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 bg-gold rounded-full flex-shrink-0"></div>
+                      <h3 className="text-lg sm:text-xl font-bold text-white">
                         {comment.name}
                       </h3>
                     </div>
-                    <p className="text-black text-sm sm:text-base">
+                    <p className="text-[#CFCFCF] text-sm sm:text-base">
                       {comment.text}
                     </p>
                   </motion.div>

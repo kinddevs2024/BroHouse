@@ -550,19 +550,19 @@ function Booking() {
     return (
       <div className="pt-16 sm:pt-20 md:pt-[92px] min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-barber-gold mx-auto mb-4"></div>
-          <p className="text-black">Загрузка...</p>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gold mx-auto mb-4"></div>
+          <p className="text-white">Загрузка...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="pt-16 sm:pt-20 md:pt-[92px] min-h-screen bg-white">
+    <div className="pt-16 sm:pt-20 md:pt-[92px] min-h-screen bg-black">
       <section className="w-full py-8 sm:py-10 md:py-12 lg:py-16">
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-[127px]">
           <div className="max-w-4xl mx-auto">
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-black mb-6 text-center">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-6 text-center">
               Запись на прием
             </h1>
 
@@ -571,13 +571,13 @@ function Booking() {
               <div className="flex items-center space-x-4">
                 <div
                   className={`flex items-center ${
-                    currentStep >= 1 ? "text-barber-olive" : "text-gray-400"
+                    currentStep >= 1 ? "text-gold" : "text-[#CFCFCF]"
                   }`}>
                   <div
                     className={`w-10 h-10 rounded-full flex items-center justify-center border-2 ${
                       currentStep >= 1
-                        ? "border-barber-olive bg-barber-olive text-white"
-                        : "border-gray-300 bg-white"
+                        ? "border-gold bg-gold text-black"
+                        : "border-[#CFCFCF] bg-[#1A1A1A]"
                     }`}>
                     {currentStep > 1 ? "✓" : "1"}
                   </div>
@@ -587,17 +587,17 @@ function Booking() {
                 </div>
                 <div
                   className={`w-12 h-0.5 ${
-                    currentStep >= 2 ? "bg-barber-olive" : "bg-gray-300"
+                    currentStep >= 2 ? "bg-gold" : "bg-[#CFCFCF]"
                   }`}></div>
                 <div
                   className={`flex items-center ${
-                    currentStep >= 2 ? "text-barber-olive" : "text-gray-400"
+                    currentStep >= 2 ? "text-gold" : "text-[#CFCFCF]"
                   }`}>
                   <div
                     className={`w-10 h-10 rounded-full flex items-center justify-center border-2 ${
                       currentStep >= 2
-                        ? "border-barber-olive bg-barber-olive text-white"
-                        : "border-gray-300 bg-white"
+                        ? "border-gold bg-gold text-black"
+                        : "border-[#CFCFCF] bg-[#1A1A1A]"
                     }`}>
                     {currentStep > 2 ? "✓" : "2"}
                   </div>
@@ -607,17 +607,17 @@ function Booking() {
                 </div>
                 <div
                   className={`w-12 h-0.5 ${
-                    currentStep >= 3 ? "bg-barber-olive" : "bg-gray-300"
+                    currentStep >= 3 ? "bg-gold" : "bg-[#CFCFCF]"
                   }`}></div>
                 <div
                   className={`flex items-center ${
-                    currentStep >= 3 ? "text-barber-olive" : "text-gray-400"
+                    currentStep >= 3 ? "text-gold" : "text-[#CFCFCF]"
                   }`}>
                   <div
                     className={`w-10 h-10 rounded-full flex items-center justify-center border-2 ${
                       currentStep >= 3
-                        ? "border-barber-olive bg-barber-olive text-white"
-                        : "border-gray-300 bg-white"
+                        ? "border-gold bg-gold text-black"
+                        : "border-[#CFCFCF] bg-[#1A1A1A]"
                     }`}>
                     3
                   </div>
@@ -640,17 +640,17 @@ function Booking() {
               </div>
             )}
 
-            <div className="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-10 shadow-lg border border-gray-200">
+            <div className="bg-[#1A1A1A] border border-gold border-opacity-30 rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-10 shadow-lg">
               {/* Step 1: Barber and Time Selection */}
               {currentStep === 1 && (
                 <div className="space-y-6">
-                  <h2 className="text-xl sm:text-2xl font-bold text-black mb-4">
+                  <h2 className="text-xl sm:text-2xl font-bold text-white mb-4">
                     Выберите барбера и время
                   </h2>
 
                   {/* Barbers Selection */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-3">
+                    <label className="block text-sm font-medium text-white mb-3">
                       Выберите барбера
                     </label>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -666,17 +666,17 @@ function Booking() {
                             }
                             className={`p-4 rounded-lg border-2 transition-all text-left ${
                               isSelected
-                                ? "border-barber-olive bg-barber-olive/10"
-                                : "border-gray-300 hover:border-barber-olive/50"
+                                ? "border-gold bg-gold/10"
+                                : "border-gold border-opacity-30 hover:border-gold/50 bg-[#222222]"
                             }`}>
-                            <h3 className="font-bold text-lg text-black mb-1">
+                            <h3 className="font-bold text-lg text-white mb-1">
                               {barber.name || barber.fullName || "Barber"}
                             </h3>
-                            <p className="text-sm text-gray-600">
-                              Время работы: 8:00 - 21:00
+                            <p className="text-sm text-[#CFCFCF]">
+                              Время работы: 08:00 - 23:00
                             </p>
                             {isSelected && (
-                              <p className="text-sm text-barber-olive font-semibold mt-2">
+                              <p className="text-sm text-gold font-semibold mt-2">
                                 ✓ Выбрано
                               </p>
                             )}
@@ -689,18 +689,18 @@ function Booking() {
                   {/* Date Selection Calendar */}
                   {formData.barber_id && (
                     <div className="mb-4">
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                      <label className="block text-sm font-medium text-white mb-2">
                         Выберите дату
                       </label>
-                      <div className="bg-white border border-gray-200 rounded-lg p-2 shadow-sm max-w-md mx-auto">
+                      <div className="bg-[#222222] border border-gold border-opacity-30 rounded-lg p-2 shadow-sm max-w-md mx-auto">
                         {/* Calendar Header */}
                         <div className="flex items-center justify-between mb-2">
                           <button
                             type="button"
                             onClick={handlePrevMonth}
-                            className="p-1 hover:bg-gray-100 rounded transition-colors">
+                            className="p-1 hover:bg-gold hover:bg-opacity-20 rounded transition-colors">
                             <svg
-                              className="w-4 h-4 text-gray-600"
+                              className="w-4 h-4 text-gold"
                               fill="none"
                               stroke="currentColor"
                               viewBox="0 0 24 24">
@@ -712,16 +712,16 @@ function Booking() {
                               />
                             </svg>
                           </button>
-                          <h3 className="text-sm font-semibold text-black">
+                          <h3 className="text-sm font-semibold text-white">
                             {monthNames[currentMonth.getMonth()]}{" "}
                             {currentMonth.getFullYear()}
                           </h3>
                           <button
                             type="button"
                             onClick={handleNextMonth}
-                            className="p-1 hover:bg-gray-100 rounded transition-colors">
+                            className="p-1 hover:bg-gold hover:bg-opacity-20 rounded transition-colors">
                             <svg
-                              className="w-4 h-4 text-gray-600"
+                              className="w-4 h-4 text-gold"
                               fill="none"
                               stroke="currentColor"
                               viewBox="0 0 24 24">
@@ -740,7 +740,7 @@ function Booking() {
                           {dayNames.map((day) => (
                             <div
                               key={day}
-                              className="text-center text-[10px] font-semibold text-gray-500 py-1">
+                              className="text-center text-[10px] font-semibold text-[#CFCFCF] py-1">
                               {day}
                             </div>
                           ))}
@@ -767,12 +767,12 @@ function Booking() {
                                 disabled={isPast}
                                 className={`aspect-square rounded text-xs font-medium transition-all ${
                                   isSelected
-                                    ? "bg-barber-olive text-white shadow-md scale-105"
+                                    ? "bg-gold text-black shadow-md scale-105"
                                     : isToday
-                                    ? "bg-barber-gold/20 text-black border border-barber-gold"
+                                    ? "bg-gold/20 text-white border border-gold"
                                     : isPast
-                                    ? "text-gray-300 cursor-not-allowed"
-                                    : "text-gray-700 hover:bg-gray-100 hover:border-barber-olive/50 border border-transparent"
+                                    ? "text-[#666666] cursor-not-allowed"
+                                    : "text-white hover:bg-gold hover:bg-opacity-20 hover:border-gold/50 border border-transparent"
                                 }`}>
                                 {day}
                               </button>
@@ -780,11 +780,11 @@ function Booking() {
                           })}
                         </div>
                         {formData.date && (
-                          <div className="mt-2 pt-2 border-t border-gray-200">
-                            <p className="text-xs text-gray-600">
+                          <div className="mt-2 pt-2 border-t border-gold border-opacity-20">
+                            <p className="text-xs text-[#CFCFCF]">
                               Выбранная дата:
                             </p>
-                            <p className="text-sm font-bold text-barber-olive">
+                            <p className="text-sm font-bold text-gold">
                               {formatDateDisplay(formData.date)}
                             </p>
                           </div>
@@ -797,7 +797,7 @@ function Booking() {
                   {formData.barber_id && (
                     <div>
                       <div className="flex items-center justify-between mb-3">
-                        <label className="block text-sm font-medium text-gray-700">
+                        <label className="block text-sm font-medium text-white">
                           Выберите время
                         </label>
                         <button
@@ -805,8 +805,8 @@ function Booking() {
                           onClick={toggleCustomTime}
                           className={`text-xs px-3 py-1.5 rounded-lg transition-all ${
                             useCustomTime
-                              ? "bg-barber-olive text-white"
-                              : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                              ? "bg-gold text-black"
+                              : "bg-[#222222] border border-gold border-opacity-30 text-white hover:bg-gold hover:text-black"
                           }`}>
                           {useCustomTime ? "Часы" : "Другое время"}
                         </button>
@@ -836,8 +836,8 @@ function Booking() {
                                   }
                                   className={`relative px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-200 ${
                                     isSelected
-                                      ? "bg-barber-olive text-white shadow-lg transform scale-105"
-                                      : "bg-gray-100 text-gray-700 hover:bg-gray-200 hover:shadow-md border border-gray-300"
+                                      ? "bg-gold text-black shadow-lg transform scale-105"
+                                      : "bg-[#222222] border border-gold border-opacity-30 text-white hover:bg-gold hover:text-black hover:shadow-md"
                                   }`}
                                   disabled={isSubmitting}>
                                   <div className="text-center">
@@ -848,10 +848,10 @@ function Booking() {
                                       {period}
                                     </div>
                                   </div>
-                                  {isSelected && (
-                                    <span className="absolute -top-1 -right-1 w-5 h-5 bg-white rounded-full flex items-center justify-center">
-                                      <svg
-                                        className="w-3 h-3 text-barber-olive"
+                                    {isSelected && (
+                                      <span className="absolute -top-1 -right-1 w-5 h-5 bg-black rounded-full flex items-center justify-center">
+                                        <svg
+                                          className="w-3 h-3 text-gold"
                                         fill="currentColor"
                                         viewBox="0 0 20 20">
                                         <path
@@ -887,11 +887,11 @@ function Booking() {
                             Пожалуйста, введите время с 8:00 до 21:00
                           </p>
                           {formData.time && (
-                            <div className="p-3 bg-barber-olive/10 border border-barber-olive rounded-lg">
-                              <p className="text-sm text-gray-600">
+                            <div className="p-3 bg-gold/10 border border-gold rounded-lg">
+                              <p className="text-sm text-[#CFCFCF]">
                                 Выбранное время:
                               </p>
-                              <p className="text-base font-bold text-black">
+                              <p className="text-base font-bold text-gold">
                                 {formData.time}
                               </p>
                             </div>
@@ -907,7 +907,7 @@ function Booking() {
                       onClick={handleNext}
                       disabled={!formData.barber_id || !formData.time}
                       size="lg"
-                      className="bg-barber-olive hover:bg-barber-gold text-white font-semibold">
+                      className="bg-gold hover:bg-gold-dark text-black font-semibold">
                       Keyingi
                     </Button>
                   </div>
@@ -917,15 +917,15 @@ function Booking() {
               {/* Step 2: Service Selection */}
               {currentStep === 2 && (
                 <div className="space-y-6">
-                  <h2 className="text-xl sm:text-2xl font-bold text-black mb-4">
+                  <h2 className="text-xl sm:text-2xl font-bold text-white mb-4">
                     Выберите услугу
                   </h2>
 
                   {/* Selected Barber and Time Summary */}
                   {selectedBarber && (
-                    <div className="bg-gray-50 rounded-lg p-4 mb-4">
-                      <p className="text-sm text-gray-600 mb-1">Выбрано:</p>
-                      <p className="font-semibold text-black">
+                    <div className="bg-[#222222] border border-gold border-opacity-20 rounded-lg p-4 mb-4">
+                      <p className="text-sm text-[#CFCFCF] mb-1">Выбрано:</p>
+                      <p className="font-semibold text-white">
                         {selectedBarber.name || selectedBarber.fullName} -{" "}
                         {formData.date} {formData.time}
                       </p>
@@ -934,7 +934,7 @@ function Booking() {
 
                   {/* Services Selection */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-3">
+                    <label className="block text-sm font-medium text-white mb-3">
                       Выберите услугу{" "}
                       {formData.service_ids.length > 0 &&
                         `(${formData.service_ids.length} выбрано)`}
@@ -950,8 +950,8 @@ function Booking() {
                             onClick={() => setSelectedCategory("all")}
                             className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all ${
                               selectedCategory === "all"
-                                ? "bg-barber-olive text-white shadow-md"
-                                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                                ? "bg-gold text-black shadow-md"
+                                : "bg-[#222222] border border-gold border-opacity-30 text-white hover:bg-gold hover:text-black"
                             }`}>
                             Все
                           </button>
@@ -968,8 +968,8 @@ function Booking() {
                                 onClick={() => setSelectedCategory(categoryId)}
                                 className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all flex items-center gap-2 ${
                                   isSelected
-                                    ? "bg-barber-olive text-white shadow-md"
-                                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                                    ? "bg-gold text-black shadow-md"
+                                    : "bg-[#222222] border border-gold border-opacity-30 text-white hover:bg-gold hover:text-black"
                                 }`}>
                                 {category.icon && <span>{category.icon}</span>}
                                 <span>{category.name}</span>
@@ -995,7 +995,7 @@ function Booking() {
 
                         if (filteredServices.length === 0) {
                           return (
-                            <div className="col-span-2 text-center py-8 text-gray-500">
+                            <div className="col-span-2 text-center py-8 text-[#CFCFCF]">
                               <p>Услуги не найдены в этой категории</p>
                             </div>
                           );
@@ -1028,8 +1028,8 @@ function Booking() {
                               onClick={() => handleServiceToggle(serviceId)}
                               className={`p-4 rounded-lg border-2 transition-all text-left relative overflow-hidden ${
                                 isSelected
-                                  ? "border-barber-olive bg-barber-olive/10"
-                                  : "border-gray-300 hover:border-barber-olive/50"
+                                  ? "border-gold bg-gold/10"
+                                  : "border-gold border-opacity-30 bg-[#222222] hover:border-gold/50"
                               }`}>
                               {/* Service Image */}
                               {serviceImageUrl ? (
@@ -1050,8 +1050,8 @@ function Booking() {
                               <div
                                 className={`absolute top-3 right-3 w-6 h-6 rounded border-2 flex items-center justify-center z-10 ${
                                   isSelected
-                                    ? "border-barber-olive bg-barber-olive"
-                                    : "border-gray-300 bg-white"
+                                    ? "border-gold bg-gold"
+                                    : "border-gold border-opacity-30 bg-[#1A1A1A]"
                                 }`}>
                                 {isSelected && (
                                   <svg
@@ -1066,16 +1066,16 @@ function Booking() {
                                   </svg>
                                 )}
                               </div>
-                              <h3 className="font-bold text-lg text-black mb-1 pr-8">
+                              <h3 className="font-bold text-lg text-white mb-1 pr-8">
                                 {serviceName}
                               </h3>
                               {servicePrice && (
-                                <p className="text-sm font-semibold text-barber-olive mb-1">
+                                <p className="text-sm font-semibold text-gold mb-1">
                                   {servicePrice}
                                 </p>
                               )}
                               {serviceDuration && (
-                                <p className="text-sm text-gray-600">
+                                <p className="text-sm text-[#CFCFCF]">
                                   {serviceDuration}
                                 </p>
                               )}
@@ -1092,7 +1092,7 @@ function Booking() {
                       onClick={handlePrevious}
                       variant="outlined"
                       size="lg"
-                      className="border-gray-300 text-gray-700 hover:bg-gray-50">
+                      className="border-gold border-opacity-30 text-white hover:bg-gold hover:text-black">
                       Назад
                     </Button>
                     <Button
@@ -1103,7 +1103,7 @@ function Booking() {
                         formData.service_ids.length === 0
                       }
                       size="lg"
-                      className="bg-barber-olive hover:bg-barber-gold text-white font-semibold">
+                      className="bg-gold hover:bg-gold-dark text-black font-semibold">
                       Далее
                     </Button>
                   </div>
@@ -1113,29 +1113,29 @@ function Booking() {
               {/* Step 3: Personal Details */}
               {currentStep === 3 && (
                 <form onSubmit={handleFormSubmit} className="space-y-6">
-                  <h2 className="text-xl sm:text-2xl font-bold text-black mb-4">
+                  <h2 className="text-xl sm:text-2xl font-bold text-white mb-4">
                     Личные данные
                   </h2>
 
                   {/* Summary */}
-                  <div className="bg-gray-50 rounded-lg p-4 mb-4">
-                    <p className="text-sm text-gray-600 mb-2">
+                  <div className="bg-[#222222] border border-gold border-opacity-20 rounded-lg p-4 mb-4">
+                    <p className="text-sm text-[#CFCFCF] mb-2">
                       Информация о записи:
                     </p>
                     {selectedBarber && (
-                      <p className="text-sm text-black mb-1">
+                      <p className="text-sm text-white mb-1">
                         <span className="font-semibold">Барбер:</span>{" "}
                         {selectedBarber.name || selectedBarber.fullName}
                       </p>
                     )}
-                    <p className="text-sm text-black mb-1">
+                    <p className="text-sm text-white mb-1">
                       <span className="font-semibold">Дата и время:</span>{" "}
                       {formatDateDisplay(formData.date || today)}{" "}
                       {formData.time}
                     </p>
                     {formData.service_ids &&
                       formData.service_ids.length > 0 && (
-                        <div className="text-sm text-black">
+                        <div className="text-sm text-white">
                           <span className="font-semibold">Услуги:</span>
                           <ul className="list-disc list-inside mt-1 ml-2">
                             {formData.service_ids.map((serviceId) => {
@@ -1195,7 +1195,7 @@ function Booking() {
                         isSubmitting || !formData.name || !formData.phone
                       }
                       size="lg"
-                      className="bg-barber-olive hover:bg-barber-gold text-white font-semibold"
+                      className="bg-gold hover:bg-gold-dark text-black font-semibold"
                       loading={isSubmitting}>
                       {isSubmitting ? "Создание записи..." : "Записаться"}
                     </Button>

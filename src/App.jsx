@@ -40,7 +40,7 @@ function App() {
   return (
     <Router>
       <ScrollToTop />
-      <div className="min-h-screen bg-white">
+      <div className="min-h-screen bg-black">
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />

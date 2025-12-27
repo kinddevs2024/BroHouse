@@ -64,7 +64,7 @@ function ContactForm() {
         placeholder="Введите ваше имя"
         required
         size="lg"
-        className="!text-black !bg-white"
+        className="!text-white !bg-[#1A1A1A] !border-gold !border-opacity-30"
         labelProps={{
           className: "hidden"
         }}
@@ -79,7 +79,7 @@ function ContactForm() {
         rows={5}
         required
         size="lg"
-        className="!text-black !bg-white min-h-[120px]"
+        className="!text-white !bg-[#1A1A1A] !border-gold !border-opacity-30 min-h-[120px]"
         labelProps={{
           className: "hidden"
         }}
@@ -100,7 +100,7 @@ function ContactForm() {
         type="submit"
         disabled={isSubmitting}
         size="lg"
-        className="w-full bg-barber-olive hover:bg-barber-gold text-white font-semibold rounded-xl sm:rounded-2xl text-sm sm:text-base py-3 sm:py-3.5 md:py-4"
+        className="w-full bg-gold hover:bg-gold-dark text-black font-semibold rounded-xl sm:rounded-2xl text-sm sm:text-base py-3 sm:py-3.5 md:py-4 gold-glow-hover"
         loading={isSubmitting}
       >
         {isSubmitting ? (
@@ -114,7 +114,7 @@ function ContactForm() {
           </span>
         )}
       </Button>
-      <p className="text-white text-xs sm:text-sm opacity-70 text-center">
+      <p className="text-[#CFCFCF] text-xs sm:text-sm opacity-70 text-center">
         Ваше сообщение будет отправлено на наш сервер
       </p>
     </form>

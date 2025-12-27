@@ -11,13 +11,23 @@ export default withMT({
   theme: {
     extend: {
       colors: {
-        'barber-gold': '#B5AF93',
-        'barber-olive': '#9D9570',
-        'barber-dark': '#292D33',
-        'barber-light': '#D9D9D9',
+        // Premium Black & Gold Palette
+        'gold': '#B8860B',
+        'gold-dark': '#C59A44',
+        'bg-primary': '#000000',
+        'bg-secondary': '#1A1A1A',
+        'bg-secondary-alt': '#222222',
+        'text-primary': '#FFFFFF',
+        'text-secondary': '#CFCFCF',
+        // Keep old colors for backward compatibility during transition
+        'barber-gold': '#B8860B',
+        'barber-olive': '#C59A44',
+        'barber-dark': '#1A1A1A',
+        'barber-light': '#CFCFCF',
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+        heading: ['Montserrat', 'Oswald', 'system-ui', 'sans-serif'],
       },
       screens: {
         'xs': '475px',

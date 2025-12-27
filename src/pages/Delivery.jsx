@@ -6,7 +6,7 @@ import Footer from "../components/Footer";
 
 function Delivery() {
   return (
-    <div className="pt-16 sm:pt-20 md:pt-[92px] min-h-screen bg-gradient-to-b from-barber-dark to-barber-olive">
+    <div className="pt-16 sm:pt-20 md:pt-[92px] min-h-screen bg-gradient-to-b from-black to-[#1A1A1A]">
       <section className="w-full py-8 sm:py-10 md:py-12 lg:py-16">
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-[127px]">
           <div className="max-w-2xl mx-auto">
@@ -25,7 +25,7 @@ function Delivery() {
 
             {/* Instagram Link Card */}
             <motion.div
-              className="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-10 shadow-2xl mb-6"
+              className="bg-[#1A1A1A] border border-gold border-opacity-30 rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-10 shadow-2xl mb-6"
               data-aos="zoom-in"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}>
@@ -35,7 +35,7 @@ function Delivery() {
                 rel="noopener noreferrer"
                 className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 group">
                 {/* Instagram Icon */}
-                <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 bg-gradient-to-br from-purple-600 via-pink-600 to-orange-500 rounded-2xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 bg-gold rounded-2xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
                   <svg
                     className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-white"
                     fill="currentColor"
@@ -47,14 +47,14 @@ function Delivery() {
 
                 {/* Content */}
                 <div className="flex-1 text-center sm:text-left">
-                  <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-black mb-2">
+                  <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-2">
                     Instagram
                   </h2>
-                  <p className="text-gray-600 text-sm sm:text-base mb-3">
+                  <p className="text-[#CFCFCF] text-sm sm:text-base mb-3">
                     Следите за нами в Instagram для последних обновлений, фотографий и специальных предложений
                   </p>
-                  <div className="flex items-center justify-center sm:justify-start gap-2 text-barber-olive font-semibold text-sm sm:text-base">
-                    <span>@001_barbershop_</span>
+                  <div className="flex items-center justify-center sm:justify-start gap-2 text-gold font-semibold text-sm sm:text-base">
+                    <span>@brohouseuz</span>
                     <svg
                       className="w-4 h-4 group-hover:translate-x-1 transition-transform"
                       fill="none"
@@ -74,16 +74,16 @@ function Delivery() {
 
             {/* Contact Information */}
             <div
-              className="bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-10 shadow-2xl"
+              className="bg-[#1A1A1A] border border-gold border-opacity-30 rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-10 shadow-2xl"
               data-aos="fade-up">
-              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-black mb-6 text-center">
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-6 text-center">
                 Контактная информация
               </h2>
               <div className="space-y-4">
                 <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 bg-barber-olive rounded-lg flex items-center justify-center flex-shrink-0">
+                  <div className="w-10 h-10 bg-gold rounded-lg flex items-center justify-center flex-shrink-0">
                     <svg
-                      className="w-5 h-5 text-white"
+                      className="w-5 h-5 text-black"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24">
@@ -102,17 +102,17 @@ function Delivery() {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="font-semibold text-black mb-1">Адрес</h3>
-                    <p className="text-gray-600 text-sm sm:text-base">
+                    <h3 className="font-semibold text-white mb-1">Адрес</h3>
+                    <p className="text-[#CFCFCF] text-sm sm:text-base">
                       {contactInfo.address}
                     </p>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 bg-barber-olive rounded-lg flex items-center justify-center flex-shrink-0">
+                  <div className="w-10 h-10 bg-gold rounded-lg flex items-center justify-center flex-shrink-0">
                     <svg
-                      className="w-5 h-5 text-white"
+                      className="w-5 h-5 text-black"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24">
@@ -125,19 +125,19 @@ function Delivery() {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="font-semibold text-black mb-1">Телефон</h3>
+                    <h3 className="font-semibold text-white mb-1">Телефон</h3>
                     <a
                       href={`tel:${contactInfo.phone}`}
-                      className="text-gray-600 hover:text-barber-olive transition-colors text-sm sm:text-base">
+                      className="text-[#CFCFCF] hover:text-gold transition-colors text-sm sm:text-base">
                       {contactInfo.phone}
                     </a>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 bg-barber-olive rounded-lg flex items-center justify-center flex-shrink-0">
+                  <div className="w-10 h-10 bg-gold rounded-lg flex items-center justify-center flex-shrink-0">
                     <svg
-                      className="w-5 h-5 text-white"
+                      className="w-5 h-5 text-black"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24">
@@ -150,10 +150,10 @@ function Delivery() {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="font-semibold text-black mb-1">Электронная почта</h3>
+                    <h3 className="font-semibold text-white mb-1">Электронная почта</h3>
                     <a
                       href={`mailto:${contactInfo.email}`}
-                      className="text-gray-600 hover:text-barber-olive transition-colors text-sm sm:text-base">
+                      className="text-[#CFCFCF] hover:text-gold transition-colors text-sm sm:text-base">
                       {contactInfo.email}
                     </a>
                   </div>
