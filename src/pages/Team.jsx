@@ -85,7 +85,7 @@ function Team() {
         className="w-full bg-[#1A1A1A] py-8 sm:py-10 md:py-12 lg:py-16"
         data-aos="fade-up">
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-[127px] grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-12 items-center">
-          <div className="order-2 lg:order-1" data-aos="fade-right">
+          <div className="order-2 lg:order-1" data-aos="fade-up">
             <div className="text-xs sm:text-sm font-semibold text-gold mb-3 sm:mb-4 tracking-wider uppercase">
               BIZ HAQIMIZDA
             </div>
@@ -108,7 +108,7 @@ function Team() {
           </div>
           <div
             className="w-full h-[400px] xs:h-[450px] sm:h-[500px] md:h-[600px] lg:h-[700px] rounded-2xl sm:rounded-3xl overflow-hidden order-1 lg:order-2"
-            data-aos="fade-left">
+            data-aos="fade-up">
             <img
               src={imagePool[0]}
               alt="Professional barbers at Bro House Barbershop"

@@ -336,7 +336,7 @@ function Header() {
                 </button>
               )}
               <div className="py-2">
-                <LanguageSwitcher />
+                <LanguageSwitcher variant="mobile" />
               </div>
               {isAuthenticated() && (
                 <>

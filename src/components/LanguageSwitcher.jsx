@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { useLanguage } from "../context/LanguageContext";
+import { getTranslation } from "../data/translations";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 
 const languages = [
@@ -8,7 +9,7 @@ const languages = [
   { code: "eng", name: "English", flag: "🇬🇧" },
 ];
 
-function LanguageSwitcher() {
+function LanguageSwitcher({ variant = "desktop" }) {
   const { language, changeLanguage } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
@@ -16,6 +17,8 @@ function LanguageSwitcher() {
   const currentLanguage = languages.find((lang) => lang.code === language) || languages[0];
 
   useEffect(() => {
+    if (variant === "mobile") return; // Don't handle outside click for mobile variant
+    
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setIsOpen(false);
@@ -26,18 +29,64 @@ function LanguageSwitcher() {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, []);
+  }, [variant]);
 
   const handleLanguageChange = (langCode) => {
     changeLanguage(langCode);
     setIsOpen(false);
   };
 
+  // Mobile variant: Show all languages as buttons
+  if (variant === "mobile") {
+    return (
+      <div className="w-full">
+        <div className="flex gap-2">
+          {languages.map((lang) => {
+            const isActive = language === lang.code;
+            return (
+              <button
+                key={lang.code}
+                onClick={() => handleLanguageChange(lang.code)}
+                className={`relative flex-1 flex items-center justify-center gap-2 px-3 py-2.5 rounded-lg transition-all duration-200 ${
+                  isActive
+                    ? "bg-barber-gold text-white shadow-md scale-105 border-2 border-barber-gold"
+                    : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 border-2 border-transparent hover:border-gray-300 dark:hover:border-gray-600"
+                }`}
+                aria-label={`Switch to ${lang.name}`}
+              >
+                <span className="text-xl">{lang.flag}</span>
+                <span className={`text-sm font-semibold ${isActive ? "text-white" : ""}`}>
+                  {lang.name}
+                </span>
+                {isActive && (
+                  <div className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-white dark:bg-gray-900 rounded-full flex items-center justify-center shadow-lg border-2 border-barber-gold">
+                    <svg
+                      className="w-3 h-3 text-barber-gold"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </div>
+                )}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+    );
+  }
+
+  // Desktop variant: Dropdown menu
   return (
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-white hover:text-gold transition-colors rounded-md hover:bg-[#1A1A1A]"
+        className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-white hover:text-gold transition-colors rounded-md hover:bg-white/5 border border-transparent hover:border-gold/40"
         aria-label="Change language"
       >
         <span className="text-lg">{currentLanguage.flag}</span>
@@ -48,22 +97,22 @@ function LanguageSwitcher() {
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-40 bg-[#1A1A1A] border border-gold border-opacity-30 rounded-md shadow-lg z-50">
+        <div className="absolute right-0 mt-2 w-40 bg-black rounded-md shadow-lg border border-gold border-opacity-30 z-50">
           <div className="py-1">
             {languages.map((lang) => (
               <button
                 key={lang.code}
                 onClick={() => handleLanguageChange(lang.code)}
-                className={`w-full flex items-center gap-3 px-4 py-2 text-sm hover:bg-gold hover:text-black transition-colors ${
+                className={`w-full flex items-center gap-3 px-4 py-2 text-sm transition-colors ${
                   language === lang.code
-                    ? "bg-gold bg-opacity-20 text-gold font-medium"
-                    : "text-white"
+                    ? "bg-gold/10 text-gold font-medium"
+                    : "text-white hover:text-gold hover:bg-white/5"
                 }`}
               >
                 <span className="text-lg">{lang.flag}</span>
                 <span>{lang.name}</span>
                 {language === lang.code && (
-                  <span className="ml-auto text-gold">✓</span>
+                  <span className="ml-auto text-gold">&#10003;</span>
                 )}
               </button>
             ))}
@@ -75,4 +124,6 @@ function LanguageSwitcher() {
 }
 
 export default LanguageSwitcher;
+
+
 

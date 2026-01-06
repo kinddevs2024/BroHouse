@@ -272,7 +272,7 @@ function Home() {
           {/* Video - First on Mobile, Right on Desktop */}
           <div
             className="flex-1 w-full lg:w-auto lg:max-w-[680px] flex items-center justify-center order-1 lg:order-2 mt-[30px] lg:mt-0 mb-4 sm:mb-6 md:mb-8 lg:mb-0"
-            data-aos="fade-left">
+            data-aos="fade-up">
             <div className="relative w-full h-[300px] xs:h-[400px] sm:h-[450px] md:h-[500px] lg:h-[700px] xl:h-[800px] 2xl:h-[850px]">
               {/* Outer gold border frame with padding */}
               <div className="relative w-full h-full p-2 sm:p-3 md:p-4 lg:p-5">
@@ -299,7 +299,7 @@ function Home() {
           {/* Content - Second on Mobile, Left on Desktop */}
           <div
             className="flex-1 flex flex-col justify-center lg:justify-start lg:pt-[100px] z-10 w-full lg:w-auto order-2 lg:order-1 text-center md:text-left"
-            data-aos="fade-right">
+            data-aos="fade-up">
             <div className="text-xs sm:text-sm font-semibold text-gold mb-3 sm:mb-4 tracking-wider uppercase">
               ДОБРО ПОЖАЛОВАТЬ
             </div>
@@ -388,7 +388,7 @@ function Home() {
           className="w-full bg-black py-8 sm:py-10 md:py-12 lg:py-20 relative"
           data-aos="fade-up">
           <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-[127px] grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-12">
-            <div className="text-white relative z-10" data-aos="fade-right">
+            <div className="text-white relative z-10" data-aos="fade-up">
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4">
                 {getTranslation(language, "home.whyChooseUs")}
               </h2>
@@ -403,7 +403,7 @@ function Home() {
             </div>
             <div
               className="bg-[#1A1A1A] border border-gold border-opacity-30 rounded-2xl sm:rounded-3xl p-5 sm:p-6 md:p-8 relative z-10"
-              data-aos="fade-left">
+              data-aos="fade-up">
               <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-4 sm:mb-6">
                 {getTranslation(language, "home.workingHours")}
               </h2>
@@ -504,7 +504,7 @@ function Home() {
           className="w-full bg-black py-8 sm:py-10 md:py-12 lg:py-20"
           data-aos="fade-up">
           <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-[127px] grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-12 items-center">
-            <div className="relative order-2 lg:order-1" data-aos="fade-right">
+            <div className="relative order-2 lg:order-1" data-aos="fade-up">
               <div className="w-full h-[300px] xs:h-[350px] sm:h-[400px] md:h-[450px] lg:h-[500px] rounded-2xl sm:rounded-3xl relative overflow-hidden">
                 <img
                   src={imagePool[1]}
@@ -519,7 +519,7 @@ function Home() {
             </div>
             <div
               className="bg-[#1A1A1A] border border-gold border-opacity-30 rounded-2xl sm:rounded-3xl p-5 sm:p-6 md:p-8 lg:p-12 order-1 lg:order-2"
-              data-aos="fade-left">
+              data-aos="fade-up">
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-3 sm:mb-4 md:mb-6">
                 Добро пожаловать в барбершоп премиум-класса
               </h2>
@@ -544,7 +544,7 @@ function Home() {
           className="w-full bg-[#1A1A1A] py-8 sm:py-10 md:py-12 lg:py-20"
           data-aos="fade-up">
           <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-[127px] grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-12 items-center">
-            <div className="order-2 lg:order-1" data-aos="fade-right">
+            <div className="order-2 lg:order-1" data-aos="fade-up">
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 sm:mb-6 md:mb-8 leading-tight">
                 Свяжитесь с нашими профессиональными барберами
                 для бесплатной индивидуальной консультации
@@ -558,7 +558,7 @@ function Home() {
                 Записаться онлайн
               </Button>
             </div>
-            <div className="relative order-1 lg:order-2" data-aos="fade-left">
+            <div className="relative order-1 lg:order-2" data-aos="fade-up">
               <div className="w-full h-[300px] xs:h-[350px] sm:h-[400px] md:h-[450px] lg:h-[500px] rounded-2xl sm:rounded-3xl relative overflow-hidden">
                 <img
                   src="/3Y4A9847.jpg"
