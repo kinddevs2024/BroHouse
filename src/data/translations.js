@@ -72,9 +72,22 @@ export const translations = {
     },
     // Home page
     home: {
+      welcome: "XUSH KELIBSIZ",
+      bookOnline: "Onlayn bron qilish",
+      loadingServices: "Xizmatlar yuklanmoqda...",
+      clientReviews: "Mijozlar sharhlari",
+      loadingReviews: "Sharhlar yuklanmoqda...",
+      noReviews: "Hozircha sharhlar yo'q",
+      welcomeTitle: "Premium barbershopga xush kelibsiz",
+      welcomeDesc: "Bizning barbershopimizda siz professional xizmatlar va qulay atmosfera topasiz. Bizning mutaxassislarimiz har bir mijozga individual yondashuv bilan yuqori sifatli xizmatlar ko'rsatadi.",
+      consultationTitle: "Bepul individual maslahat uchun bizning professional barberlarimiz bilan bog'laning",
       whyChooseUs: "Nima uchun bizni tanlashadi?",
       whyChooseUsDesc: "Bundan tashqari, ko'p odamlar Toshkentdagi {tagline} ni afzal ko'rishlarining yana 5 ta sababi bor...",
       workingHours: "Ish vaqti",
+      prices: "Narxlar",
+      loadingPrices: "Narxlar yuklanmoqda...",
+      pricesNotFound: "Narxlar topilmadi",
+      defaultClientName: "Mijoz",
     },
   },
   eng: {
@@ -150,12 +163,22 @@ export const translations = {
     },
     // Home page
     home: {
+      welcome: "WELCOME",
+      bookOnline: "Book Online",
+      loadingServices: "Loading services...",
+      clientReviews: "Client Reviews",
+      loadingReviews: "Loading reviews...",
+      noReviews: "No reviews yet",
+      welcomeTitle: "Welcome to Premium Barbershop",
+      welcomeDesc: "In our barbershop you will find professional services and a comfortable atmosphere. Our specialists provide high-quality services with an individual approach to each client.",
+      consultationTitle: "Contact our professional barbers for a free individual consultation",
       whyChooseUs: "Why Choose Us?",
       whyChooseUsDesc: "In addition, there are 5 more reasons why many people prefer {tagline} in Tashkent...",
       workingHours: "Working Hours",
       prices: "Prices",
       loadingPrices: "Loading prices...",
       pricesNotFound: "Prices not found",
+      defaultClientName: "Client",
     },
   },
   rus: {
@@ -231,20 +254,49 @@ export const translations = {
     },
     // Home page
     home: {
+      welcome: "ДОБРО ПОЖАЛОВАТЬ",
+      bookOnline: "Записаться онлайн",
+      loadingServices: "Загрузка услуг...",
+      clientReviews: "Отзывы клиентов",
+      loadingReviews: "Загрузка отзывов...",
+      noReviews: "Пока нет отзывов",
+      welcomeTitle: "Добро пожаловать в барбершоп премиум-класса",
+      welcomeDesc: "В нашем барбершопе вы найдете профессиональные услуги и комфортную атмосферу. Наши специалисты предоставляют высококачественные услуги с индивидуальным подходом к каждому клиенту.",
+      consultationTitle: "Свяжитесь с нашими профессиональными барберами для бесплатной индивидуальной консультации",
       whyChooseUs: "Почему выбирают нас?",
       whyChooseUsDesc: "Кроме того, есть еще 5 причин, почему многие люди предпочитают {tagline} в Ташкенте...",
       workingHours: "Режим работы",
       prices: "Цены",
       loadingPrices: "Загрузка цен...",
       pricesNotFound: "Цены не найдены",
+      defaultClientName: "Клиент",
     },
   },
 };
 
+// Map Google Translate language codes to our translation keys
+const languageCodeMap = {
+  'uz': 'uzb',
+  'uz-UZ': 'uzb',
+  'ru': 'rus',
+  'ru-RU': 'rus',
+  'en': 'eng',
+  'en-US': 'eng',
+  'en-GB': 'eng',
+};
+
 // Helper function to get translation
 export const getTranslation = (language, key) => {
+  // Map Google Translate language code to our translation key
+  const translationKey = languageCodeMap[language] || languageCodeMap[language?.split('-')[0]] || 'uzb';
+  
   const keys = key.split(".");
-  let value = translations[language];
+  let value = translations[translationKey];
+  
+  // If translation key doesn't exist, try to find it in any available language
+  if (!value) {
+    value = translations.uzb || translations.rus || translations.eng;
+  }
   
   for (const k of keys) {
     if (value && typeof value === "object" && k in value) {

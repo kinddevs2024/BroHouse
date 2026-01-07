@@ -8,7 +8,6 @@ import { useLanguage } from "../context/LanguageContext";
 import { getTranslation } from "../data/translations";
 import { contactInfo } from "../data/contact";
 import Logo from "./Logo";
-import LanguageSwitcher from "./LanguageSwitcher";
 
 function Header() {
   const location = useLocation();
@@ -18,6 +17,7 @@ function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
+  const [scrolled, setScrolled] = useState(false);
 
   const isActive = (path) => {
     return location.pathname === path;
@@ -35,6 +35,9 @@ function Header() {
   useEffect(() => {
     const controlHeader = () => {
       const currentScrollY = window.scrollY;
+
+      // Update scrolled state for background effect
+      setScrolled(currentScrollY > 50);
 
       // Always show header at the top of the page
       if (currentScrollY < 10) {
@@ -69,71 +72,127 @@ function Header() {
         duration: 0.3,
         ease: "easeInOut",
       }}
-      className="fixed top-0 left-0 right-0 bg-black z-50 shadow-md border-b border-gold border-opacity-20 h-16 sm:h-20 md:h-[92px]">
-      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-[93px] h-full flex justify-between items-center">
+      className={`fixed top-0 left-0 right-0 z-50 h-16 sm:h-20 md:h-[92px] transition-all duration-300 ${
+        scrolled
+          ? "bg-black/95 backdrop-blur-md shadow-lg border-b border-gold/30"
+          : "bg-black/80 backdrop-blur-sm border-b border-gold/20"
+      }`}>
+      {/* Animated gradient line at top */}
+      <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-gold to-transparent opacity-50"></div>
+      
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-[93px] h-full flex justify-between items-center relative">
         <Logo
           onClick={closeMobileMenu}
           linkTo={isAdmin() || isSuperAdmin() ? "/admin" : "/"}
         />
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex gap-6 lg:gap-8 items-center">
+        <nav className="hidden md:flex gap-4 lg:gap-6 items-center">
           {!isAdmin() && !isSuperAdmin() && (
             <>
               <Link
                 to="/"
-                className={`text-sm lg:text-base font-medium transition-colors ${
+                className="relative group"
+                aria-label="Navigate to Home">
+                <span className={`text-sm lg:text-base font-medium transition-all duration-300 relative z-10 ${
                   isActive("/")
                     ? "text-gold"
-                    : "text-white hover:text-gold"
-                }`}
-                aria-label="Navigate to Home">
-                {getTranslation(language, "nav.home")}
+                    : "text-white group-hover:text-gold"
+                }`}>
+                  {getTranslation(language, "nav.home")}
+                </span>
+                {isActive("/") && (
+                  <motion.div
+                    layoutId="activeTab"
+                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gold rounded-full"
+                    initial={false}
+                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                  />
+                )}
+                <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gold scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-full"></span>
               </Link>
               <Link
                 to="/team"
-                className={`text-sm lg:text-base font-medium transition-colors ${
+                className="relative group"
+                aria-label="Navigate to Our Team">
+                <span className={`text-sm lg:text-base font-medium transition-all duration-300 relative z-10 ${
                   isActive("/team")
                     ? "text-gold"
-                    : "text-white hover:text-gold"
-                }`}
-                aria-label="Navigate to Our Team">
-                {getTranslation(language, "nav.team")}
+                    : "text-white group-hover:text-gold"
+                }`}>
+                  {getTranslation(language, "nav.team")}
+                </span>
+                {isActive("/team") && (
+                  <motion.div
+                    layoutId="activeTab"
+                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gold rounded-full"
+                    initial={false}
+                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                  />
+                )}
+                <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gold scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-full"></span>
               </Link>
               <Link
                 to="/gallery"
-                className={`text-sm lg:text-base font-medium transition-colors ${
+                className="relative group"
+                aria-label="Navigate to Gallery">
+                <span className={`text-sm lg:text-base font-medium transition-all duration-300 relative z-10 ${
                   isActive("/gallery")
                     ? "text-gold"
-                    : "text-white hover:text-gold"
-                }`}
-                aria-label="Navigate to Gallery">
-                {getTranslation(language, "nav.gallery")}
+                    : "text-white group-hover:text-gold"
+                }`}>
+                  {getTranslation(language, "nav.gallery")}
+                </span>
+                {isActive("/gallery") && (
+                  <motion.div
+                    layoutId="activeTab"
+                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gold rounded-full"
+                    initial={false}
+                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                  />
+                )}
+                <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gold scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-full"></span>
               </Link>
               <Link
                 to="/delivery"
-                className={`text-sm lg:text-base font-medium transition-colors ${
+                className="relative group"
+                aria-label="Navigate to Delivery">
+                <span className={`text-sm lg:text-base font-medium transition-all duration-300 relative z-10 ${
                   isActive("/delivery")
                     ? "text-gold"
-                    : "text-white hover:text-gold"
-                }`}
-                aria-label="Navigate to Delivery">
-                {getTranslation(language, "nav.contact")}
+                    : "text-white group-hover:text-gold"
+                }`}>
+                  {getTranslation(language, "nav.contact")}
+                </span>
+                {isActive("/delivery") && (
+                  <motion.div
+                    layoutId="activeTab"
+                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gold rounded-full"
+                    initial={false}
+                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                  />
+                )}
+                <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gold scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-full"></span>
               </Link>
             </>
           )}
           {!isAdmin() && !isSuperAdmin() && (
             <Link
               to="/booking"
-              className={`text-sm lg:text-base font-medium transition-colors ${
+              className="relative group"
+              aria-label="Book an appointment">
+              <span className={`text-sm lg:text-base font-medium transition-all duration-300 relative z-10 px-4 py-2 rounded-lg ${
                 isActive("/booking")
-                  ? "text-gold"
-                  : "text-white hover:text-gold"
+                  ? "text-black bg-gold"
+                  : "text-white group-hover:text-gold group-hover:bg-gold/10"
               }`}>
-              {getTranslation(language, "nav.booking")}
+                {getTranslation(language, "nav.booking")}
+              </span>
+              {!isActive("/booking") && (
+                <span className="absolute inset-0 rounded-lg bg-gold/0 group-hover:bg-gold/10 transition-all duration-300 -z-10"></span>
+              )}
             </Link>
           )}
-          <LanguageSwitcher />
           {isAuthenticated() && (
             <>
               {isAdmin() && !isSuperAdmin() && (
@@ -248,95 +307,156 @@ function Header() {
         </nav>
 
         {/* Mobile Menu Button */}
-        <button
-          className="md:hidden p-2 text-white hover:text-gold transition-colors"
+        <motion.button
+          className="md:hidden p-2 text-white hover:text-gold transition-colors relative z-50"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          aria-label="Toggle mobile menu">
-          {mobileMenuOpen ? (
-            <XMarkIcon className="w-6 h-6" />
-          ) : (
-            <Bars3Icon className="w-6 h-6" />
-          )}
-        </button>
+          aria-label="Toggle mobile menu"
+          whileTap={{ scale: 0.95 }}>
+          <motion.div
+            animate={mobileMenuOpen ? { rotate: 180 } : { rotate: 0 }}
+            transition={{ duration: 0.3 }}>
+            {mobileMenuOpen ? (
+              <XMarkIcon className="w-6 h-6" />
+            ) : (
+              <Bars3Icon className="w-6 h-6" />
+            )}
+          </motion.div>
+        </motion.button>
       </div>
 
       {/* Mobile Menu */}
       <AnimatePresence>
         {mobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-black border-t border-gold border-opacity-20 shadow-lg">
-            <nav className="flex flex-col px-4 py-4 space-y-4">
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setMobileMenuOpen(false)}
+              className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 md:hidden"
+            />
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+              className="md:hidden bg-black/95 backdrop-blur-md border-t border-gold/30 shadow-2xl relative z-50">
+              {/* Gradient line */}
+              <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-gold/50 to-transparent"></div>
+              <nav className="flex flex-col px-4 py-6 space-y-2">
               {!isAdmin() && !isSuperAdmin() && (
                 <>
-                  <button
+                  <motion.button
                     onClick={() => {
                       closeMobileMenu();
                       navigate("/");
                     }}
-                    className={`text-base font-medium py-2 text-left transition-colors ${
+                    whileTap={{ scale: 0.98 }}
+                    className={`text-base font-medium py-3 px-4 text-left transition-all duration-300 rounded-lg relative ${
                       isActive("/")
-                        ? "text-gold"
-                        : "text-white hover:text-gold"
+                        ? "text-black bg-gold"
+                        : "text-white hover:text-gold hover:bg-gold/10"
                     }`}>
                     {getTranslation(language, "nav.home")}
-                  </button>
-                  <button
+                    {isActive("/") && (
+                      <motion.div
+                        layoutId="mobileActiveTab"
+                        className="absolute inset-0 bg-gold rounded-lg -z-10"
+                        initial={false}
+                        transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                      />
+                    )}
+                  </motion.button>
+                  <motion.button
                     onClick={() => {
                       closeMobileMenu();
                       navigate("/team");
                     }}
-                    className={`text-base font-medium py-2 text-left transition-colors ${
+                    whileTap={{ scale: 0.98 }}
+                    className={`text-base font-medium py-3 px-4 text-left transition-all duration-300 rounded-lg relative ${
                       isActive("/team")
-                        ? "text-gold"
-                        : "text-white hover:text-gold"
+                        ? "text-black bg-gold"
+                        : "text-white hover:text-gold hover:bg-gold/10"
                     }`}>
                     {getTranslation(language, "nav.team")}
-                  </button>
-                  <button
+                    {isActive("/team") && (
+                      <motion.div
+                        layoutId="mobileActiveTab"
+                        className="absolute inset-0 bg-gold rounded-lg -z-10"
+                        initial={false}
+                        transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                      />
+                    )}
+                  </motion.button>
+                  <motion.button
                     onClick={() => {
                       closeMobileMenu();
                       navigate("/gallery");
                     }}
-                    className={`text-base font-medium py-2 text-left transition-colors ${
+                    whileTap={{ scale: 0.98 }}
+                    className={`text-base font-medium py-3 px-4 text-left transition-all duration-300 rounded-lg relative ${
                       isActive("/gallery")
-                        ? "text-gold"
-                        : "text-white hover:text-gold"
+                        ? "text-black bg-gold"
+                        : "text-white hover:text-gold hover:bg-gold/10"
                     }`}>
                     {getTranslation(language, "nav.gallery")}
-                  </button>
-                  <button
+                    {isActive("/gallery") && (
+                      <motion.div
+                        layoutId="mobileActiveTab"
+                        className="absolute inset-0 bg-gold rounded-lg -z-10"
+                        initial={false}
+                        transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                      />
+                    )}
+                  </motion.button>
+                  <motion.button
                     onClick={() => {
                       closeMobileMenu();
                       navigate("/delivery");
                     }}
-                    className={`text-base font-medium py-2 text-left transition-colors ${
+                    whileTap={{ scale: 0.98 }}
+                    className={`text-base font-medium py-3 px-4 text-left transition-all duration-300 rounded-lg relative ${
                       isActive("/delivery")
-                        ? "text-gold"
-                        : "text-white hover:text-gold"
+                        ? "text-black bg-gold"
+                        : "text-white hover:text-gold hover:bg-gold/10"
                     }`}>
                     {getTranslation(language, "nav.contact")}
-                  </button>
+                    {isActive("/delivery") && (
+                      <motion.div
+                        layoutId="mobileActiveTab"
+                        className="absolute inset-0 bg-gold rounded-lg -z-10"
+                        initial={false}
+                        transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                      />
+                    )}
+                  </motion.button>
                 </>
               )}
               {!isAdmin() && !isSuperAdmin() && (
-                <button
+                <motion.button
                   onClick={() => {
                     closeMobileMenu();
                     navigate("/booking");
                   }}
-                  className={`text-base font-medium py-2 text-left transition-colors ${
+                  whileTap={{ scale: 0.98 }}
+                  className={`text-base font-medium py-3 px-4 text-left transition-all duration-300 rounded-lg relative ${
                     isActive("/booking")
-                      ? "text-gold"
-                      : "text-white hover:text-gold"
+                      ? "text-black bg-gold"
+                      : "text-white hover:text-gold hover:bg-gold/10"
                   }`}>
                   {getTranslation(language, "nav.booking")}
-                </button>
+                  {isActive("/booking") && (
+                    <motion.div
+                      layoutId="mobileActiveTab"
+                      className="absolute inset-0 bg-gold rounded-lg -z-10"
+                      initial={false}
+                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                    />
+                  )}
+                </motion.button>
               )}
               <div className="py-2">
-                <LanguageSwitcher variant="mobile" />
               </div>
               {isAuthenticated() && (
                 <>
@@ -481,6 +601,7 @@ function Header() {
               )}
             </nav>
           </motion.div>
+          </>
         )}
       </AnimatePresence>
     </motion.header>

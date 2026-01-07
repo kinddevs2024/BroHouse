@@ -60,7 +60,7 @@ function Home() {
             ? data
                 .filter((item) => item.comment && item.comment.trim() !== "")
                 .map((item) => ({
-                  name: item.client_name || item.client?.name || item.name || "Клиент",
+                  name: item.client_name || item.client?.name || item.name || getTranslation(language, "home.defaultClientName"),
                   text: item.comment || item.message || "",
                   id: item.id || item._id,
                 }))
@@ -78,7 +78,7 @@ function Home() {
     };
 
     fetchComments();
-  }, []);
+  }, [language]);
 
   // Fetch services from API
   useEffect(() => {
@@ -301,16 +301,16 @@ function Home() {
             className="flex-1 flex flex-col justify-center lg:justify-start lg:pt-[100px] z-10 w-full lg:w-auto order-2 lg:order-1 text-center md:text-left"
             data-aos="fade-up">
             <div className="text-xs sm:text-sm font-semibold text-gold mb-3 sm:mb-4 tracking-wider uppercase">
-              ДОБРО ПОЖАЛОВАТЬ
+              {getTranslation(language, "home.welcome")}
             </div>
             <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-2 sm:mb-3 md:mb-4 leading-tight">
               {contactInfo.tagline}
             </h1>
             <p className="text-base xs:text-lg sm:text-xl md:text-2xl text-white mb-2 sm:mb-3 opacity-90">
-              {contactInfo.description}
+              {getTranslation(language, "contact.description")}
             </p>
             <p className="text-sm xs:text-base sm:text-lg md:text-xl text-white mb-4 sm:mb-6 md:mb-8 opacity-80">
-              {contactInfo.subtitle}
+              {getTranslation(language, "contact.subtitle")}
             </p>
             <div className="space-y-2 sm:space-y-3 md:space-y-4 mb-6 sm:mb-8 md:mb-10 flex flex-col items-center sm:items-center md:items-start">
               <div className="flex items-center gap-2 sm:gap-3 text-white text-sm sm:text-base md:text-lg">
@@ -318,7 +318,7 @@ function Home() {
                   className="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0 text-white"
                   aria-hidden="true"
                 />
-                <span className="break-words text-white">{contactInfo.address}</span>
+                <span className="break-words text-white">{getTranslation(language, "contact.address")}</span>
               </div>
               <div className="flex items-center gap-2 sm:gap-3 text-white text-sm sm:text-base md:text-lg">
                 <PhoneIcon
@@ -350,7 +350,7 @@ function Home() {
                 onClick={() => navigate("/booking")}
                 className="px-6 sm:px-8 md:px-10 py-3 sm:py-4 md:py-5 bg-transparent border-2 border-gold rounded-xl sm:rounded-2xl font-semibold text-sm sm:text-base md:text-lg text-white hover:bg-gold hover:text-black transition-colors"
                 aria-label="Book an appointment online">
-                Записаться онлайн
+                {getTranslation(language, "home.bookOnline")}
               </Button>
             </div>
           </div>
@@ -372,7 +372,7 @@ function Home() {
           <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-[127px]">
             {loadingServices && (
               <div className="text-center py-8">
-                <p className="text-white text-lg">Загрузка услуг...</p>
+                <p className="text-white text-lg">{getTranslation(language, "home.loadingServices")}</p>
               </div>
             )}
             <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
@@ -505,12 +505,16 @@ function Home() {
           data-aos="fade-up">
           <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-[127px] grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-12 items-center">
             <div className="relative order-2 lg:order-1" data-aos="fade-up">
-              <div className="w-full h-[300px] xs:h-[350px] sm:h-[400px] md:h-[450px] lg:h-[500px] rounded-2xl sm:rounded-3xl relative overflow-hidden">
+              <div className="w-full h-[300px] xs:h-[350px] sm:h-[400px] md:h-[450px] lg:h-[500px] rounded-2xl sm:rounded-3xl relative overflow-hidden bg-[#1A1A1A]">
                 <img
-                  src={imagePool[1]}
+                  src={imagePool[1] || "/240827659_171220688419301_3088276471368360933_n.jpg"}
                   alt="Professional barber services at Bro House Barbershop"
                   className="w-full h-full object-cover"
                   loading="lazy"
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = "/240827659_171220688419301_3088276471368360933_n.jpg";
+                  }}
                 />
                 {/* Decorative shapes */}
                 <div className="absolute -top-8 -left-8 sm:-top-10 sm:-left-10 w-32 h-32 sm:w-40 sm:h-40 bg-gold rounded-full opacity-20"></div>
@@ -521,19 +525,17 @@ function Home() {
               className="bg-[#1A1A1A] border border-gold border-opacity-30 rounded-2xl sm:rounded-3xl p-5 sm:p-6 md:p-8 lg:p-12 order-1 lg:order-2"
               data-aos="fade-up">
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-3 sm:mb-4 md:mb-6">
-                Добро пожаловать в барбершоп премиум-класса
+                {getTranslation(language, "home.welcomeTitle")}
               </h2>
               <p className="text-[#CFCFCF] mb-4 sm:mb-6 md:mb-8 leading-relaxed text-sm sm:text-base">
-                В нашем барбершопе вы найдете профессиональные услуги и комфортную
-                атмосферу. Наши специалисты предоставляют высококачественные услуги
-                с индивидуальным подходом к каждому клиенту.
+                {getTranslation(language, "home.welcomeDesc")}
               </p>
               <Button
                 size="lg"
                 onClick={() => navigate("/booking")}
                 className="w-full sm:w-auto px-5 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 bg-gold text-black rounded-xl sm:rounded-2xl font-semibold text-sm sm:text-base hover:bg-gold-dark transition-colors"
                 aria-label="Book an appointment online">
-                Записаться онлайн
+                {getTranslation(language, "home.bookOnline")}
               </Button>
             </div>
           </div>
@@ -546,8 +548,7 @@ function Home() {
           <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-[127px] grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-12 items-center">
             <div className="order-2 lg:order-1" data-aos="fade-up">
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 sm:mb-6 md:mb-8 leading-tight">
-                Свяжитесь с нашими профессиональными барберами
-                для бесплатной индивидуальной консультации
+                {getTranslation(language, "home.consultationTitle")}
               </h2>
               <Button
                 size="lg"
@@ -555,16 +556,20 @@ function Home() {
                 onClick={() => navigate("/booking")}
                 className="w-full sm:w-auto px-5 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 bg-transparent border-2 border-gold rounded-xl sm:rounded-2xl font-semibold text-sm sm:text-base text-white hover:bg-gold hover:text-black transition-colors"
                 aria-label="Book an appointment online">
-                Записаться онлайн
+                {getTranslation(language, "home.bookOnline")}
               </Button>
             </div>
             <div className="relative order-1 lg:order-2" data-aos="fade-up">
-              <div className="w-full h-[300px] xs:h-[350px] sm:h-[400px] md:h-[450px] lg:h-[500px] rounded-2xl sm:rounded-3xl relative overflow-hidden">
+              <div className="w-full h-[300px] xs:h-[350px] sm:h-[400px] md:h-[450px] lg:h-[500px] rounded-2xl sm:rounded-3xl relative overflow-hidden bg-[#1A1A1A]">
                 <img
                   src="/3Y4A9847.jpg"
                   alt="Expert barbers at Bro House Barbershop providing consultation"
                   className="w-full h-full object-cover"
                   loading="lazy"
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = "/240827659_171220688419301_3088276471368360933_n.jpg";
+                  }}
                 />
                 {/* Decorative shapes */}
                 <div className="absolute -top-8 -left-8 sm:-top-10 sm:-left-10 w-32 h-32 sm:w-40 sm:h-40 bg-gold rounded-full opacity-20"></div>
@@ -596,7 +601,7 @@ function Home() {
                 return barberShopImages.map((imgSrc, i) => (
                   <motion.div
                     key={i}
-                    className="w-full h-[200px] xs:h-[220px] sm:h-[250px] md:h-[280px] lg:h-[300px] rounded-2xl sm:rounded-3xl overflow-hidden cursor-pointer"
+                    className="w-full h-[200px] xs:h-[220px] sm:h-[250px] md:h-[280px] lg:h-[300px] rounded-2xl sm:rounded-3xl overflow-hidden cursor-pointer bg-[#1A1A1A]"
                     data-aos="zoom-in"
                     data-aos-delay={i * 100}
                     whileHover={{ scale: 1.05 }}
@@ -606,6 +611,10 @@ function Home() {
                       alt={`Bro House Barbershop 360° view ${i + 1}`}
                       className="w-full h-full object-cover"
                       loading="lazy"
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = "/240827659_171220688419301_3088276471368360933_n.jpg";
+                      }}
                     />
                   </motion.div>
                 ));
@@ -620,11 +629,11 @@ function Home() {
           data-aos="fade-up">
           <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-[127px]">
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white text-center mb-6 sm:mb-8 md:mb-12">
-              Отзывы клиентов
+              {getTranslation(language, "home.clientReviews")}
             </h2>
             {loadingComments ? (
               <div className="text-center py-8">
-                <p className="text-white text-lg">Загрузка отзывов...</p>
+                <p className="text-white text-lg">{getTranslation(language, "home.loadingReviews")}</p>
               </div>
             ) : comments.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
@@ -660,7 +669,7 @@ function Home() {
             ) : (
               <div className="text-center py-8">
                 <p className="text-white text-lg opacity-70">
-                  Пока нет отзывов
+                  {getTranslation(language, "home.noReviews")}
                 </p>
               </div>
             )}
