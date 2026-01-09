@@ -17,7 +17,6 @@ function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
-  const [scrolled, setScrolled] = useState(false);
 
   const isActive = (path) => {
     return location.pathname === path;
@@ -35,9 +34,6 @@ function Header() {
   useEffect(() => {
     const controlHeader = () => {
       const currentScrollY = window.scrollY;
-
-      // Update scrolled state for background effect
-      setScrolled(currentScrollY > 50);
 
       // Always show header at the top of the page
       if (currentScrollY < 10) {
@@ -72,125 +68,68 @@ function Header() {
         duration: 0.3,
         ease: "easeInOut",
       }}
-      className={`fixed top-0 left-0 right-0 z-50 h-16 sm:h-20 md:h-[92px] transition-all duration-300 ${
-        scrolled
-          ? "bg-black/95 backdrop-blur-md shadow-lg border-b border-gold/30"
-          : "bg-black/80 backdrop-blur-sm border-b border-gold/20"
-      }`}>
-      {/* Animated gradient line at top */}
-      <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-gold to-transparent opacity-50"></div>
-      
-      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-[93px] h-full flex justify-between items-center relative">
+      className="fixed top-0 left-0 right-0 z-50 h-16 sm:h-20 md:h-[92px] border-b border-white/5 bg-black/70 backdrop-blur-md shadow-[0_6px_30px_rgba(0,0,0,0.35)]">
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-[93px] h-full flex justify-between items-center">
         <Logo
           onClick={closeMobileMenu}
           linkTo={isAdmin() || isSuperAdmin() ? "/admin" : "/"}
         />
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex gap-4 lg:gap-6 items-center">
+        <nav className="hidden md:flex gap-6 lg:gap-8 items-center">
           {!isAdmin() && !isSuperAdmin() && (
             <>
               <Link
                 to="/"
-                className="relative group"
-                aria-label="Navigate to Home">
-                <span className={`text-sm lg:text-base font-medium transition-all duration-300 relative z-10 ${
+                className={`relative text-sm lg:text-base font-medium transition-colors after:absolute after:-bottom-2 after:left-0 after:h-[1px] after:w-full after:scale-x-0 after:bg-gold after:transition-transform after:duration-300 ${
                   isActive("/")
-                    ? "text-gold"
-                    : "text-white group-hover:text-gold"
-                }`}>
-                  {getTranslation(language, "nav.home")}
-                </span>
-                {isActive("/") && (
-                  <motion.div
-                    layoutId="activeTab"
-                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gold rounded-full"
-                    initial={false}
-                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                  />
-                )}
-                <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gold scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-full"></span>
+                    ? "text-gold after:scale-x-100"
+                    : "text-white hover:text-gold hover:after:scale-x-100"
+                }`}
+                aria-label="Navigate to Home">
+                {getTranslation(language, "nav.home")}
               </Link>
               <Link
                 to="/team"
-                className="relative group"
-                aria-label="Navigate to Our Team">
-                <span className={`text-sm lg:text-base font-medium transition-all duration-300 relative z-10 ${
+                className={`relative text-sm lg:text-base font-medium transition-colors after:absolute after:-bottom-2 after:left-0 after:h-[1px] after:w-full after:scale-x-0 after:bg-gold after:transition-transform after:duration-300 ${
                   isActive("/team")
-                    ? "text-gold"
-                    : "text-white group-hover:text-gold"
-                }`}>
-                  {getTranslation(language, "nav.team")}
-                </span>
-                {isActive("/team") && (
-                  <motion.div
-                    layoutId="activeTab"
-                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gold rounded-full"
-                    initial={false}
-                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                  />
-                )}
-                <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gold scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-full"></span>
+                    ? "text-gold after:scale-x-100"
+                    : "text-white hover:text-gold hover:after:scale-x-100"
+                }`}
+                aria-label="Navigate to Our Team">
+                {getTranslation(language, "nav.team")}
               </Link>
               <Link
                 to="/gallery"
-                className="relative group"
-                aria-label="Navigate to Gallery">
-                <span className={`text-sm lg:text-base font-medium transition-all duration-300 relative z-10 ${
+                className={`relative text-sm lg:text-base font-medium transition-colors after:absolute after:-bottom-2 after:left-0 after:h-[1px] after:w-full after:scale-x-0 after:bg-gold after:transition-transform after:duration-300 ${
                   isActive("/gallery")
-                    ? "text-gold"
-                    : "text-white group-hover:text-gold"
-                }`}>
-                  {getTranslation(language, "nav.gallery")}
-                </span>
-                {isActive("/gallery") && (
-                  <motion.div
-                    layoutId="activeTab"
-                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gold rounded-full"
-                    initial={false}
-                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                  />
-                )}
-                <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gold scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-full"></span>
+                    ? "text-gold after:scale-x-100"
+                    : "text-white hover:text-gold hover:after:scale-x-100"
+                }`}
+                aria-label="Navigate to Gallery">
+                {getTranslation(language, "nav.gallery")}
               </Link>
               <Link
                 to="/delivery"
-                className="relative group"
-                aria-label="Navigate to Delivery">
-                <span className={`text-sm lg:text-base font-medium transition-all duration-300 relative z-10 ${
+                className={`relative text-sm lg:text-base font-medium transition-colors after:absolute after:-bottom-2 after:left-0 after:h-[1px] after:w-full after:scale-x-0 after:bg-gold after:transition-transform after:duration-300 ${
                   isActive("/delivery")
-                    ? "text-gold"
-                    : "text-white group-hover:text-gold"
-                }`}>
-                  {getTranslation(language, "nav.contact")}
-                </span>
-                {isActive("/delivery") && (
-                  <motion.div
-                    layoutId="activeTab"
-                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gold rounded-full"
-                    initial={false}
-                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                  />
-                )}
-                <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gold scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-full"></span>
+                    ? "text-gold after:scale-x-100"
+                    : "text-white hover:text-gold hover:after:scale-x-100"
+                }`}
+                aria-label="Navigate to Delivery">
+                {getTranslation(language, "nav.contact")}
               </Link>
             </>
           )}
           {!isAdmin() && !isSuperAdmin() && (
             <Link
               to="/booking"
-              className="relative group"
-              aria-label="Book an appointment">
-              <span className={`text-sm lg:text-base font-medium transition-all duration-300 relative z-10 px-4 py-2 rounded-lg ${
+              className={`relative text-sm lg:text-base font-medium transition-colors after:absolute after:-bottom-2 after:left-0 after:h-[1px] after:w-full after:scale-x-0 after:bg-gold after:transition-transform after:duration-300 ${
                 isActive("/booking")
-                  ? "text-black bg-gold"
-                  : "text-white group-hover:text-gold group-hover:bg-gold/10"
+                  ? "text-gold after:scale-x-100"
+                  : "text-white hover:text-gold hover:after:scale-x-100"
               }`}>
-                {getTranslation(language, "nav.booking")}
-              </span>
-              {!isActive("/booking") && (
-                <span className="absolute inset-0 rounded-lg bg-gold/0 group-hover:bg-gold/10 transition-all duration-300 -z-10"></span>
-              )}
+              {getTranslation(language, "nav.booking")}
             </Link>
           )}
           {isAuthenticated() && (
@@ -199,46 +138,46 @@ function Header() {
                 <>
                   <Link
                     to="/admin"
-                    className={`text-sm mt-1 lg:text-base font-medium transition-colors ${
+                    className={`relative text-sm mt-1 lg:text-base font-medium transition-colors after:absolute after:-bottom-2 after:left-0 after:h-[1px] after:w-full after:scale-x-0 after:bg-gold after:transition-transform after:duration-300 ${
                       isActive("/admin")
-                        ? "text-gold"
-                        : "text-white hover:text-gold"
+                        ? "text-gold after:scale-x-100"
+                        : "text-white hover:text-gold hover:after:scale-x-100"
                     }`}>
                     {getTranslation(language, "nav.admin")}
                   </Link>
                   <Link
                     to="/users"
-                    className={`text-sm mt-1 lg:text-base font-medium transition-colors ${
+                    className={`relative text-sm mt-1 lg:text-base font-medium transition-colors after:absolute after:-bottom-2 after:left-0 after:h-[1px] after:w-full after:scale-x-0 after:bg-gold after:transition-transform after:duration-300 ${
                       isActive("/users")
-                        ? "text-gold"
-                        : "text-white hover:text-gold"
+                        ? "text-gold after:scale-x-100"
+                        : "text-white hover:text-gold hover:after:scale-x-100"
                     }`}>
                     {getTranslation(language, "nav.users")}
                   </Link>
                   <Link
                     to="/services"
-                    className={`text-sm mt-1 lg:text-base font-medium transition-colors ${
+                    className={`relative text-sm mt-1 lg:text-base font-medium transition-colors after:absolute after:-bottom-2 after:left-0 after:h-[1px] after:w-full after:scale-x-0 after:bg-gold after:transition-transform after:duration-300 ${
                       isActive("/services")
-                        ? "text-gold"
-                        : "text-white hover:text-gold"
+                        ? "text-gold after:scale-x-100"
+                        : "text-white hover:text-gold hover:after:scale-x-100"
                     }`}>
                     {getTranslation(language, "nav.services")}
                   </Link>
                   <Link
                     to="/analytics"
-                    className={`text-sm mt-1 lg:text-base font-medium transition-colors ${
+                    className={`relative text-sm mt-1 lg:text-base font-medium transition-colors after:absolute after:-bottom-2 after:left-0 after:h-[1px] after:w-full after:scale-x-0 after:bg-gold after:transition-transform after:duration-300 ${
                       isActive("/analytics")
-                        ? "text-gold"
-                        : "text-white hover:text-gold"
+                        ? "text-gold after:scale-x-100"
+                        : "text-white hover:text-gold hover:after:scale-x-100"
                     }`}>
                     {getTranslation(language, "nav.statistics")}
                   </Link>
                   <Link
                     to="/broadcast"
-                    className={`text-sm mt-1 lg:text-base font-medium transition-colors ${
+                    className={`relative text-sm mt-1 lg:text-base font-medium transition-colors after:absolute after:-bottom-2 after:left-0 after:h-[1px] after:w-full after:scale-x-0 after:bg-gold after:transition-transform after:duration-300 ${
                       isActive("/broadcast")
-                        ? "text-gold"
-                        : "text-white hover:text-gold"
+                        ? "text-gold after:scale-x-100"
+                        : "text-white hover:text-gold hover:after:scale-x-100"
                     }`}>
                     {getTranslation(language, "nav.broadcast")}
                   </Link>
@@ -248,46 +187,46 @@ function Header() {
                 <>
                   <Link
                     to="/admin"
-                    className={`text-sm mt-1 lg:text-base font-medium transition-colors ${
+                    className={`relative text-sm mt-1 lg:text-base font-medium transition-colors after:absolute after:-bottom-2 after:left-0 after:h-[1px] after:w-full after:scale-x-0 after:bg-gold after:transition-transform after:duration-300 ${
                       isActive("/admin")
-                        ? "text-gold"
-                        : "text-white hover:text-gold"
+                        ? "text-gold after:scale-x-100"
+                        : "text-white hover:text-gold hover:after:scale-x-100"
                     }`}>
                     {getTranslation(language, "nav.admin")}
                   </Link>
                   <Link
                     to="/users"
-                    className={`text-sm mt-1 lg:text-base font-medium transition-colors ${
+                    className={`relative text-sm mt-1 lg:text-base font-medium transition-colors after:absolute after:-bottom-2 after:left-0 after:h-[1px] after:w-full after:scale-x-0 after:bg-gold after:transition-transform after:duration-300 ${
                       isActive("/users")
-                        ? "text-gold"
-                        : "text-white hover:text-gold"
+                        ? "text-gold after:scale-x-100"
+                        : "text-white hover:text-gold hover:after:scale-x-100"
                     }`}>
                     {getTranslation(language, "nav.users")}
                   </Link>
                   <Link
                     to="/services"
-                    className={`text-sm mt-1 lg:text-base font-medium transition-colors ${
+                    className={`relative text-sm mt-1 lg:text-base font-medium transition-colors after:absolute after:-bottom-2 after:left-0 after:h-[1px] after:w-full after:scale-x-0 after:bg-gold after:transition-transform after:duration-300 ${
                       isActive("/services")
-                        ? "text-gold"
-                        : "text-white hover:text-gold"
+                        ? "text-gold after:scale-x-100"
+                        : "text-white hover:text-gold hover:after:scale-x-100"
                     }`}>
                     {getTranslation(language, "nav.services")}
                   </Link>
                   <Link
                     to="/analytics"
-                    className={`text-sm mt-1 lg:text-base font-medium transition-colors ${
+                    className={`relative text-sm mt-1 lg:text-base font-medium transition-colors after:absolute after:-bottom-2 after:left-0 after:h-[1px] after:w-full after:scale-x-0 after:bg-gold after:transition-transform after:duration-300 ${
                       isActive("/analytics")
-                        ? "text-gold"
-                        : "text-white hover:text-gold"
+                        ? "text-gold after:scale-x-100"
+                        : "text-white hover:text-gold hover:after:scale-x-100"
                     }`}>
                     {getTranslation(language, "nav.statistics")}
                   </Link>
                   <Link
                     to="/broadcast"
-                    className={`text-sm mt-1 lg:text-base font-medium transition-colors ${
+                    className={`relative text-sm mt-1 lg:text-base font-medium transition-colors after:absolute after:-bottom-2 after:left-0 after:h-[1px] after:w-full after:scale-x-0 after:bg-gold after:transition-transform after:duration-300 ${
                       isActive("/broadcast")
-                        ? "text-gold"
-                        : "text-white hover:text-gold"
+                        ? "text-gold after:scale-x-100"
+                        : "text-white hover:text-gold hover:after:scale-x-100"
                     }`}>
                     {getTranslation(language, "nav.broadcast")}
                   </Link>
@@ -307,154 +246,92 @@ function Header() {
         </nav>
 
         {/* Mobile Menu Button */}
-        <motion.button
-          className="md:hidden p-2 text-white hover:text-gold transition-colors relative z-50"
+        <button
+          className="md:hidden p-2 text-white hover:text-gold transition-colors"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          aria-label="Toggle mobile menu"
-          whileTap={{ scale: 0.95 }}>
-          <motion.div
-            animate={mobileMenuOpen ? { rotate: 180 } : { rotate: 0 }}
-            transition={{ duration: 0.3 }}>
-            {mobileMenuOpen ? (
-              <XMarkIcon className="w-6 h-6" />
-            ) : (
-              <Bars3Icon className="w-6 h-6" />
-            )}
-          </motion.div>
-        </motion.button>
+          aria-label="Toggle mobile menu">
+          {mobileMenuOpen ? (
+            <XMarkIcon className="w-6 h-6" />
+          ) : (
+            <Bars3Icon className="w-6 h-6" />
+          )}
+        </button>
       </div>
 
       {/* Mobile Menu */}
       <AnimatePresence>
         {mobileMenuOpen && (
-          <>
-            {/* Backdrop */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setMobileMenuOpen(false)}
-              className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 md:hidden"
-            />
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
-              className="md:hidden bg-black/95 backdrop-blur-md border-t border-gold/30 shadow-2xl relative z-50">
-              {/* Gradient line */}
-              <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-gold/50 to-transparent"></div>
-              <nav className="flex flex-col px-4 py-6 space-y-2">
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="md:hidden bg-black border-t border-gold border-opacity-20 shadow-lg">
+            <nav className="flex flex-col px-4 py-4 space-y-4">
               {!isAdmin() && !isSuperAdmin() && (
                 <>
-                  <motion.button
+                  <button
                     onClick={() => {
                       closeMobileMenu();
                       navigate("/");
                     }}
-                    whileTap={{ scale: 0.98 }}
-                    className={`text-base font-medium py-3 px-4 text-left transition-all duration-300 rounded-lg relative ${
+                    className={`text-base font-medium py-2 text-left transition-colors ${
                       isActive("/")
-                        ? "text-black bg-gold"
-                        : "text-white hover:text-gold hover:bg-gold/10"
+                        ? "text-gold"
+                        : "text-white hover:text-gold"
                     }`}>
                     {getTranslation(language, "nav.home")}
-                    {isActive("/") && (
-                      <motion.div
-                        layoutId="mobileActiveTab"
-                        className="absolute inset-0 bg-gold rounded-lg -z-10"
-                        initial={false}
-                        transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                      />
-                    )}
-                  </motion.button>
-                  <motion.button
+                  </button>
+                  <button
                     onClick={() => {
                       closeMobileMenu();
                       navigate("/team");
                     }}
-                    whileTap={{ scale: 0.98 }}
-                    className={`text-base font-medium py-3 px-4 text-left transition-all duration-300 rounded-lg relative ${
+                    className={`text-base font-medium py-2 text-left transition-colors ${
                       isActive("/team")
-                        ? "text-black bg-gold"
-                        : "text-white hover:text-gold hover:bg-gold/10"
+                        ? "text-gold"
+                        : "text-white hover:text-gold"
                     }`}>
                     {getTranslation(language, "nav.team")}
-                    {isActive("/team") && (
-                      <motion.div
-                        layoutId="mobileActiveTab"
-                        className="absolute inset-0 bg-gold rounded-lg -z-10"
-                        initial={false}
-                        transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                      />
-                    )}
-                  </motion.button>
-                  <motion.button
+                  </button>
+                  <button
                     onClick={() => {
                       closeMobileMenu();
                       navigate("/gallery");
                     }}
-                    whileTap={{ scale: 0.98 }}
-                    className={`text-base font-medium py-3 px-4 text-left transition-all duration-300 rounded-lg relative ${
+                    className={`text-base font-medium py-2 text-left transition-colors ${
                       isActive("/gallery")
-                        ? "text-black bg-gold"
-                        : "text-white hover:text-gold hover:bg-gold/10"
+                        ? "text-gold"
+                        : "text-white hover:text-gold"
                     }`}>
                     {getTranslation(language, "nav.gallery")}
-                    {isActive("/gallery") && (
-                      <motion.div
-                        layoutId="mobileActiveTab"
-                        className="absolute inset-0 bg-gold rounded-lg -z-10"
-                        initial={false}
-                        transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                      />
-                    )}
-                  </motion.button>
-                  <motion.button
+                  </button>
+                  <button
                     onClick={() => {
                       closeMobileMenu();
                       navigate("/delivery");
                     }}
-                    whileTap={{ scale: 0.98 }}
-                    className={`text-base font-medium py-3 px-4 text-left transition-all duration-300 rounded-lg relative ${
+                    className={`text-base font-medium py-2 text-left transition-colors ${
                       isActive("/delivery")
-                        ? "text-black bg-gold"
-                        : "text-white hover:text-gold hover:bg-gold/10"
+                        ? "text-gold"
+                        : "text-white hover:text-gold"
                     }`}>
                     {getTranslation(language, "nav.contact")}
-                    {isActive("/delivery") && (
-                      <motion.div
-                        layoutId="mobileActiveTab"
-                        className="absolute inset-0 bg-gold rounded-lg -z-10"
-                        initial={false}
-                        transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                      />
-                    )}
-                  </motion.button>
+                  </button>
                 </>
               )}
               {!isAdmin() && !isSuperAdmin() && (
-                <motion.button
+                <button
                   onClick={() => {
                     closeMobileMenu();
                     navigate("/booking");
                   }}
-                  whileTap={{ scale: 0.98 }}
-                  className={`text-base font-medium py-3 px-4 text-left transition-all duration-300 rounded-lg relative ${
+                  className={`text-base font-medium py-2 text-left transition-colors ${
                     isActive("/booking")
-                      ? "text-black bg-gold"
-                      : "text-white hover:text-gold hover:bg-gold/10"
+                      ? "text-gold"
+                      : "text-white hover:text-gold"
                   }`}>
                   {getTranslation(language, "nav.booking")}
-                  {isActive("/booking") && (
-                    <motion.div
-                      layoutId="mobileActiveTab"
-                      className="absolute inset-0 bg-gold rounded-lg -z-10"
-                      initial={false}
-                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                    />
-                  )}
-                </motion.button>
+                </button>
               )}
               <div className="py-2">
               </div>
@@ -601,7 +478,6 @@ function Header() {
               )}
             </nav>
           </motion.div>
-          </>
         )}
       </AnimatePresence>
     </motion.header>
