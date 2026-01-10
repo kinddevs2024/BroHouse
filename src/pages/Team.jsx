@@ -200,7 +200,8 @@ function Team() {
             studiyasi
           </h2>
           <p className="text-white text-sm sm:text-base md:text-lg mb-4 sm:mb-6 md:mb-8 text-left opacity-90 max-w-3xl">
-            Toshkentdagi {contactInfo.tagline} da biz to'liq parvarish
+            Toshkentdagi{" "}
+            <span data-translate="false">{contactInfo.tagline}</span> da biz to'liq parvarish
             xizmatlari assortimentini taklif qilamiz. Klassik soch olishdan
             zamonaviy uslublargacha, issiq sochiq bilan qirqishdan soqol
             tuzatishgacha, bizning malakali barberlarimiz sizga eng yaxshi

@@ -14,8 +14,8 @@ function Footer() {
             <div className="mb-3 sm:mb-4">
               <Logo linkTo="/" variant="dark" />
             </div>
-            <p className="text-white opacity-80 text-sm sm:text-base">
-              {getTranslation(language, "contact.tagline")}
+            <p className="text-white opacity-80 text-sm sm:text-base" data-translate="false">
+              {contactInfo.tagline}
             </p>
             <p className="text-white opacity-70 text-xs sm:text-sm mt-2">
               {getTranslation(language, "contact.description")}
@@ -45,7 +45,9 @@ function Footer() {
         </div>
         <div className="border-t border-gold border-opacity-20 pt-6 sm:pt-8 text-center">
           <p className="text-white opacity-60 text-xs sm:text-sm">
-            &copy; {new Date().getFullYear()} BROHOUSE. {getTranslation(language, "footer.allRightsReserved")}.
+            &copy; {new Date().getFullYear()}{" "}
+            <span data-translate="false">BROHOUSE</span>.{" "}
+            {getTranslation(language, "footer.allRightsReserved")}.
           </p>
         </div>
       </div>

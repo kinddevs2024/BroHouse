@@ -10,17 +10,33 @@ export const useLanguage = () => {
   return context;
 };
 
+const detectUiLanguage = () => {
+  if (typeof navigator === "undefined") return "eng";
+  const langs = navigator.languages && navigator.languages.length > 0
+    ? navigator.languages
+    : [navigator.language].filter(Boolean);
+
+  for (const lang of langs) {
+    const lower = String(lang).toLowerCase();
+    if (lower.startsWith("uz")) return "uzb";
+    if (lower.startsWith("ru")) return "rus";
+    if (lower.startsWith("en")) return "eng";
+  }
+
+  return "eng";
+};
+
 export const LanguageProvider = ({ children }) => {
-  const [language, setLanguage] = useState(() => {
-    // Get language from localStorage or default to 'uzb'
-    const savedLanguage = localStorage.getItem("language");
-    return savedLanguage || "uzb";
-  });
+  const [language, setLanguage] = useState(() => detectUiLanguage());
 
   useEffect(() => {
-    // Save language to localStorage whenever it changes
-    localStorage.setItem("language", language);
-  }, [language]);
+    setLanguage(detectUiLanguage());
+    const intervalId = window.setInterval(() => {
+      const next = detectUiLanguage();
+      setLanguage((prev) => (prev === next ? prev : next));
+    }, 2000);
+    return () => window.clearInterval(intervalId);
+  }, []);
 
   const changeLanguage = (lang) => {
     if (["rus", "eng", "uzb"].includes(lang)) {
@@ -39,4 +55,3 @@ export const LanguageProvider = ({ children }) => {
     </LanguageContext.Provider>
   );
 };
-

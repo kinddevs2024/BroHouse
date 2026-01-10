@@ -4,6 +4,7 @@ import { Toaster } from 'react-hot-toast'
 import Header from './components/Header'
 import ScrollToTop from './components/ScrollToTop'
 import ProtectedRoute from './components/ProtectedRoute'
+import { AutoTranslator } from './components/AutoTranslator'
 import Home from './pages/Home'
 import Gallery from './pages/Gallery'
 import Team from './pages/Team'
@@ -40,6 +41,7 @@ function App() {
   return (
     <Router>
       <ScrollToTop />
+      <AutoTranslator />
       <div className="min-h-screen bg-black">
         <Header />
         <Routes>

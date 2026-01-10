@@ -24,7 +24,7 @@ export const translations = {
     },
     // Contact
     contact: {
-      tagline: "BROHOUSE | PREMIUM class ✨",
+      tagline: "BROHOUSE",
       description: "Erkaklar uchun ideal imidj",
       subtitle: "💈 Professional Barberlar | Qulay atmosfera",
       address: "Toshkent, Shayxontohur tumani, Kurilish ko'chasi, 9, Tashkent, Uzbekistan",
@@ -102,7 +102,7 @@ export const translations = {
     },
     // Contact
     contact: {
-      tagline: "BROHOUSE | PREMIUM class ✨",
+      tagline: "BROHOUSE",
       description: "Perfect image for men",
       subtitle: "💈 Professional Barbers | Comfortable atmosphere",
       address: "Tashkent, Shaykhontokhur district, Kurilish street, 9, Tashkent, Uzbekistan",
@@ -183,7 +183,7 @@ export const translations = {
     },
     // Contact
     contact: {
-      tagline: "BROHOUSE | PREMIUM class ✨",
+      tagline: "BROHOUSE",
       description: "Идеальный имидж для мужчин",
       subtitle: "💈 Профессиональные Барберы | Комфортная атмосфера",
       address: "Ташкент, Шайхантахурский район, улица Курилиш, 9, Tashkent, Uzbekistan",
@@ -265,4 +265,3 @@ export const getTranslation = (language, key) => {
   
   return value || key;
 };
-

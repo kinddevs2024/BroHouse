@@ -21,8 +21,8 @@ function Barbers() {
     phone_number: "",
     password: "",
     working: true,
-    work_start_time: "09:00",
-    work_end_time: "18:00",
+    work_start_time: "06:00",
+    work_end_time: "21:00",
     profile_image: null,
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -33,8 +33,8 @@ function Barbers() {
     phone_number: "",
     password: "",
     working: true,
-    work_start_time: "09:00",
-    work_end_time: "18:00",
+    work_start_time: "06:00",
+    work_end_time: "21:00",
     profile_image: null,
   });
   const [isSubmittingEdit, setIsSubmittingEdit] = useState(false);
@@ -177,8 +177,8 @@ function Barbers() {
           phone_number: "",
           password: "",
           working: true,
-          work_start_time: "09:00",
-          work_end_time: "18:00",
+          work_start_time: "06:00",
+          work_end_time: "21:00",
           profile_image: null,
         });
         setShowAddForm(false);
@@ -205,8 +205,8 @@ function Barbers() {
       phone_number: barber.phone_number || "",
       password: "", // Don't pre-fill password
       working: barber.working !== undefined ? barber.working : true,
-      work_start_time: barber.work_start_time || "09:00",
-      work_end_time: barber.work_end_time || "18:00",
+      work_start_time: barber.work_start_time || "06:00",
+      work_end_time: barber.work_end_time || "21:00",
       profile_image: null,
     });
     setError("");
@@ -293,8 +293,8 @@ function Barbers() {
           phone_number: "",
           password: "",
           working: true,
-          work_start_time: "09:00",
-          work_end_time: "18:00",
+          work_start_time: "06:00",
+          work_end_time: "21:00",
           profile_image: null,
         });
         fetchBarbers(); // Refresh barber list
@@ -701,8 +701,8 @@ function Barbers() {
                         phone_number: "",
                         password: "",
                         working: true,
-                        work_start_time: "09:00",
-                        work_end_time: "18:00",
+                        work_start_time: "06:00",
+                        work_end_time: "21:00",
                         profile_image: null,
                       });
                       setError("");
@@ -1174,8 +1174,8 @@ function Barbers() {
                       phone_number: "",
                       password: "",
                       working: true,
-                      work_start_time: "09:00",
-                      work_end_time: "18:00",
+                      work_start_time: "06:00",
+                      work_end_time: "21:00",
                       profile_image: null,
                     });
                     setError("");
@@ -1205,5 +1205,4 @@ function Barbers() {
 }
 
 export default Barbers;
-
 

@@ -8,7 +8,6 @@ import { useLanguage } from "../context/LanguageContext";
 import { getTranslation } from "../data/translations";
 import { contactInfo } from "../data/contact";
 import Logo from "./Logo";
-import LanguageSwitcher from "./LanguageSwitcher";
 
 function Header() {
   const location = useLocation();
@@ -69,7 +68,7 @@ function Header() {
         duration: 0.3,
         ease: "easeInOut",
       }}
-      className="fixed top-0 left-0 right-0 bg-black z-50 shadow-md border-b border-gold border-opacity-20 h-16 sm:h-20 md:h-[92px]">
+      className="fixed top-0 left-0 right-0 z-50 h-16 sm:h-20 md:h-[92px] border-b border-white/5 bg-black/70 backdrop-blur-md shadow-[0_6px_30px_rgba(0,0,0,0.35)]">
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-[93px] h-full flex justify-between items-center">
         <Logo
           onClick={closeMobileMenu}
@@ -82,40 +81,40 @@ function Header() {
             <>
               <Link
                 to="/"
-                className={`text-sm lg:text-base font-medium transition-colors ${
+                className={`relative text-sm lg:text-base font-medium transition-colors after:absolute after:-bottom-2 after:left-0 after:h-[1px] after:w-full after:scale-x-0 after:bg-gold after:transition-transform after:duration-300 ${
                   isActive("/")
-                    ? "text-gold"
-                    : "text-white hover:text-gold"
+                    ? "text-gold after:scale-x-100"
+                    : "text-white hover:text-gold hover:after:scale-x-100"
                 }`}
                 aria-label="Navigate to Home">
                 {getTranslation(language, "nav.home")}
               </Link>
               <Link
                 to="/team"
-                className={`text-sm lg:text-base font-medium transition-colors ${
+                className={`relative text-sm lg:text-base font-medium transition-colors after:absolute after:-bottom-2 after:left-0 after:h-[1px] after:w-full after:scale-x-0 after:bg-gold after:transition-transform after:duration-300 ${
                   isActive("/team")
-                    ? "text-gold"
-                    : "text-white hover:text-gold"
+                    ? "text-gold after:scale-x-100"
+                    : "text-white hover:text-gold hover:after:scale-x-100"
                 }`}
                 aria-label="Navigate to Our Team">
                 {getTranslation(language, "nav.team")}
               </Link>
               <Link
                 to="/gallery"
-                className={`text-sm lg:text-base font-medium transition-colors ${
+                className={`relative text-sm lg:text-base font-medium transition-colors after:absolute after:-bottom-2 after:left-0 after:h-[1px] after:w-full after:scale-x-0 after:bg-gold after:transition-transform after:duration-300 ${
                   isActive("/gallery")
-                    ? "text-gold"
-                    : "text-white hover:text-gold"
+                    ? "text-gold after:scale-x-100"
+                    : "text-white hover:text-gold hover:after:scale-x-100"
                 }`}
                 aria-label="Navigate to Gallery">
                 {getTranslation(language, "nav.gallery")}
               </Link>
               <Link
                 to="/delivery"
-                className={`text-sm lg:text-base font-medium transition-colors ${
+                className={`relative text-sm lg:text-base font-medium transition-colors after:absolute after:-bottom-2 after:left-0 after:h-[1px] after:w-full after:scale-x-0 after:bg-gold after:transition-transform after:duration-300 ${
                   isActive("/delivery")
-                    ? "text-gold"
-                    : "text-white hover:text-gold"
+                    ? "text-gold after:scale-x-100"
+                    : "text-white hover:text-gold hover:after:scale-x-100"
                 }`}
                 aria-label="Navigate to Delivery">
                 {getTranslation(language, "nav.contact")}
@@ -125,61 +124,60 @@ function Header() {
           {!isAdmin() && !isSuperAdmin() && (
             <Link
               to="/booking"
-              className={`text-sm lg:text-base font-medium transition-colors ${
+              className={`relative text-sm lg:text-base font-medium transition-colors after:absolute after:-bottom-2 after:left-0 after:h-[1px] after:w-full after:scale-x-0 after:bg-gold after:transition-transform after:duration-300 ${
                 isActive("/booking")
-                  ? "text-gold"
-                  : "text-white hover:text-gold"
+                  ? "text-gold after:scale-x-100"
+                  : "text-white hover:text-gold hover:after:scale-x-100"
               }`}>
               {getTranslation(language, "nav.booking")}
             </Link>
           )}
-          <LanguageSwitcher />
           {isAuthenticated() && (
             <>
               {isAdmin() && !isSuperAdmin() && (
                 <>
                   <Link
                     to="/admin"
-                    className={`text-sm mt-1 lg:text-base font-medium transition-colors ${
+                    className={`relative text-sm mt-1 lg:text-base font-medium transition-colors after:absolute after:-bottom-2 after:left-0 after:h-[1px] after:w-full after:scale-x-0 after:bg-gold after:transition-transform after:duration-300 ${
                       isActive("/admin")
-                        ? "text-gold"
-                        : "text-white hover:text-gold"
+                        ? "text-gold after:scale-x-100"
+                        : "text-white hover:text-gold hover:after:scale-x-100"
                     }`}>
                     {getTranslation(language, "nav.admin")}
                   </Link>
                   <Link
                     to="/users"
-                    className={`text-sm mt-1 lg:text-base font-medium transition-colors ${
+                    className={`relative text-sm mt-1 lg:text-base font-medium transition-colors after:absolute after:-bottom-2 after:left-0 after:h-[1px] after:w-full after:scale-x-0 after:bg-gold after:transition-transform after:duration-300 ${
                       isActive("/users")
-                        ? "text-gold"
-                        : "text-white hover:text-gold"
+                        ? "text-gold after:scale-x-100"
+                        : "text-white hover:text-gold hover:after:scale-x-100"
                     }`}>
                     {getTranslation(language, "nav.users")}
                   </Link>
                   <Link
                     to="/services"
-                    className={`text-sm mt-1 lg:text-base font-medium transition-colors ${
+                    className={`relative text-sm mt-1 lg:text-base font-medium transition-colors after:absolute after:-bottom-2 after:left-0 after:h-[1px] after:w-full after:scale-x-0 after:bg-gold after:transition-transform after:duration-300 ${
                       isActive("/services")
-                        ? "text-gold"
-                        : "text-white hover:text-gold"
+                        ? "text-gold after:scale-x-100"
+                        : "text-white hover:text-gold hover:after:scale-x-100"
                     }`}>
                     {getTranslation(language, "nav.services")}
                   </Link>
                   <Link
                     to="/analytics"
-                    className={`text-sm mt-1 lg:text-base font-medium transition-colors ${
+                    className={`relative text-sm mt-1 lg:text-base font-medium transition-colors after:absolute after:-bottom-2 after:left-0 after:h-[1px] after:w-full after:scale-x-0 after:bg-gold after:transition-transform after:duration-300 ${
                       isActive("/analytics")
-                        ? "text-gold"
-                        : "text-white hover:text-gold"
+                        ? "text-gold after:scale-x-100"
+                        : "text-white hover:text-gold hover:after:scale-x-100"
                     }`}>
                     {getTranslation(language, "nav.statistics")}
                   </Link>
                   <Link
                     to="/broadcast"
-                    className={`text-sm mt-1 lg:text-base font-medium transition-colors ${
+                    className={`relative text-sm mt-1 lg:text-base font-medium transition-colors after:absolute after:-bottom-2 after:left-0 after:h-[1px] after:w-full after:scale-x-0 after:bg-gold after:transition-transform after:duration-300 ${
                       isActive("/broadcast")
-                        ? "text-gold"
-                        : "text-white hover:text-gold"
+                        ? "text-gold after:scale-x-100"
+                        : "text-white hover:text-gold hover:after:scale-x-100"
                     }`}>
                     {getTranslation(language, "nav.broadcast")}
                   </Link>
@@ -189,46 +187,46 @@ function Header() {
                 <>
                   <Link
                     to="/admin"
-                    className={`text-sm mt-1 lg:text-base font-medium transition-colors ${
+                    className={`relative text-sm mt-1 lg:text-base font-medium transition-colors after:absolute after:-bottom-2 after:left-0 after:h-[1px] after:w-full after:scale-x-0 after:bg-gold after:transition-transform after:duration-300 ${
                       isActive("/admin")
-                        ? "text-gold"
-                        : "text-white hover:text-gold"
+                        ? "text-gold after:scale-x-100"
+                        : "text-white hover:text-gold hover:after:scale-x-100"
                     }`}>
                     {getTranslation(language, "nav.admin")}
                   </Link>
                   <Link
                     to="/users"
-                    className={`text-sm mt-1 lg:text-base font-medium transition-colors ${
+                    className={`relative text-sm mt-1 lg:text-base font-medium transition-colors after:absolute after:-bottom-2 after:left-0 after:h-[1px] after:w-full after:scale-x-0 after:bg-gold after:transition-transform after:duration-300 ${
                       isActive("/users")
-                        ? "text-gold"
-                        : "text-white hover:text-gold"
+                        ? "text-gold after:scale-x-100"
+                        : "text-white hover:text-gold hover:after:scale-x-100"
                     }`}>
                     {getTranslation(language, "nav.users")}
                   </Link>
                   <Link
                     to="/services"
-                    className={`text-sm mt-1 lg:text-base font-medium transition-colors ${
+                    className={`relative text-sm mt-1 lg:text-base font-medium transition-colors after:absolute after:-bottom-2 after:left-0 after:h-[1px] after:w-full after:scale-x-0 after:bg-gold after:transition-transform after:duration-300 ${
                       isActive("/services")
-                        ? "text-gold"
-                        : "text-white hover:text-gold"
+                        ? "text-gold after:scale-x-100"
+                        : "text-white hover:text-gold hover:after:scale-x-100"
                     }`}>
                     {getTranslation(language, "nav.services")}
                   </Link>
                   <Link
                     to="/analytics"
-                    className={`text-sm mt-1 lg:text-base font-medium transition-colors ${
+                    className={`relative text-sm mt-1 lg:text-base font-medium transition-colors after:absolute after:-bottom-2 after:left-0 after:h-[1px] after:w-full after:scale-x-0 after:bg-gold after:transition-transform after:duration-300 ${
                       isActive("/analytics")
-                        ? "text-gold"
-                        : "text-white hover:text-gold"
+                        ? "text-gold after:scale-x-100"
+                        : "text-white hover:text-gold hover:after:scale-x-100"
                     }`}>
                     {getTranslation(language, "nav.statistics")}
                   </Link>
                   <Link
                     to="/broadcast"
-                    className={`text-sm mt-1 lg:text-base font-medium transition-colors ${
+                    className={`relative text-sm mt-1 lg:text-base font-medium transition-colors after:absolute after:-bottom-2 after:left-0 after:h-[1px] after:w-full after:scale-x-0 after:bg-gold after:transition-transform after:duration-300 ${
                       isActive("/broadcast")
-                        ? "text-gold"
-                        : "text-white hover:text-gold"
+                        ? "text-gold after:scale-x-100"
+                        : "text-white hover:text-gold hover:after:scale-x-100"
                     }`}>
                     {getTranslation(language, "nav.broadcast")}
                   </Link>
@@ -336,7 +334,6 @@ function Header() {
                 </button>
               )}
               <div className="py-2">
-                <LanguageSwitcher variant="mobile" />
               </div>
               {isAuthenticated() && (
                 <>

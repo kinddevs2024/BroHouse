@@ -12,7 +12,9 @@ function Delivery() {
           <div className="max-w-2xl mx-auto">
             {/* Header */}
             <div className="text-center mb-8 sm:mb-12" data-aos="fade-down">
-              <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-2">
+              <h1
+                className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-2"
+                data-translate="false">
                 {contactInfo.tagline}
               </h1>
               <p className="text-white opacity-90 text-base sm:text-lg mb-2">

@@ -28,8 +28,8 @@ function Users() {
     password: "",
     role: "client",
     working: true,
-    work_start_time: "09:00",
-    work_end_time: "18:00",
+    work_start_time: "06:00",
+    work_end_time: "21:00",
     profile_image: null,
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -41,8 +41,8 @@ function Users() {
     password: "",
     role: "",
     working: true,
-    work_start_time: "09:00",
-    work_end_time: "18:00",
+    work_start_time: "06:00",
+    work_end_time: "21:00",
     profile_image: null,
   });
   const [isSubmittingEdit, setIsSubmittingEdit] = useState(false);
@@ -286,8 +286,8 @@ function Users() {
           password: "",
           role: "client",
           working: true,
-          work_start_time: "09:00",
-          work_end_time: "18:00",
+          work_start_time: "06:00",
+          work_end_time: "21:00",
           profile_image: null,
         });
         setShowAddForm(false);
@@ -315,8 +315,8 @@ function Users() {
       password: "",
       role: user.role || "client",
       working: user.working !== undefined ? user.working : true,
-      work_start_time: user.work_start_time || "09:00",
-      work_end_time: user.work_end_time || "18:00",
+      work_start_time: user.work_start_time || "06:00",
+      work_end_time: user.work_end_time || "21:00",
       profile_image: null,
     });
     setError("");
@@ -414,8 +414,8 @@ function Users() {
           password: "",
           role: "",
           working: true,
-          work_start_time: "09:00",
-          work_end_time: "18:00",
+          work_start_time: "06:00",
+          work_end_time: "21:00",
           profile_image: null,
         });
         fetchUsers();
@@ -957,8 +957,8 @@ function Users() {
                         password: "",
                         role: "client",
                         working: true,
-                        work_start_time: "09:00",
-                        work_end_time: "18:00",
+                        work_start_time: "06:00",
+                        work_end_time: "21:00",
                         profile_image: null,
                       });
                       setError("");
@@ -1493,8 +1493,8 @@ function Users() {
                       password: "",
                       role: "",
                       working: true,
-                      work_start_time: "09:00",
-                      work_end_time: "18:00",
+                      work_start_time: "06:00",
+                      work_end_time: "21:00",
                       profile_image: null,
                     });
                     setError("");

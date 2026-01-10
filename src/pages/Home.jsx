@@ -303,7 +303,9 @@ function Home() {
             <div className="text-xs sm:text-sm font-semibold text-gold mb-3 sm:mb-4 tracking-wider uppercase">
               ДОБРО ПОЖАЛОВАТЬ
             </div>
-            <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-2 sm:mb-3 md:mb-4 leading-tight">
+            <h1
+              className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-2 sm:mb-3 md:mb-4 leading-tight"
+              data-translate="false">
               {contactInfo.tagline}
             </h1>
             <p className="text-base xs:text-lg sm:text-xl md:text-2xl text-white mb-2 sm:mb-3 opacity-90">
@@ -393,7 +395,18 @@ function Home() {
                 {getTranslation(language, "home.whyChooseUs")}
               </h2>
               <p className="text-sm sm:text-base md:text-lg mb-4 sm:mb-6 opacity-90">
-                {getTranslation(language, "home.whyChooseUsDesc").replace("{tagline}", contactInfo.tagline)}
+                {(() => {
+                  const desc = getTranslation(language, "home.whyChooseUsDesc");
+                  const parts = desc.split("{tagline}");
+                  if (parts.length === 1) return desc;
+                  return (
+                    <>
+                      {parts[0]}
+                      <span data-translate="false">{contactInfo.tagline}</span>
+                      {parts.slice(1).join("{tagline}")}
+                    </>
+                  );
+                })()}
               </p>
               <ul className="space-y-2 sm:space-y-3 list-disc list-inside text-sm sm:text-base">
                 {translatedWhyChooseUs.map((reason, i) => (
@@ -579,7 +592,9 @@ function Home() {
           className="w-full bg-black py-8 sm:py-10 md:py-12 lg:py-20"
           data-aos="fade-up">
           <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-[127px]">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white text-center mb-6 sm:mb-8 md:mb-12">
+            <h2
+              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white text-center mb-6 sm:mb-8 md:mb-12"
+              data-translate="false">
               BROHOUSE
             </h2>
             <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6">

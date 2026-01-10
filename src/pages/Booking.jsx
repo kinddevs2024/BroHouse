@@ -56,10 +56,10 @@ function Booking() {
     });
   }, [currentStep]);
 
-  // Generate time slots by hours only (8:00 AM to 9:00 PM)
+  // Generate time slots by hours only (6:00 AM to 9:00 PM)
   const generateTimeSlotsByHour = () => {
     const slotsByHour = {};
-    for (let hour = 8; hour <= 21; hour++) {
+    for (let hour = 6; hour <= 21; hour++) {
       const timeString = `${hour.toString().padStart(2, "0")}:00`;
       slotsByHour[hour] = [timeString];
     }
@@ -357,15 +357,15 @@ function Booking() {
       const timeRegex = /^([0-1][0-9]|2[0-3]):[0-5][0-9]$/;
       if (timeRegex.test(value)) {
         const [hours] = value.split(":").map(Number);
-        // Check if time is within working hours (8:00 - 21:00)
-        if (hours >= 8 && hours <= 21) {
+        // Check if time is within working hours (6:00 - 21:00)
+        if (hours >= 6 && hours <= 21) {
           setFormData({
             ...formData,
             time: value,
           });
           setError("");
         } else {
-          setError("Время должно быть с 8:00 до 21:00");
+          setError("Время должно быть с 6:00 до 21:00");
         }
       } else if (value.length === 5) {
         setError(
@@ -673,7 +673,7 @@ function Booking() {
                               {barber.name || barber.fullName || "Barber"}
                             </h3>
                             <p className="text-sm text-[#CFCFCF]">
-                              Время работы: 08:00 - 23:00
+                              Время работы: 06:00 - 21:00
                             </p>
                             {isSelected && (
                               <p className="text-sm text-gold font-semibold mt-2">
@@ -880,11 +880,11 @@ function Booking() {
                             placeholder="ЧЧ:ММ (например: 14:30)"
                             size="lg"
                             disabled={isSubmitting}
-                            min="08:00"
+                            min="06:00"
                             max="21:00"
                           />
                           <p className="text-xs text-gray-500">
-                            Пожалуйста, введите время с 8:00 до 21:00
+                            Пожалуйста, введите время с 6:00 до 21:00
                           </p>
                           {formData.time && (
                             <div className="p-3 bg-gold/10 border border-gold rounded-lg">
